@@ -1,0 +1,185 @@
+webapps - source codes
+|-	fyp
+	|- 	css
+		|-	styles.css
+		|-	bootstrap.css
+		|-	admin.css
+		|-	jobseeker.css
+		|-	employer.css
+		
+	|- 	js
+		|-	scripts.js
+		|-	bootstrap.js
+		|-	jquery-1.10.2.js
+		|-	jquery.tablesorter.js
+		|-	inputCheck.js
+		
+	|- 	img
+		|-	images files
+		
+	|-  modals
+		|-	connection.php
+		|-	functions.php
+		|-	forumDAO.php
+		|-	jobcriteria.php
+	
+	|- 	views
+		|-	layout.php
+		|-	navUser.php
+		|-	login.php
+		|-	welcome.php
+		
+	|-	resume
+		|-	userID
+			|-	resume.pdf
+			
+	|- 	index.php				/* public */
+	|- 	register.php
+	|- 	jobs.php
+	|- 	resources.php
+	|- 	mangeResume.php				/* job seekers */
+	|- 	applications.php
+	|- 	advancedJobSearch.php
+	|- 	editProfile.php
+	|- 	postedJobs.php			/* employers */
+	|- 	manageJob.php
+	|- 	applicants.php
+	|- 	manageAccounts.php		/* admin */
+	|- 	manageJobs.php
+	|- 	manageResource.php
+	|- 	forum.php				/* common */
+	|- 	forumsection.php
+	|- 	forumthreads.php
+	|- 	profile.php
+	
+database design - tables
+	account 
+		id 				int
+		username 		varchar 20
+		password		varchar 32
+		email			varchar 50
+		matric			varchar 9
+		accountType_ID	int
+		createTime		timestamp
+		status 			varchar 30
+		
+	login_log
+		id				int
+		account_ID		varchar 10
+		time			timestamp
+	
+	job_Seeker
+		id				int
+		account_ID		varchar 10
+		firstname		varchar 100
+		lastname		varchar 100
+		resume_ID		varchar 10
+	
+	Admin
+		id				int
+		account_ID		varchar 10
+		firstname		varchar 100		
+		lastname		varchar 100
+	
+	company
+		id				
+		account.id
+		companyName
+		address
+		Website
+		Telephone No.
+		overview
+
+		//
+		Social network Page
+		location
+		geo location
+		registration_no
+		Industry
+		Co. Size
+		Working Hours
+		Dress Code
+		Benefits
+		Spoken Language
+		icon/image/banner
+		
+	account_type
+		id
+		type
+	
+	resume
+		id
+		email
+		phone
+		data of birth
+		state
+		field of study
+		course name
+		graduation date
+		cgpa
+		skills
+		personalities
+		additional description
+		resume privacy
+		uploaded files
+		
+	jobs
+		id
+		job_type.id
+		company.id
+		date
+		title
+		description
+		location
+		salary
+		experience
+		criteria_code  /* for the rating/point of job matching, will do it after other thgs finish */ 
+		
+	job_type
+		id
+		type
+		
+	job_application
+		id
+		jobs.id
+		job_Seeker.id
+		time
+		criteria_rating
+		status
+		
+	articles
+		id			int
+		admin.id	int
+		date		date
+		title		varchar 100
+		desc		varchar 5000
+		
+	forum section
+	
+	forum thread
+	
+	forum reply
+	
+questions
+	for multiple data column, hw shld be the table design
+	for mails, create 1 new table for each account?
+	text editor like the fb doc
+	
+Session names
+	user - array of 'username', 'userid', 'usertype'
+
+	
+	
+	git clone https://Soul_Wings@bitbucket.org/rayson1223/symfony2-for-unicoder.git
+	
+git
+git clone https://Soul_Wings@bitbucket.org/Soul_Wings/jobmatcher.git
+git push -u origin master
+git add index.php
+git commit -m "description"
+
+
+
+cd 'asd'
+git init 
+git remote add origin https://SoulWings@bitbuket.org/Soul_Wings/jobmatcher.git

@@ -1,0 +1,25 @@
+*{
+	border:1px solid #eeeeee;
+}
+
+body{
+	background:#f2f7ff;
+}
+
+.container > header{
+	height: 230px;
+}
+
+.container > nav{
+	width:700px;
+	margin:auto;
+	height:25px;
+}
+
+.container > aside{
+	float:right;
+}
+
+.container > footer{
+	height: 70px;
+}
