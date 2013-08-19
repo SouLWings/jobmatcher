@@ -1,13 +1,16 @@
 <?php 
-/*  --	defining optional variables  --
- *  
+/*  --	defining optional variables  -
  *  $title - add title of the page, eg. $title = 'sample';
  *  $scripts[] - additional script of the page eg. $scripts[] = 'asd'; to include asd.js inside js folder
  *  $styles[] - additional style of the page eg. $styles[] = 'asd'; to include asd.css inside css folder
  * 
- *  --  variables supplied to this page  --
+ *  --  variables supplied to this page from controller --
+ *  $example - explaination/details of the variable
  *  
- *  --  printing variable  --
+ *  --  list of tasks for this view  --
+ *  
+ *  
+ *  --  printing a variable  --
  *  <?php echo $ ?>
  */
  

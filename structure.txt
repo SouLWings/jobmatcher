@@ -36,10 +36,10 @@ webapps - source codes
 	|- 	index.php				/* public */
 	|- 	register.php
 	|- 	jobs.php
+	|- 	advancedJobSearch.php
 	|- 	resources.php
 	|- 	mangeResume.php				/* job seekers */
 	|- 	applications.php
-	|- 	advancedJobSearch.php
 	|- 	editProfile.php
 	|- 	postedJobs.php			/* employers */
 	|- 	manageJob.php
