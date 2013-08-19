@@ -1,0 +1,21 @@
+.browsejob{
+	font-family:Arial; 
+	padding-top: 10px; 
+	padding-bottom: 10px;
+	width:840px;
+	height:auto;
+	background-color:#F2F2F2;
+	border-radius: 18px;
+	padding: 10px;
+}
+
+.browsejob2{
+	font-family:Arial;
+	font-size:15px;
+	text-decoration:none;
+	list-style-type:circle;
+	columns:100px 2;
+	-webkit-columns:100px 2; /* Safari and Chrome */
+	-moz-columns:100px 2; /* Firefox */
+	padding: 10px;
+}

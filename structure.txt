@@ -170,7 +170,7 @@ Session names
 
 	
 	
-	git clone https://Soul_Wings@bitbucket.org/rayson1223/symfony2-for-unicoder.git
+git clone https://Soul_Wings@bitbucket.org/rayson1223/symfony2-for-unicoder.git
 	
 git
 git clone https://Soul_Wings@bitbucket.org/Soul_Wings/jobmatcher.git

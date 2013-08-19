@@ -26,15 +26,20 @@ $scripts[] = 'jquery-1.10.2.min';
 		<?php endforeach; ?>
     </head>
     <body style=''>
-		<div class='container'>
-		
+		<div class='container'>	
 			<header>
-				this is header
+				<img src="img/header/banner.jpg" width="1170px" onclick="location.href='index.php'"/>
 			</header>
 			
-			
 			<nav>
-				home | Search job | forum | Resource | about us
+				<ul class="nav nav-pills">
+					<li class="active"><a href="index.php">Home</a></li>
+					<li><a href="aboutus.php">About Us</a></li>
+					<li><a href="advanced-search.php">Job Search</a></li>
+					<li><a href="match.php">Job Match</a></li>
+					<li><a href="forum.php">Job Forum</a></li>
+					<li><a href="contactus.php">Resources</a></li>
+				</ul>
 			</nav>
 			
 			
@@ -47,12 +52,21 @@ $scripts[] = 'jquery-1.10.2.min';
 			<section>
 				<?php echo $content ?>
 			</section>
+			<br>
 			
-			
-			<footer>
-				this is footer
-			</footer>
-			
+			<footer style='text-align:center'>
+				<b>Sitemap</b></br>
+				<ul>
+				  <a href=""><li>Home</li></a>
+				  <a href=""><li>My Profile</li></a>
+				  <a href=""><li>Job Search</li></a>
+				  <a href=""><li>Job Match</li></a>
+				  <a href=""><li>Job Forum</li></a>
+				  <a href=""><li>Contact Us</li></a>  
+				</ul>
+				<br>
+				<p>&copy; 2013 UM Job Portal</p>
+			</footer>			
 		</div>
     </body>
 </html>

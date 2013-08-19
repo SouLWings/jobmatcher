@@ -5,7 +5,8 @@ include 'modals/modalDAO.php';
 //creating an instance of the data access object
 $modalDAO = new modalDAO();
 
-//declare some variables that stores value to be displayed
+
+//output variables
 $jobtypes = $modalDAO->get_some_values();
 
 //close the connection if not using it anymore

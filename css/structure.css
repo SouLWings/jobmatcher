@@ -1,19 +1,47 @@
-*{
-	border:1px solid #eeeeee;
-}
-
 body{
-	background:#f2f7ff;
+	background:#ffffff;
 }
 
 .container > header{
-	height: 230px;
+	height: 269px;
 }
 
 .container > nav{
-	width:700px;
+	width:1170px;
+	margin: auto;
+	margin-bottom:15px;
+	height:40px;
+	background-color: black;
+	border-radius: 0 0 6px 6px;
+}
+
+.container > nav ul{
+	width:720px;
 	margin:auto;
-	height:25px;
+}
+
+.container > nav li{
+	width:120px;
+	text-align:center;
+	text-decoration:none;
+	color:#FFFFFF;
+}
+
+/*to over write bootstrap 2px margin left*/
+.container > nav > ul > li + li{
+	margin-left: 0px;
+}
+
+.container > nav a{
+	display: block;
+}
+
+.container > nav ul li a{
+	text-decoration: none;
+}
+
+.container > nav ul li:hover{
+	
 }
 
 .container > aside{
@@ -22,4 +50,30 @@ body{
 
 .container > footer{
 	height: 70px;
+	margin: auto;
+	clear: both;
+	width:100%;
+	background-color: #42CAFF;
+	text-align:center;
+	font-size:14px;
+	padding-top: 10px;
+	padding-bottom: 5px;
+}
+
+ .container footer > ul{
+	list-style: none;
+	text-align: center;
+	width:802px;
+	margin:auto;
+	height:20px;
+	padding:5px;
+}
+
+.container footer > ul  li{
+	float:left;
+	width:132px;
+	text-align:center;
+	text-decoration:none;
+	font-size:14px;
+	font:calibri;
 }
