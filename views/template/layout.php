@@ -44,18 +44,26 @@ $scripts[] = 'jquery-1.10.2.min';
 			
 			
 			<aside>
-				aside
-				<?php if(isset($_SESSION['userID']))include 'welcome.php';else include 'login.php'; ?>
+				<?php include $asideinclude ?>
 			</aside>
 			
 			
 			<section>
 				<?php echo $content ?>
 			</section>
-			<br>
 			
-			<footer style='text-align:center'>
-				<b>Sitemap</b></br>
+			<section>
+				<div class='alert alert-info'>every job also need position</div>
+				<div class='alert alert-info'>company will have a table</div>
+				<div class='alert alert-info'>employer will hv a table</div>
+				<div class='alert alert-info'>1 company can hv many account</div>
+
+
+			</section>
+			
+			
+			<footer>
+				<b>Sitemap</b>
 				<ul>
 				  <a href=""><li>Home</li></a>
 				  <a href=""><li>My Profile</li></a>
@@ -64,7 +72,7 @@ $scripts[] = 'jquery-1.10.2.min';
 				  <a href=""><li>Job Forum</li></a>
 				  <a href=""><li>Contact Us</li></a>  
 				</ul>
-				<br>
+				
 				<p>&copy; 2013 UM Job Portal</p>
 			</footer>			
 		</div>

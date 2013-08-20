@@ -1,4 +1,5 @@
 <?php
+include 'controller.inc.php';
 include 'modals/jobDAO.php';
 
 if(isset($_GET['typeid']) && !empty($_GET['typeid']))

@@ -1,4 +1,13 @@
+<html>
+<body>
+
 <?php
-$a = 123 + 'a';
-echo $a
+  
+  $a['id'] = 'asd';
+  $a['username'] = 'dsa';
+  echo $a['1'];
+  
 ?>
+
+</body>
+</html>

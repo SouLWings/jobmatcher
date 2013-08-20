@@ -1,5 +1,6 @@
 <?php
 include 'modals/jobDAO.php';
+include 'controller.inc.php';
 $jobDAO = new jobDAO();
 
 

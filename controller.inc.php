@@ -1,7 +1,21 @@
 <?php
-
 session_start();
+/**
+ *  Core controller file - containing functions for controlling user session
+ *  
+ *  Reserved variable names:
+ *  	$curr_location
+ *  	$referer
+ *  	$firstname
+ *  	$lastvisitedmsg
+ *  	$errormsg
+ *  	$asideinclude
+ *  
+ */
 
+/*****************************
+  assigning variables values
+*****************************/
 $curr_location = $_SERVER['SCRIPT_NAME'];
 
 if(isset($_SERVER['HTTP_REFERER']))
@@ -9,34 +23,42 @@ if(isset($_SERVER['HTTP_REFERER']))
 else
 	$referer = $curr_location;
 	
-if(loggedin())
+if(is_logged_in())
 {
-	$un = $_SESSION['un'];
-	$query_run = mysql_query("select DATETIME from user_login_log where user_id = (select user_id FROM user where user_name = '$un') order by datetime desc");
-	
-	if(mysql_num_rows($query_run) > 1)
-		$lastvisitedmsg = get_last_visited_msg(mysql_result($query_run, 1, "time"));
-	else
+
+	$firstname = $_SESSION['user']['firstname'];
+	if(isset($_SESSION['user']['time'])){
+		$lastvisitedmsg = get_last_visited_msg($_SESSION['user']['time']);
+	}else
 		$lastvisitedmsg = 'This is your first log in.';
-	$useraside = 'welcome.php';
+	$asideinclude = 'welcome.php';
 }
 else
 {
-	$useraside = 'login.php';
-}	
+	if(isset($_SESSION['msg']) && $_SESSION['msg'] = 'loginfailed')
+	{
+		echo 'msg session = '.$_SESSION['msg'];
+		$errormsg = '<h4 class="form-signin-heading text-warning">Invalid username or password.</h4>';
+		unset($_SESSION['msg']);
+	}
+	$asideinclude = 'login.php';
+}
 
 	
-	
-	
-	
+/************
+  functions 
+************/
+function get_secured($input)
+{
+	return mysql_real_escape_string(stripslashes(htmlentities($input)));
+}
+
 function is_logged_in()
 {
-	if(isset($_SESSION['id']) && !empty($_SESSION['id']))
+	if(isset($_SESSION['user']) && !empty($_SESSION['user']))
 		return true;
 	else
-	{
 		return false;
-	}
 }
 
 function get_last_visited_msg($time)
@@ -53,11 +75,6 @@ function get_last_visited_msg($time)
 	$lastvisitedmsg .= date('g:i a', strtotime($time));
 	
 	return $lastvisitedmsg;
-}
-
-function get_secured($input)
-{
-	return mysql_real_escape_string(stripslashes(htmlentities($input)));
 }
 
 
