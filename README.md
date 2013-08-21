@@ -18,9 +18,9 @@ configure email smtp
 	smtp_port=587
 	error_logfile=error.log
 	debug_logfile=debug.log
-	auth_username=alanT5061@gmail.com
-	auth_password=987878987
-	force_sender=alanT5061@gmail.com
+	auth_username=*****@gmail.com
+	auth_password=*****
+	force_sender=*****@gmail.com
 	
 controllers 
 	must include 'controller.inc.php';
