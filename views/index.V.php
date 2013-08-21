@@ -1,11 +1,12 @@
 <?php 
-$title = '';//add title of the page 
+$styles[] = 'style';
 $styles[] = 'content';
 
 ?>
 
 <?php ob_start() ?>
 
+	
 <div class="browsejob">
 	<h2>Browse Job</h2>
 

@@ -65,29 +65,31 @@ class userDAO extends connection{
 	***********************/	
 	function do_log_in($un, $pw)
 	{
-		echo'asdasd';
-		$query = "SELECT a.id, UPPER(at.type) FROM account a INNER JOIN accounttype at ON a.accounttype_ID = at.id WHERE a.username = '$un' AND a.password = '$pw'";
+		$query = "SELECT a.id, at.type FROM account a INNER JOIN accounttype at ON a.accounttype_ID = at.id WHERE a.username = '$un' AND a.password = '$pw'";
 		if($result = mysql_query($query))
 		{
 			if(mysql_num_rows($result) != 1)
 				return false;
 			else
 			{
-				echo 'asd';
-				$user['id'] = mysql_result($result, 0, 'id');
-				$user['usertype'] = mysql_result($result, 0, 'type');
+				//$user = array("id"=>"","usertype"=>"","time"=>"","firstname"=>"");
+				$row = mysql_fetch_assoc($result);
+				$user['id'] = $row['id'];
+				$user['usertype'] = $row['type'];
 				$id = $user['id'];
 				$table = $user['usertype'];
 				//add limit to increase performance
 				$result = mysql_query("SELECT time FROM loginlog WHERE account_ID = $id ORDER BY time DESC");
 				if(mysql_num_rows($result) > 0)
-					$user['time'] = mysql_result($query_run, 0, "time");
+					$user['time'] = mysql_result($result, 0, "time");
 				
-				//might have error
+					//might have error
 				$user['firstname'] = mysql_result(mysql_query("SELECT firstname FROM $table WHERE account_ID = $id"), 0, 'firstname');
 				echo 'firstnam query= '."SELECT firstname FROM $table WHERE account_ID = $id";
 				mysql_query("INSERT INTO loginlog VALUES(NULL,$id,CURRENT_TIMESTAMP)");
-				
+						foreach ($user as $a):
+			echo $a.'<br>';
+		endforeach;
 				return $user;
 			}
 		}		

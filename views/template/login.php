@@ -6,4 +6,4 @@
 	<br>
 	<button class="btn btn-primary btn-block" type="submit">Sign in</button>
 </form>
-<a href='register.php'>Register</a>
+<a href='register.php' class="btn btn-primary btn-block">Register</a>

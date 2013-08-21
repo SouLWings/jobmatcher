@@ -25,7 +25,6 @@ else
 	
 if(is_logged_in())
 {
-
 	$firstname = $_SESSION['user']['firstname'];
 	if(isset($_SESSION['user']['time'])){
 		$lastvisitedmsg = get_last_visited_msg($_SESSION['user']['time']);
@@ -37,7 +36,6 @@ else
 {
 	if(isset($_SESSION['msg']) && $_SESSION['msg'] = 'loginfailed')
 	{
-		echo 'msg session = '.$_SESSION['msg'];
 		$errormsg = '<h4 class="form-signin-heading text-warning">Invalid username or password.</h4>';
 		unset($_SESSION['msg']);
 	}

@@ -6,8 +6,8 @@ else
 if(!isset($content))
 	$content = 'Nothing to display';
 	
-$styles[] = 'bootstrap';
 $styles[] = 'structure';
+$styles[] = 'bootstrap';
 $scripts[] = 'jquery-1.10.2.min';
 ?>
 <!DOCTYPE html>
@@ -16,12 +16,12 @@ $scripts[] = 'jquery-1.10.2.min';
         <title><?php echo $title ?></title>
 		
 		<!--styles-->
-		<?php foreach ($styles as $style): ?>
+		<?php foreach (array_reverse($styles) as $style): ?>
 		<link rel="stylesheet" type="text/css" href="/jobmatcher/css/<?php echo $style?>.css" />
 		<?php endforeach; ?>
 		
 		<!--scripts-->
-		<?php foreach ($scripts as $script): ?>
+		<?php foreach (array_reverse($scripts) as $script): ?>
 		<script type='text/javascript' src='/jobmatcher/js/<?php echo $script?>.js'></script>
 		<?php endforeach; ?>
     </head>
@@ -46,9 +46,59 @@ $scripts[] = 'jquery-1.10.2.min';
 			<aside>
 				<?php include $asideinclude ?>
 			</aside>
+<div id="slider">
+	<div id="mask">
+	<ul>
+		<li id="first" class="firstanimation">
+			<a href="#">
+				<img src="/jobmatcher/img/slider/img_1.jpg" alt="Cougar"/>
+			</a>
+			<div class="tooltip">
+				<h1>Cougar</h1>
+			</div>
+		</li>
+
+		<li id="second" class="secondanimation">
+			<a href="#">
+				<img src="/jobmatcher/img/slider/img_2.jpg" alt="Lions"/>
+			</a>
+			<div class="tooltip">
+				<h1>Lions</h1>
+			</div>
+		</li>
+		
+		<li id="third" class="thirdanimation">
+			<a href="#">
+				<img src="/jobmatcher/img/slider/img_3.jpg" alt="Snowalker"/>
+			</a>
+			<div class="tooltip">
+				<h1>Snowalker</h1>
+			</div>
+		</li>
+					
+		<li id="fourth" class="fourthanimation">
+			<a href="#">
+				<img src="/jobmatcher/img/slider/img_4.jpg" alt="Howling"/>
+			</a>
+			<div class="tooltip">
+				<h1>Howling</h1>
+			</div>
+		</li>
+					
+		<li id="fifth" class="fifthanimation">
+			<a href="#">
+				<img src="/jobmatcher/img/slider/img_5.jpg" alt="Sunbathing"/>
+			</a>
+			<div class="tooltip">
+				<h1>Sunbathing</h1>
+			</div>
+		</li>
+	</ul>
+	</div>
+	<div class="progress-bar"></div>
+</div>			
 			
-			
-			<section>
+			<section style='clear:left'>
 				<?php echo $content ?>
 			</section>
 			
