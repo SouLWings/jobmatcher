@@ -46,47 +46,40 @@ $scripts[] = 'jquery-1.10.2.min';
 			
 			
 			<aside>
-				<div id='quickjobsearch' style='width:200px'>
+				<?php include $asideinclude ?>
+				<br><br>
+				<div id='quickjobsearch'>
 					<form action ='jobs.php' method = 'GET'>
 						<div class="input-group">
-							<input type="text" name='name' class="form-control">
+							<input type="text" name='name' class="form-control" placeholder="Search jobs">
 							<span class="input-group-btn">
-								<input class="btn btn-primary" type="submit" value='Search'>
+								<button type="submit" class="btn btn-primary">
+									<span class="glyphicon glyphicon-search"></span>
+								</button>
 							</span>
 						</div>
 						<input type='hidden' name='search'>
 					</form>
 				</div>
-				<?php include $asideinclude ?>
 			</aside>
 
-			<section>
+			<section id='slidersection'>
 				<?php echo $slider ?>
-			</section>
+			</section> 
 			
 			<section id='contentsection'>
 				<?php echo $content ?>
-			</section>
-			
-			<section>
-				<div class='alert alert-info'>every job also need position</div>
-				<div class='alert alert-info'>company will have a table</div>
-				<div class='alert alert-info'>employer will hv a table</div>
-				<div class='alert alert-info'>1 company can hv many account</div>
-
-
-			</section>
-			
+			</section>			
 			
 			<footer>
 				<b>Sitemap</b>
 				<ul>
 				  <a href=""><li>Home</li></a>
-				  <a href=""><li>My Profile</li></a>
+				  <a href=""><li>About Us</li></a>
 				  <a href=""><li>Job Search</li></a>
 				  <a href=""><li>Job Match</li></a>
 				  <a href=""><li>Job Forum</li></a>
-				  <a href=""><li>Contact Us</li></a>  
+				  <a href=""><li>Send Enquiry</li></a>  
 				</ul>
 				<br>
 				<p style="color:black"><small><i>&copy; 2013 UM Job Portal</i></small></p>
