@@ -26,7 +26,7 @@ else if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST[
 			{
 				$matric = get_secured($_POST['matric']);
 				if(check_submitted_jobseeker($firstname, $lastname, $matric))
-					if(register_jobseeker($username, $password, $email, $usertype, $firstname, $lastname, $matric))
+					if(register_jobseeker($username, $password, $email, $firstname, $lastname, $matric))
 					{
 						$msg = 'Thank you for registering in UM Job Matching Portal. Your account is pending for approval. You will recieve an email when your account is approved.';
 						include 'views/register-result.V.php';
@@ -37,7 +37,7 @@ else if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST[
 				$position = get_secured($_POST['position']);
 				$company = get_secured($_POST['company']);
 				if(check_submitted_employer($firstname, $lastname, $position, $company))
-					if(register_employer($username, $password, $email, $usertype, $firstname, $lastname, $position, $company))
+					if(register_employer($username, $password, $email, $firstname, $lastname, $position, $company))
 					{
 						$msg = 'Sorry! there is a problem currenty.';
 						include 'views/register-result.V.php';

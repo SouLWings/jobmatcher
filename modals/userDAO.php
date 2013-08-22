@@ -48,9 +48,11 @@ class userDAO extends connection{
 		return true;
 	}
 	
-	public function register_jobseeker($un, $pw, $em, $ut, $fn, $ln, $matric)
+	public function register_jobseeker($un, $pw, $em, $fn, $ln, $matric)
 	{
-		return mysql_query("INSERT INTO ");
+		return (mysql_query("INSERT INTO account VALUES(NULL, '$un', '$pw', '$em', 1, CURRENT_TIMESTAMP, 'PENDING')") 
+							&& 
+				mysql_query("INSERT INTO jobseeker VALUES(NULL, )"));
 	}
 	
 	public function send_approval_email($email, $fn, $un)
