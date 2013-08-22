@@ -15,7 +15,7 @@ class userDAO extends connection{
 	*************************/
 	
 	//check whether a username exist, return true if exist
-	public function check_username_exist($un){
+	public function check_account_exist($un){
 		return mysql_num_rows(mysql_query("SELECT id FROM account WHERE username = '$un'")) == 1;
 	}
 	
@@ -25,9 +25,6 @@ class userDAO extends connection{
 			return false;
 		
 		else if(strlen($pw) < 6)
-			return false;
-			
-		else if(check_username_exist($un))
 			return false;
 			
 		else if(strlen($un) < 4 || strlen($un) > 20)
@@ -42,17 +39,21 @@ class userDAO extends connection{
 	//check whether the jobseeker details are valid
 	public function check_submitted_jobseeker($fn, $ln, $matric)
 	{
-		
+		return true;
 	}
 	
 	//check whether the employer details are valid
 	public function check_submitted_employer($fn, $ln, $position, $company)
 	{
-		
+		return true;
 	}
 	
+	public function register_jobseeker($un, $pw, $em, $ut, $fn, $ln, $matric)
+	{
+		return mysql_query("INSERT INTO ");
+	}
 	
-	function send_approval_email($email, $fn, $un)
+	public function send_approval_email($email, $fn, $un)
 	{
 		$to = $email;
 		$subject = "Welcome to UM Job Matching Portal";
@@ -61,7 +62,7 @@ class userDAO extends connection{
 	}
 
 	
-	function send_registration_email($email, $fn)
+	public function send_registration_email($email, $fn)
 	{
 		$to = $email;
 		$subject = "Pending account approval - UM Job Matching Portal";
@@ -69,11 +70,21 @@ class userDAO extends connection{
 		return (mail($to,$subject,$message) == true);
 	}	
 	
+	public function get_all_company()
+	{
+		$result = mysql_query('SELECT * FROM company', $this->con);
+		$companies = array();
+		while ($row = mysql_fetch_assoc($result)) {
+			$companies[] = $row;
+		}
+
+		return $companies;
+	}
 
 	/***********************
 	  functions for log in
 	***********************/	
-	function do_log_in($un, $pw)
+	public function do_log_in($un, $pw)
 	{
 		$query = "SELECT a.id, at.type FROM account a INNER JOIN accounttype at ON a.accounttype_ID = at.id WHERE a.username = '$un' AND a.password = '$pw'";
 		if($result = mysql_query($query))
