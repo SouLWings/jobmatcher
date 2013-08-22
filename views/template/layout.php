@@ -5,6 +5,8 @@ else
 	$title .= 'UM Job Matching System';
 if(!isset($content))
 	$content = 'Nothing to display';
+if(!isset($slider))
+	$slider = '';
 	
 $styles[] = 'structure';
 $styles[] = 'bootstrap';
@@ -33,7 +35,7 @@ $scripts[] = 'jquery-1.10.2.min';
 			
 			<nav>
 				<ul class="nav nav-pills">
-					<li class="active"><a href="index.php">Home</a></li>
+					<li><a href="index.php">Home</a></li>
 					<li><a href="aboutus.php">About Us</a></li>
 					<li><a href="advanced-search.php">Job Search</a></li>
 					<li><a href="match.php">Job Match</a></li>
@@ -44,61 +46,25 @@ $scripts[] = 'jquery-1.10.2.min';
 			
 			
 			<aside>
+				<div id='quickjobsearch' style='width:200px'>
+					<form action ='jobs.php' method = 'GET'>
+						<div class="input-group">
+							<input type="text" name='name' class="form-control">
+							<span class="input-group-btn">
+								<input class="btn btn-primary" type="submit" value='Search'>
+							</span>
+						</div>
+						<input type='hidden' name='search'>
+					</form>
+				</div>
 				<?php include $asideinclude ?>
 			</aside>
-<div id="slider">
-	<div id="mask">
-	<ul>
-		<li id="first" class="firstanimation">
-			<a href="#">
-				<img src="/jobmatcher/img/slider/img_1.jpg" alt="Cougar"/>
-			</a>
-			<div class="tooltip">
-				<h1>Cougar</h1>
-			</div>
-		</li>
 
-		<li id="second" class="secondanimation">
-			<a href="#">
-				<img src="/jobmatcher/img/slider/img_2.jpg" alt="Lions"/>
-			</a>
-			<div class="tooltip">
-				<h1>Lions</h1>
-			</div>
-		</li>
-		
-		<li id="third" class="thirdanimation">
-			<a href="#">
-				<img src="/jobmatcher/img/slider/img_3.jpg" alt="Snowalker"/>
-			</a>
-			<div class="tooltip">
-				<h1>Snowalker</h1>
-			</div>
-		</li>
-					
-		<li id="fourth" class="fourthanimation">
-			<a href="#">
-				<img src="/jobmatcher/img/slider/img_4.jpg" alt="Howling"/>
-			</a>
-			<div class="tooltip">
-				<h1>Howling</h1>
-			</div>
-		</li>
-					
-		<li id="fifth" class="fifthanimation">
-			<a href="#">
-				<img src="/jobmatcher/img/slider/img_5.jpg" alt="Sunbathing"/>
-			</a>
-			<div class="tooltip">
-				<h1>Sunbathing</h1>
-			</div>
-		</li>
-	</ul>
-	</div>
-	<div class="progress-bar"></div>
-</div>			
+			<section>
+				<?php echo $slider ?>
+			</section>
 			
-			<section style='clear:left'>
+			<section id='contentsection'>
 				<?php echo $content ?>
 			</section>
 			
@@ -122,8 +88,8 @@ $scripts[] = 'jquery-1.10.2.min';
 				  <a href=""><li>Job Forum</li></a>
 				  <a href=""><li>Contact Us</li></a>  
 				</ul>
-				
-				<p>&copy; 2013 UM Job Portal</p>
+				<br>
+				<p style="color:black"><small><i>&copy; 2013 UM Job Portal</i></small></p>
 			</footer>			
 		</div>
     </body>

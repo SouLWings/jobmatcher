@@ -1,13 +1,16 @@
 <?php 
 /*  --	defining optional variables  --
- *  
  *  $title - add title of the page, eg. $title = 'sample';
  *  $scripts[] - additional script of the page eg. $scripts[] = 'asd'; to include asd.js inside js folder
  *  $styles[] - additional style of the page eg. $styles[] = 'asd'; to include asd.css inside css folder
  * 
  *  --  variables supplied to this page  --
+ *  jobspecializations - 2 dimentional array of all job specializations {id, specialization}
  *  
- *  --  printing variable  --
+ *  --  list of tasks for this view  --
+ *  styles, display a proper content, a link to f
+ *  
+ *  --  printing a variable  --
  *  <?php echo $ ?>
  */
  

@@ -1,13 +1,14 @@
+@import url("slideranimation.css") screen;
 
-@import url("animation.css") screen;
-
-/* SLIDER */
 #slider {
+	float:left;
+	background:#000;
 	border:5px solid #eaeaea;
 	box-shadow:1px 1px 5px rgba(0,0,0,0.7);
-	height:320px;
+	height:330px;
 	width:680px;
-	float:left;
+	overflow:visible;
+	position:relative;
 }
 #mask {
 	overflow:hidden;
@@ -47,38 +48,35 @@
 	-webkit-animation:cyclefive 25s linear infinite;		
 }
 
-#slider .tooltip {
+#slider .tooltiplinktext {
 	background:rgba(0,0,0,0.7);
 	width:300px;
 	height:60px;
 	position:relative;
-	bottom:75px;
+	bottom:95px;
 	left:-320px;
 	-moz-transition:all 0.3s ease-in-out;
 	-webkit-transition:all 0.3s ease-in-out;  
+	border-radius: 0px 5px 5px 0px;
+	box-shadow:0px 0px 5px #6699ff;
 }
-#slider .tooltip h1 {
+#slider .tooltiplinktext h1 {
 	color:#fff;
 	font-size:24px;
 	font-weight:300;
 	line-height:60px;
 	padding:0 0 0 20px;
 }
-#slider li#first:hover .tooltip, 
-#slider li#second:hover .tooltip, 
-#slider li#third:hover .tooltip, 
-#slider li#fourth:hover .tooltip, 
-#slider li#fifth:hover .tooltip {
+#slider li#first:hover .tooltiplinktext, 
+#slider li#second:hover .tooltiplinktext, 
+#slider li#third:hover .tooltiplinktext, 
+#slider li#fourth:hover .tooltiplinktext, 
+#slider li#fifth:hover .tooltiplinktext {
 	left:0px;
-}
-#slider:hover li, 
-#slider:hover .progress-bar {
-	-moz-animation-play-state:paused;
-	-webkit-animation-play-state:paused;
 }
 
 /* PROGRESS BAR */
-.progress-bar { 
+.sliderprogress { 
 	position:relative;
 	top:-5px;
 	width:680px; 

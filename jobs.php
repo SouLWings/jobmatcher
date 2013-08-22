@@ -19,6 +19,7 @@ else if(isset($_GET['search']))
 	if(isset($_GET['name']))
 	{
 		$jobDAO = new jobDAO();
+		
 		//advanced search
 		if(isset($_GET['location']) && isset($_GET['company']) && isset($_GET['salarymin']) && isset($_GET['salarymax']) && isset($_GET['jobspecializationid']) && isset($_GET['experiencemin']) && isset($_GET['experiencemax']))
 		{
@@ -29,7 +30,7 @@ else if(isset($_GET['search']))
 		else //keyword search
 		{
 			//output variables
-			$jobs = $jobDAO->search($_GET['name']);	echo '123';
+			$jobs = $jobDAO->search($_GET['name']);
 			$containertitle = "Matched jobs for keyword '".$_GET['name']."'";
 		}
 		$jobDAO->disconnect();
@@ -37,7 +38,7 @@ else if(isset($_GET['search']))
 		include 'views/jobslist.V.php';
 	}
 	else{
-		header("Location:advanced-search.php?error=1");	
+		header("Location:advanced-search.php?error=1");	//havent do error telling
 	}
 }
 else if(isset($_GET['id']) && !empty($_GET['id']))

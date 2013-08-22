@@ -12,6 +12,10 @@ body{
 	margin-bottom:15px;
 	height:40px;
 	background-color: black;
+	background-color: #000000;
+	font-family: Tahoma; 
+	font-weight: bold;
+	font-size: 1.1em;
 	border-radius: 0 0 6px 6px;
 }
 
@@ -25,6 +29,8 @@ body{
 	text-align:center;
 	text-decoration:none;
 	color:#FFFFFF;
+	display: inline;
+	float: left;
 }
 
 /*to over write bootstrap 2px margin left*/
@@ -40,24 +46,40 @@ body{
 	text-decoration: none;
 }
 
-.container > nav ul li:hover{
-	
+.container > nav ul li a:hover{
+	border-radius: 0;
+	background-color: white;
+}
+
+#contentsection{	
+	padding-bottom: 15px;
+	clear:left;
 }
 
 .container > aside{
 	float:right;
+	width: 280px;
+	height: 290px;
+	padding: 20px;
+	background-color: #9EB8E6;
+	border-radius: 18px;
 }
 
 .container > footer{
-	height: 70px;
+	height: 75px;
 	margin: auto;
 	clear: both;
 	width:100%;
-	background-color: #42CAFF;
+	background-color: #4D5A70;
 	text-align:center;
 	font-size:14px;
 	padding-top: 10px;
 	padding-bottom: 5px;
+	color: white;
+}
+
+.container footer a{
+	color: white;
 }
 
  .container footer > ul{
@@ -77,4 +99,9 @@ body{
 	text-decoration:none;
 	font-size:14px;
 	font:calibri;
+}
+
+.container footer > ul li:hover{
+	text-decoration: underline;
+	color: white;
 }

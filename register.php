@@ -16,13 +16,22 @@ else if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST[
 	$firstname = get_secured($_POST['firstname']);
 	$lastname = get_secured($_POST['lastname']);
 	
-	if($_POST['usertype'] == 'jobseeker' && isset($_POST['matric']) && !empty($_POST['matric'])
-		$matric = get_secured($_POST['matric']);
-	else if($_POST['usertype'] == 'employer' && isset($_POST['position']) && !empty($_POST['position'] && isset($_POST['company']) && !empty($_POST['company'])
+	$userDAO = new userDAO();
+	
+	if(check_submitted_account($username, $password, $rpassword, $email, $usertype))
 	{
-		$position = get_secured($_POST['position']);
-		$company = get_secured($_POST['company']);
-	}
+		if($_POST['usertype'] == 'jobseeker' && isset($_POST['matric']) && !empty($_POST['matric'])
+		{
+			$matric = get_secured($_POST['matric']);
+		}
+		else if($_POST['usertype'] == 'employer' && isset($_POST['position']) && !empty($_POST['position'] && isset($_POST['company']) && !empty($_POST['company'])
+		{
+			$position = get_secured($_POST['position']);
+			$company = get_secured($_POST['company']);
+		}
+	}	
+	
+	
 }
 else
 {

@@ -4,7 +4,6 @@ include 'connection.php';
 class userDAO extends connection{
 	
 	public $con = 0;
-
 	
 	public function __construct(){
 		if(!$this->con)
@@ -20,9 +19,8 @@ class userDAO extends connection{
 		return mysql_num_rows(mysql_query("SELECT id FROM account WHERE username = '$un'")) == 1;
 	}
 	
-	
-	//check the details valid
-	public function check_submitted_registration($un, $pw, $pw2, $em, $ut){
+	//check whether the account details are valid
+	public function check_submitted_account($un, $pw, $pw2, $em, $ut){
 		if($pw != $pw2)
 			return false;
 		
@@ -35,10 +33,22 @@ class userDAO extends connection{
 		else if(strlen($un) < 4 || strlen($un) > 20)
 			return false;
 		
-		else if(intval($ut) < 1 || intval($ut) > 2)
+		else if($ut!='jobseeker' && ut!='employer')
 			return false;
-			
+		
 		return true;
+	}
+	
+	//check whether the jobseeker details are valid
+	public function check_submitted_jobseeker($fn, $ln, $matric)
+	{
+		
+	}
+	
+	//check whether the employer details are valid
+	public function check_submitted_employer($fn, $ln, $position, $company)
+	{
+		
 	}
 	
 	

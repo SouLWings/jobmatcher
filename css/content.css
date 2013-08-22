@@ -19,3 +19,7 @@
 	-moz-columns:100px 2; /* Firefox */
 	padding: 10px;
 }
+
+#browsejobheader{
+	margin-left: 4%;
+}
