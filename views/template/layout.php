@@ -58,6 +58,11 @@ $scripts[] = 'jquery-1.10.2.min';
 					</form>
 				</div>
 				<?php include $asideinclude ?>
+				top company
+				<br>
+				featured job
+				<br>
+				resource - HR corner
 			</aside>
 
 			<section>

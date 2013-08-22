@@ -18,16 +18,31 @@ else if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST[
 	
 	$userDAO = new userDAO();
 	
-	if(check_submitted_account($username, $password, $rpassword, $email, $usertype))
+	if(!check_account_exist($username))
 	{
-		if($_POST['usertype'] == 'jobseeker' && isset($_POST['matric']) && !empty($_POST['matric'])
+		if(check_submitted_account($username, $password, $rpassword, $email, $usertype))
 		{
-			$matric = get_secured($_POST['matric']);
-		}
-		else if($_POST['usertype'] == 'employer' && isset($_POST['position']) && !empty($_POST['position'] && isset($_POST['company']) && !empty($_POST['company'])
-		{
-			$position = get_secured($_POST['position']);
-			$company = get_secured($_POST['company']);
+			if($_POST['usertype'] == 'jobseeker' && isset($_POST['matric']) && !empty($_POST['matric'])
+			{
+				$matric = get_secured($_POST['matric']);
+				if(check_submitted_jobseeker($firstname, $lastname, $matric))
+					if(register_jobseeker($username, $password, $email, $usertype, $firstname, $lastname, $matric))
+					{
+						$msg = 'Thank you for registering in UM Job Matching Portal. Your account is pending for approval. You will recieve an email when your account is approved.';
+						include 'views/register-result.V.php';
+					}
+			}
+			else if($_POST['usertype'] == 'employer' && isset($_POST['position']) && !empty($_POST['position'] && isset($_POST['company']) && !empty($_POST['company'])
+			{
+				$position = get_secured($_POST['position']);
+				$company = get_secured($_POST['company']);
+				if(check_submitted_employer($firstname, $lastname, $position, $company))
+					if(register_employer($username, $password, $email, $usertype, $firstname, $lastname, $position, $company))
+					{
+						$msg = 'Sorry! there is a problem currenty.';
+						include 'views/register-result.V.php';
+					}
+			}
 		}
 	}	
 	
