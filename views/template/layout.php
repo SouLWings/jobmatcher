@@ -61,15 +61,12 @@ $scripts[] = 'jquery-1.10.2.min';
 						<input type='hidden' name='search'>
 					</form>
 				</div>
-<<<<<<< HEAD
-=======
 				<?php include $asideinclude ?>
 				top company
 				<br>
 				featured job
 				<br>
 				resource - HR corner
->>>>>>> origin/alan
 			</aside>
 
 			<section id='slidersection'>
