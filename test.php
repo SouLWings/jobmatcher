@@ -3,10 +3,14 @@
 
 <?php
   
-  $a['id'] = 'asd';
-  $a['username'] = 'dsa';
-  echo $a['1'];
-  
+class test{
+	public $a = 9;
+	public function __construct()
+	{
+		echo "asd $this->a";
+	}
+}
+$r = new test();
 ?>
 
 </body>

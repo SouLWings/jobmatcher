@@ -38,7 +38,7 @@ webapps - source codes
 	|- 	jobs.php
 	|- 	advancedJobSearch.php
 	|- 	resources.php
-	|- 	mangeResume.php				/* job seekers */
+	|- 	mangeResume.php			/* job seekers */
 	|- 	applications.php
 	|- 	editProfile.php
 	|- 	postedJobs.php			/* employers */
@@ -47,6 +47,7 @@ webapps - source codes
 	|- 	manageAccounts.php		/* admin */
 	|- 	manageJobs.php
 	|- 	manageResource.php
+	|- 	composeEmail.php
 	|- 	forum.php				/* common */
 	|- 	forumsection.php
 	|- 	forumthreads.php

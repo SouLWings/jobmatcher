@@ -1,6 +1,6 @@
-<form class="form-signin" action="<?php echo 'loginCTRL.php' ?>" method="POST">
+<form class="form-signin" action="loginCTRL.php" method="POST">
 	<h3 class="form-signin-heading">Sign in</h3>
-	<?php $errormsg ?>
+	<?php echo $errormsg ?>
 	<div class="form-group">
 	<input type="text" class="form-control" id="loginusername" name='loginusername' placeholder="Username" required>
 	</div>

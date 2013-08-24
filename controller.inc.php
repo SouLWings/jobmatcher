@@ -36,9 +36,11 @@ else
 {
 	if(isset($_SESSION['msg']) && $_SESSION['msg'] = 'loginfailed')
 	{
-		$errormsg = '<h4 class="form-signin-heading text-warning">Invalid username or password.</h4>';
+		$errormsg = '<h6 class="form-signin-heading">Invalid username or password.</h6>';
 		unset($_SESSION['msg']);
 	}
+	else
+		$errormsg = '';
 	$asideinclude = 'login.php';
 }
 
@@ -62,13 +64,13 @@ function is_logged_in()
 function get_last_visited_msg($time)
 {
 	//date_default_timezone_set ('Asia/Singapore');
-	$lastvisitedmsg = ' You last visited: ';
+	$lastvisitedmsg = 'Your last login: ';
 	if((date('d',time())-date('d',strtotime($time)))=='0')
 		$lastvisitedmsg .= 'Today ';
 	else if((date('d',time())-date('d',strtotime($time)))=='1')
 		$lastvisitedmsg .= 'Yesterday';
 	else
-		$lastvisitedmsg .= date('d-m-Y ', $time);
+		$lastvisitedmsg .= date('Y-m-d ', strtotime($time));
 		
 	$lastvisitedmsg .= date('g:i a', strtotime($time));
 	

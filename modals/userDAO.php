@@ -2,21 +2,18 @@
 include 'connection.php';
 
 class userDAO extends connection{
-	
-	public $con = 0;
-	
-	public function __construct(){
-		if(!$this->con)
-			$this->con = $this->connect();
-	}
 
-	/*************************
-	  functions for register
-	*************************/
+	private $account_id = 0;
+	private $company_id = 0;
+	
+	
+	/****************************
+	  functions for create user
+	****************************/
 	
 	//check whether a username exist, return true if exist
 	public function check_account_exist($un){
-		return mysql_num_rows(mysql_query("SELECT id FROM account WHERE username = '$un'")) == 1;
+		return $this->con->query("SELECT id FROM account WHERE username = '$un'")->num_rows == 1;
 	}
 	
 	//check whether the account details are valid
@@ -30,7 +27,7 @@ class userDAO extends connection{
 		else if(strlen($un) < 4 || strlen($un) > 20)
 			return false;
 		
-		else if($ut!='jobseeker' && ut!='employer')
+		else if($ut!='jobseeker' && $ut!='employer')
 			return false;
 		
 		return true;
@@ -48,11 +45,26 @@ class userDAO extends connection{
 		return true;
 	}
 	
-	public function register_jobseeker($un, $pw, $em, $fn, $ln, $matric)
+	public function register_account($un, $pw, $em, $ut)
 	{
-		return (mysql_query("INSERT INTO account VALUES(NULL, '$un', '$pw', '$em', 1, CURRENT_TIMESTAMP, 'PENDING')") 
-							&& 
-				mysql_query("INSERT INTO jobseeker VALUES(NULL, )"));
+		$success = $this->insert_row("NULL, '$un', '$pw', '$em', $ut, CURRENT_TIMESTAMP, 'PENDING'", 'account');
+		$this->account_id = $this->con->insert_id;
+		return $success;
+	}
+	
+	public function register_jobseeker($fn, $ln, $matric)
+	{
+		return $this->insert_row("NULL, $this->account_id, '$fn', '$ln', '$matric', 0", 'jobseeker');
+	}
+	
+	public function register_employer($fn, $ln, $position, $company_ID)
+	{
+		return $this->insert_row("NULL, $this->account_id, '$fn', '$ln', '$position', $company_ID",'employer');
+	}
+	
+	public function register_company($name, $address, $website, $phone, $fax, $overview)
+	{
+		return $this->insert_row("NULL, '$name', '$address', '$website', '$phone', '$fax', '$overview'",'company');
 	}
 	
 	public function send_approval_email($email, $fn, $un)
@@ -72,15 +84,14 @@ class userDAO extends connection{
 		return (mail($to,$subject,$message) == true);
 	}	
 	
-	public function get_all_company()
+	public function get_all_companies()
 	{
-		$result = mysql_query('SELECT * FROM company', $this->con);
-		$companies = array();
-		while ($row = mysql_fetch_assoc($result)) {
-			$companies[] = $row;
-		}
-
-		return $companies;
+		return $this->get_all_rows('SELECT * FROM company');
+	}
+	
+	public function get_company_id_by_name($cname)
+	{
+		return $this->get_first_row("SELECT id FROM company WHERE name = '$cname'")['id'];
 	}
 
 	/***********************
@@ -89,32 +100,49 @@ class userDAO extends connection{
 	public function do_log_in($un, $pw)
 	{
 		$query = "SELECT a.id, at.type FROM account a INNER JOIN accounttype at ON a.accounttype_ID = at.id WHERE a.username = '$un' AND a.password = '$pw'";
-		if($result = mysql_query($query))
+		if($result = $this->con->query($query))
 		{
-			if(mysql_num_rows($result) != 1)
+			if($result->num_rows != 1)
+			{
 				return false;
+			}
 			else
 			{
-				//$user = array("id"=>"","usertype"=>"","time"=>"","firstname"=>"");
-				$row = mysql_fetch_assoc($result);
+				$row = $result->fetch_assoc();
+				$result->free();
 				$user['id'] = $row['id'];
 				$user['usertype'] = $row['type'];
 				$id = $user['id'];
 				$table = $user['usertype'];
 				//add limit to increase performance
-				$result = mysql_query("SELECT time FROM loginlog WHERE account_ID = $id ORDER BY time DESC");
-				if(mysql_num_rows($result) > 0)
-					$user['time'] = mysql_result($result, 0, "time");
+				$result = $this->con->query("SELECT time FROM loginlog WHERE account_ID = $id ORDER BY time DESC");
+				if($result->num_rows > 0)
+					$user['time'] = $result->fetch_assoc()["time"];
+				$result->free();
+				//might have error if only user details does not exist
+				$user['firstname'] = $this->get_first_row("SELECT firstname FROM $table WHERE account_ID = $id")['firstname'];
 				
-					//might have error
-				$user['firstname'] = mysql_result(mysql_query("SELECT firstname FROM $table WHERE account_ID = $id"), 0, 'firstname');
-				echo 'firstnam query= '."SELECT firstname FROM $table WHERE account_ID = $id";
-				mysql_query("INSERT INTO loginlog VALUES(NULL,$id,CURRENT_TIMESTAMP)");
-						foreach ($user as $a):
-			echo $a.'<br>';
-		endforeach;
+				if($this->con->query("INSERT INTO loginlog VALUES(NULL,$id,CURRENT_TIMESTAMP)"))
+					echo 'loginlog';
+				else
+					echo 'no log';
+
 				return $user;
 			}
 		}		
 	}
+	
+	
+
+	/********************************
+	  functions for selecting users
+	********************************/	
+	public function get_all_pending_jobseeker()
+	{
+		$this->get_all_rows("SELECT js.firstname, js.lastname, js.matric, a.email, a.createTime FROM account a INNER JOIN jobseeker js ON a.id = js.account_ID WHERE UPPER(a.status) = 'PENDING'");
+	}
+	public function get_all_pending_jobseeker()
+	{
+		$this->get_all_rows("SELECT e.firstname, e.lastname, c.name, a.email, a.createTime c.id FROM account a INNER JOIN employer e ON a.id = e.account_ID INNER JOIN company c ON e.company_ID = c.id WHERE UPPER(a.status) = 'PENDING'");
+	} 
 }

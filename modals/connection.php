@@ -1,16 +1,44 @@
 <?php
 class connection{
-
-	public function connect(){
-		$con = mysql_connect('localhost','root','');
-		mysql_select_db('job_matcher', $con);
-		return $con;
+	
+	public $con;
+	
+	public function __construct()
+	{
+		$this->con = new mysqli("localhost", "root", "", "job_matcher");
+		if ($this->con->connect_errno)
+			die("Unable to enstablish connection to database: " . $con->connect_error);
 	}
 
 	public function disconnect()
 	{
-		mysql_close($this->con);
+		if($this->con)
+			$this->con->close();
 	}
 
+	public function get_first_row($selectquery)
+	{
+		$result = $this->con->query($selectquery);
+		$row = $result->fetch_assoc();
+		
+		$result->free();
+		return $row;
+	}
+	
+	public function get_all_rows($selectquery)
+	{
+		$result = $this->con->query($selectquery);
+		$rows = array();
+		while ($row = $result->fetch_assoc())
+			$rows[] = $row;
+		
+		$result->free();
+		return $rows;
+	}
+	
+	public function insert_row($values, $table)
+	{
+		return $this->con->query("INSERT INTO `$table` VALUES($values)");
+	}
 }
 ?>
