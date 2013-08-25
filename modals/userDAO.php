@@ -1,23 +1,23 @@
 <?php
-include 'connection.php';
+include_once 'modal.inc.php';
 
-class userDAO extends connection{
+class userDAO extends modal{
 
 	private $account_id = 0;
 	private $company_id = 0;
 	
-	
+ 
 	/****************************
 	  functions for create user
 	****************************/
-	
+
 	//check whether a username exist, return true if exist
 	public function check_account_exist($un){
 		return $this->con->query("SELECT id FROM account WHERE username = '$un'")->num_rows == 1;
 	}
 	
 	//check whether the account details are valid
-	public function check_submitted_account($un, $pw, $pw2, $em, $ut){
+	public function check_submitted_account($un, $pw, $pw2, $em, $fn, $ln, $ut){
 		if($pw != $pw2)
 			return false;
 		
@@ -34,32 +34,32 @@ class userDAO extends connection{
 	}
 	
 	//check whether the jobseeker details are valid
-	public function check_submitted_jobseeker($fn, $ln, $matric)
+	public function check_submitted_jobseeker($matric)
 	{
 		return true;
 	}
 	
 	//check whether the employer details are valid
-	public function check_submitted_employer($fn, $ln, $position, $company)
+	public function check_submitted_employer($position, $company)
 	{
 		return true;
 	}
 	
-	public function register_account($un, $pw, $em, $ut)
+	public function register_account($un, $pw, $em, $fn, $ln, $ut)
 	{
-		$success = $this->insert_row("NULL, '$un', '$pw', '$em', $ut, CURRENT_TIMESTAMP, 'PENDING'", 'account');
+		$success = $this->insert_row("NULL, '$un', '$pw', '$em', '$fn', '$ln', $ut, CURRENT_TIMESTAMP, 'PENDING'", 'account');
 		$this->account_id = $this->con->insert_id;
 		return $success;
 	}
 	
-	public function register_jobseeker($fn, $ln, $matric)
+	public function register_jobseeker($matric)
 	{
-		return $this->insert_row("NULL, $this->account_id, '$fn', '$ln', '$matric', 0", 'jobseeker');
+		return $this->insert_row("NULL, $this->account_id, '$matric', 0", 'jobseeker');
 	}
 	
-	public function register_employer($fn, $ln, $position, $company_ID)
+	public function register_employer($position, $company_ID)
 	{
-		return $this->insert_row("NULL, $this->account_id, '$fn', '$ln', '$position', $company_ID",'employer');
+		return $this->insert_row("NULL, $this->account_id, '$position', $company_ID",'employer');
 	}
 	
 	public function register_company($name, $address, $website, $phone, $fax, $overview)
@@ -99,11 +99,12 @@ class userDAO extends connection{
 	***********************/	
 	public function do_log_in($un, $pw)
 	{
-		$query = "SELECT a.id, at.type FROM account a INNER JOIN accounttype at ON a.accounttype_ID = at.id WHERE a.username = '$un' AND a.password = '$pw'";
+		$query = "SELECT a.id, at.type, a.firstname, a.status FROM account a INNER JOIN accounttype at ON a.accounttype_ID = at.id WHERE a.username = '$un' AND a.password = '$pw'";
 		if($result = $this->con->query($query))
 		{
 			if($result->num_rows != 1)
 			{
+				echo'false';
 				return false;
 			}
 			else
@@ -112,15 +113,15 @@ class userDAO extends connection{
 				$result->free();
 				$user['id'] = $row['id'];
 				$user['usertype'] = $row['type'];
+				$user['status'] = $row['status'];
+				$user['firstname'] = $row['firstname'];
 				$id = $user['id'];
 				$table = $user['usertype'];
-				//add limit to increase performance
-				$result = $this->con->query("SELECT time FROM loginlog WHERE account_ID = $id ORDER BY time DESC");
+				
+				$result = $this->con->query("SELECT time FROM loginlog WHERE account_ID = $id ORDER BY time DESC LIMIT 1");
 				if($result->num_rows > 0)
 					$user['time'] = $result->fetch_assoc()["time"];
 				$result->free();
-				//might have error if only user details does not exist
-				$user['firstname'] = $this->get_first_row("SELECT firstname FROM $table WHERE account_ID = $id")['firstname'];
 				
 				if($this->con->query("INSERT INTO loginlog VALUES(NULL,$id,CURRENT_TIMESTAMP)"))
 					echo 'loginlog';
@@ -129,20 +130,34 @@ class userDAO extends connection{
 
 				return $user;
 			}
-		}		
+		}
 	}
 	
 	
 
-	/********************************
-	  functions for selecting users
-	********************************/	
+	/****************************************
+	  functions for selecting users/company
+	****************************************/
 	public function get_all_pending_jobseeker()
 	{
-		$this->get_all_rows("SELECT js.firstname, js.lastname, js.matric, a.email, a.createTime FROM account a INNER JOIN jobseeker js ON a.id = js.account_ID WHERE UPPER(a.status) = 'PENDING'");
+		return $this->get_all_rows("SELECT a.id, a.firstname, a.lastname, js.matric, a.email, a.createTime FROM account a INNER JOIN jobseeker js ON a.id = js.account_ID WHERE UPPER(a.status) = 'PENDING'");
 	}
-	public function get_all_pending_jobseeker()
+	public function get_all_pending_employer()
 	{
-		$this->get_all_rows("SELECT e.firstname, e.lastname, c.name, a.email, a.createTime c.id FROM account a INNER JOIN employer e ON a.id = e.account_ID INNER JOIN company c ON e.company_ID = c.id WHERE UPPER(a.status) = 'PENDING'");
-	} 
+		return $this->get_all_rows("SELECT a.id, a.firstname, a.lastname, c.name, a.email, a.createTime, c.id as cid FROM account a INNER JOIN employer e ON a.id = e.account_ID INNER JOIN company c ON e.company_ID = c.id WHERE UPPER(a.status) = 'PENDING'");
+	}
+	public function get_company_by_id($id)
+	{
+		return $this->get_first_row("SELECT * FROM company WHERE id = $id");
+	}
+	public function approve_user($id)
+	{
+		return $this->con->query("UPDATE account SET status = 'APPROVED' WHERE id = $id");
+	}
+	public function disapprove_user($id)
+	{
+		$ut = $this->get_first_row("SELECT at.type FROM account a INNER JOIN accounttype at ON  at.id = a.accounttype_ID WHERE a.id = $id")['type'];
+		echo "deleting from table: $ut";
+		return($this->con->query("DELETE FROM $ut WHERE account_ID = $id") && ($this->con->query("DELETE FROM account WHERE id = $id")));
+	}
 }

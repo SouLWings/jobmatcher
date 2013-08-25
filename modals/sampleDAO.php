@@ -1,7 +1,7 @@
 <?php
-include 'connection.php';
+include 'modal.inc.php';
 
-class sampleDAO extends connection{
+class sampleDAO extends modal{
 
 	/**
 	 *	mysqli object = $con
@@ -16,4 +16,4 @@ class sampleDAO extends connection{
 	{
 		
 	}
-}
+}o

@@ -22,16 +22,16 @@ else if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST[
 	$registrationsuccess = true;
 	if(!$userDAO->check_account_exist($username))
 	{
-		if($userDAO->check_submitted_account($username, $password, $rpassword, $email, $usertype))
+		if($userDAO->check_submitted_account($username, $password, $rpassword, $email, $firstname, $lastname, $usertype))
 		{
 			if($usertype == 'jobseeker' && isset($_POST['matric']) && !empty($_POST['matric']))
 			{
 				$matric = get_secured($_POST['matric']);
-				if($userDAO->check_submitted_jobseeker($firstname, $lastname, $matric))
+				if($userDAO->check_submitted_jobseeker($matric))
 				{
-					if($userDAO->register_account($username, $password, $email, 1))
+					if($userDAO->register_account($username, $password, $email, $firstname, $lastname, 1))
 					{
-						if($userDAO->register_jobseeker($firstname, $lastname, $matric))
+						if($userDAO->register_jobseeker($matric))
 						{
 							$msg = 'Thank you for registering in UM Job Matching Portal. Your account is pending for approval. You will recieve an email when your account is approved.';
 							include 'views/register-result.V.php';
@@ -71,11 +71,11 @@ else if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST[
 				if(isset($companyid))
 				{
 					//all data ready, check employer details and start registration
-					if($userDAO->check_submitted_employer($firstname, $lastname, $position, $companyid))
+					if($userDAO->check_submitted_employer($position, $companyid))
 					{
-						if($userDAO->register_account($username, $password, $email, 2))
+						if($userDAO->register_account($username, $password, $email, $firstname, $lastname, 2))
 						{
-							if($userDAO->register_employer($firstname, $lastname, $position, $companyid))
+							if($userDAO->register_employer($position, $companyid))
 							{
 								$msg = 'Thank you for registering in UM Job Matching Portal. Your account is pending for approval. You will recieve an email when your account is approved.';
 								include 'views/register-result.V.php';

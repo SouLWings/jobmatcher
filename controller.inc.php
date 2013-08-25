@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'modals/msgDAO.php';
 /**
  *  Core controller file - containing functions for controlling user session
  *  
@@ -10,7 +11,8 @@ session_start();
  *  	$lastvisitedmsg
  *  	$errormsg
  *  	$asideinclude
- *  
+ *  	$newmsgnum
+ *  	$aid
  */
 
 /*****************************
@@ -22,21 +24,41 @@ if(isset($_SERVER['HTTP_REFERER']))
 	$referer = $_SERVER['HTTP_REFERER'];
 else
 	$referer = $curr_location;
-	
+
 if(is_logged_in())
 {
+	//if user logged in, retrieve the id and firstname,
+	$aid = $_SESSION['user']['id'];
 	$firstname = $_SESSION['user']['firstname'];
+	
+	//call the function to get the last login message
 	if(isset($_SESSION['user']['time'])){
 		$lastvisitedmsg = get_last_visited_msg($_SESSION['user']['time']);
 	}else
 		$lastvisitedmsg = 'This is your first log in.';
-	$asideinclude = 'welcome.php';
+		
+	//retrieve number of unreaded msg
+	$msgDAO = new msgDAO();
+	$newmsgnum = $msgDAO->get_num_new_msg($aid);
+	
+	
+	if($_SESSION['user']['usertype'] == 'admin')
+		$asideinclude = 'adminmenu.php';
+	else if($_SESSION['user']['usertype'] == 'employer')
+		$asideinclude = 'employermenu.php';
+	else if($_SESSION['user']['usertype'] == 'jobseeker')
+		$asideinclude = 'jobseekermenu.php';
 }
 else
 {
-	if(isset($_SESSION['msg']) && $_SESSION['msg'] = 'loginfailed')
+	if(isset($_SESSION['msg']) && $_SESSION['msg'] == 'loginfailed')
 	{
 		$errormsg = '<h6 class="form-signin-heading">Invalid username or password.</h6>';
+		unset($_SESSION['msg']);
+	}
+	else if(isset($_SESSION['msg']) && $_SESSION['msg'] == 'accountpending')
+	{
+		$errormsg = '<h6 class="form-signin-heading">Account is pending for approval.</h6>';
 		unset($_SESSION['msg']);
 	}
 	else
@@ -55,7 +77,7 @@ function get_secured($input)
 
 function is_logged_in()
 {
-	if(isset($_SESSION['user']) && !empty($_SESSION['user']))
+	if(isset($_SESSION['user']) && isset($_SESSION['user']['id']) && isset($_SESSION['user']['usertype']) && isset($_SESSION['user']['firstname']))
 		return true;
 	else
 		return false;
