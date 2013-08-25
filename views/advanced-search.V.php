@@ -8,7 +8,7 @@
  *  jobspecializations - 2 dimentional array of all job specializations {id, specialization}
  *  
  *  --  list of tasks for this view  --
- *  styles, display a proper content, a link to f
+ *  msg when no related result, styles, display a proper content, a link to f
  *  
  *  --  printing a variable  --
  *  <?php echo $ ?>

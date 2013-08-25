@@ -1,6 +1,8 @@
 <?php
 include 'controller.inc.php';
 include 'modals/userDAO.php';
+
+
 if(is_logged_in())
 {
 	echo 'You had logged in. redirecting to homepage in 3 seconds.';
@@ -17,27 +19,101 @@ else if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST[
 	$lastname = get_secured($_POST['lastname']);
 	
 	$userDAO = new userDAO();
-	
-	if(check_submitted_account($username, $password, $rpassword, $email, $usertype))
+	$registrationsuccess = true;
+	if(!$userDAO->check_account_exist($username))
 	{
-		if($_POST['usertype'] == 'jobseeker' && isset($_POST['matric']) && !empty($_POST['matric'])
+		if($userDAO->check_submitted_account($username, $password, $rpassword, $email, $usertype))
 		{
-			$matric = get_secured($_POST['matric']);
-		}
-		else if($_POST['usertype'] == 'employer' && isset($_POST['position']) && !empty($_POST['position'] && isset($_POST['company']) && !empty($_POST['company'])
-		{
-			$position = get_secured($_POST['position']);
-			$company = get_secured($_POST['company']);
-		}
+			if($usertype == 'jobseeker' && isset($_POST['matric']) && !empty($_POST['matric']))
+			{
+				$matric = get_secured($_POST['matric']);
+				if($userDAO->check_submitted_jobseeker($firstname, $lastname, $matric))
+				{
+					if($userDAO->register_account($username, $password, $email, 1))
+					{
+						if($userDAO->register_jobseeker($firstname, $lastname, $matric))
+						{
+							$msg = 'Thank you for registering in UM Job Matching Portal. Your account is pending for approval. You will recieve an email when your account is approved.';
+							include 'views/register-result.V.php';
+						}else
+							$registrationsuccess = false;//echo 'register jobseeker failed';
+					}else
+						$registrationsuccess = false;//echo 'register jobseeker account failed';
+				}else
+					$registrationsuccess = false;//echo 'invalid submitted jobseeker details';
+			}
+			//else if user is employer + position is set + (companyId/companyDetails) is set
+			else if($usertype == 'employer' && isset($_POST['position']) && !empty($_POST['position']) && (isset($_POST['companyid']) && !empty($_POST['companyid'])) || (isset($_POST['cname']) && !empty($_POST['cname']) &&isset($_POST['caddress']) && !empty($_POST['caddress']) &&isset($_POST['cwebsite']) && !empty($_POST['cwebsite']) &&isset($_POST['cphone']) && !empty($_POST['cphone']) &&isset($_POST['cfax']) && !empty($_POST['cfax']) &&isset($_POST['coverview']) && !empty($_POST['coverview'])))
+			{
+				$position = get_secured($_POST['position']);
+				
+				//if existing company -> get id, else -> register new company
+				if(isset($_POST['companyid']) && !empty($_POST['companyid']))
+				{
+					$companyid = get_secured($_POST['companyid']);
+				}
+				else
+				{
+					$cname = get_secured($_POST['cname']);
+					$caddress = get_secured($_POST['caddress']);
+					$cwebsite = get_secured($_POST['cwebsite']);
+					$cphone = get_secured($_POST['cphone']);
+					$cfax = get_secured($_POST['cfax']);
+					$coverview = get_secured($_POST['coverview']);
+					if($userDAO->register_company($cname, $caddress, $cwebsite, $cphone, $cfax, $coverview))
+					{
+						$companyid = $userDAO->get_company_id_by_name($cname);
+					}
+					else
+						$registrationsuccess = false;//echo 'register company failed';
+				}
+				
+				if(isset($companyid))
+				{
+					//all data ready, check employer details and start registration
+					if($userDAO->check_submitted_employer($firstname, $lastname, $position, $companyid))
+					{
+						if($userDAO->register_account($username, $password, $email, 2))
+						{
+							if($userDAO->register_employer($firstname, $lastname, $position, $companyid))
+							{
+								$msg = 'Thank you for registering in UM Job Matching Portal. Your account is pending for approval. You will recieve an email when your account is approved.';
+								include 'views/register-result.V.php';
+							}else
+								$registrationsuccess = false;//echo 'register employer failed';
+						}else
+							$registrationsuccess = false;//echo 'register employer account failed';
+					}else
+						$registrationsuccess = false;//echo 'invalid submitted employer details';
+				}
+				else
+					$registrationsuccess = false;//echo 'companyid not set';
+			}else
+				$registrationsuccess = false;//echo 'employer or student details not set';
+		}else
+			$registrationsuccess = false;//echo 'invalid submitted account details';
+	}
+	else
+	{
+		$errorcontent = 'Account with the same username already exist.';
+		include 'views/register.V.php';
 	}	
+	$userDAO->disconnect();
 	
-	
+	if(!$registrationsuccess)
+	{
+		$msg = 'Sorry! there is a problem with your registration. Please try again later.';
+		include 'views/register-result.V.php';		
+	}	
 }
 else
 {
+	$userDAO = new userDAO();
 	
+	$companies = $userDAO->get_all_companies();
+	
+	$userDAO->disconnect();
 	include 'views/register.V.php';
 }
-
 
 ?>

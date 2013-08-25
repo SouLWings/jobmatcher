@@ -2,53 +2,34 @@
 include 'connection.php';
 
 class jobDAO extends connection{
-	
-	public $con = 0;
 
-	public function __construct(){
-		if(!$this->con)
-			$this->con = $this->connect();
-	}
-	
+
+	/************************************
+	  functions for retrieving job info
+	************************************/	
 	public function get_all_job_Types()
 	{
-		$result = mysql_query('SELECT * FROM jobspecialization ORDER BY specialization', $this->con);
-		$jobspecializations = array();
-		while ($row = mysql_fetch_assoc($result)) {
-			$jobspecializations[] = $row;
-		}
-
-		return $jobspecializations;
+		return $this->get_all_rows('SELECT * FROM jobspecialization ORDER BY specialization');
 	}
 	
 	public function get_job($id)
 	{
-		return mysql_fetch_assoc(mysql_query("SELECT * FROM jobs where id = $id", $this->con));
+		return $this->get_first_row("SELECT * FROM jobs where id = $id");
 	}
 	
 	public function get_all_jobs_of_type($jobspecializationid)
 	{
-		$result = mysql_query("SELECT j.title, c.name as company, j.location, j.salary, j.experience, j.date, j.id FROM jobs j INNER JOIN employer e ON j.employer_ID = e.id INNER JOIN company c ON e.company_ID = c.id WHERE j.jobspecialization_ID = $jobspecializationid", $this->con);
-		$jobs = array();
-		while($row = mysql_fetch_assoc($result))
-			$jobs[] = $row;
-		return $jobs;
+		return $this->get_all_rows("SELECT j.title, c.name as company, j.location, j.salary, j.experience, j.date, j.id FROM jobs j INNER JOIN employer e ON j.employer_ID = e.id INNER JOIN company c ON e.company_ID = c.id WHERE j.jobspecialization_ID = $jobspecializationid");
 	}
 	
 	public function get_job_type_by_id($jobspecializationid)
 	{
-		return mysql_fetch_assoc(mysql_query("SELECT specialization FROM jobspecialization where id = $jobspecializationid", $this->con))['specialization'];
+		return $this->get_first_row("SELECT specialization FROM jobspecialization where id = $jobspecializationid")['specialization'];
 	}
 	
 	public function search($keyword)
 	{
-		if($result=mysql_query("SELECT j.title, c.name as company, j.location, j.salary, j.experience, j.date, j.id FROM jobs j INNER JOIN employer e ON j.employer_ID = e.id INNER JOIN company c ON e.company_ID = c.id  WHERE j.title LIKE '%$keyword%' OR j.position LIKE '%$keyword%'", $this->con))
-		{
-			$jobs = array();
-			while($row = mysql_fetch_assoc($result))
-				$jobs[] = $row;
-			return $jobs;
-		}
+		return $this->get_all_rows("SELECT j.title, c.name as company, j.location, j.salary, j.experience, j.date, j.id FROM jobs j INNER JOIN employer e ON j.employer_ID = e.id INNER JOIN company c ON e.company_ID = c.id  WHERE j.title LIKE '%$keyword%' OR j.position LIKE '%$keyword%'");
 	}
 	
 	public function advanced_Search($name, $company, $location, $salaryMin, $salaryMax, $jobspecializationid, $expmin, $expmax)
@@ -71,21 +52,45 @@ class jobDAO extends connection{
 						AND lower(c.name) LIKE lower('%$company%') 
 						$extraFilter)";
 		
-		if($result=mysql_query($query, $this->con))
-		{
-			$jobs = array();
-			while($row = mysql_fetch_assoc($result))
-				$jobs[] = $row;
-			return $jobs;
-			/*if(mysql_num_rows($result) == 0)
-				echo "<div class='alert alert-danger' style='clear:left;'>No student found.</div>";
-			else
-			{
-				echo "<div class='alert alert-success' style='clear:left;'>".mysql_num_rows($result)." student(s) found.</div>";
-				showTable($result);
-			}*/
-		}
+		return $this->get_all_rows($query);
 	}
+	
+	public function get_all_pending_jobs()
+	{
+		return $this->get_all_rows("SELECT * FROM jobs WHERE UPPER(status) = 'PENDING'");
+	}
+	
+
+	/************************
+	  functions for add job
+	************************/
+	public function add_job($specID, $employerId, $date, $title, $position, $responsibility, $requirement, $location, $salary, $experience)
+	{
+		$this->insert_row("NULL, $specID, $employerId, $date, '$title', '$position', '$responsibility', '$requirement', '$location', $salary, $experience, 'PENDING'",'jobs');
+	}
+	
+	
+	/*************************
+	  functions for edit job
+	*************************/
+	public function edit_job($id, $specID, $employerId, $date, $title, $position, $responsibility, $requirement, $location, $salary, $experience)
+	{
+		return $this->con->query("UPDATE jobs SET jobSpecialization_ID = $specID, employer_ID = $employerId, date = $date, title = '$title', position = '$position', responsibility = '$responsibility', requirement = '$requirement', location = '$location', salary = $salary, experience = $experience WHERE id = $id");
+	}
+	
+	public function approve_job($id)
+	{
+		return $this->con->query("UPDATE jobs SET status = 'APPROVED' WHERE id = $id");
+	}
+	
+	/***************************
+	  functions for delete job
+	***************************/
+	public function delete_job($id)
+	{
+		return $this->con->query("DELETE FROM jobs WHERE id = $id");
+	}
+	
 	
 }
 ?>

@@ -15,25 +15,55 @@ $(document).ready(function(){
 	});
 	
 	
+	$('#commonform').hide();
 	$('#jobseekerform').hide();
 	$('#employerform').hide();
+	$('#employeroption1').hide();
+	$('#employeroption2').hide();
+	$('#registrationsubmit').prop('disabled', true);
+	
 	$("#inputusertype").change(function(){
 		if($('#inputusertype').val()=='employer')
 		{
-			$('#jobseekerform').slideUp();
-			$('#employerform').slideDown();		
+			$('#jobseekerform').hide();
+			$('#commonform').show();		
+			$('#employerform').show();		
+			$('#registrationsubmit').prop('disabled', false);
 		}
 		else if($('#inputusertype').val()=='jobseeker')
 		{
-			$('#jobseekerform').slideDown();
-			$('#employerform').slideUp();		
+			$('#employerform').hide();		
+			$('#commonform').show();
+			$('#jobseekerform').show();
+			$('#registrationsubmit').prop('disabled', false);
 		}
 		else
 		{
-			$('#jobseekerform').slideUp();
-			$('#employerform').slideUp();		
+			$('#commonform').hide();
+			$('#jobseekerform').hide();
+			$('#employerform').hide();
+			$('#registrationsubmit').prop('disabled', true);
 		}
-	}).change(); 
+	});	
+	
+	$('input[name=companyoption]').change(function(){
+		if($('input[name=companyoption]:checked', '#registerform').val() == 'create')
+		{
+			$('#employeroption1').hide();
+			$('#employeroption2').show();
+		}
+		else if($('input[name=companyoption]:checked', '#registerform').val() == 'choose')
+		{
+			$('#employeroption1').show();
+			$('#employeroption2').hide();
+		}
+		else
+		{
+			$('#employeroption1').hide();
+			$('#employeroption2').hide();
+		}
+			
+	}); 
 	
 	/* $("input[name='ic']").keydown(function(event) {
 		// Allow: backspace, delete, tab, escape, and enter
