@@ -1,31 +1,43 @@
 <?php
-session_start();
-include 'forumDAO.php';
-if(true)//check for session user
+include 'controller.inc.php';
+include 'modals/forumDAO.php';
+//if(true)//check for session user
 	if(isset($_POST['action']) && !empty($_POST['action']))
 	{
+		echo $_POST['action'];
+		echo $_POST['id'];
 		$f = new forumDAO();
-		if($_POST['action'] == 'editSection')
+		
+		if($_POST['action'] == 'addSection')
 		{
-			if(isset($_POST['id']) && !empty($_POST['id']) isset($_POST['title']) && !empty($_POST['title']) isset($_POST['description']) && !empty($_POST['description']))
+			if(isset($_POST['title']) && !empty($_POST['title']) && isset($_POST['description']) && !empty($_POST['description']))
 			{
-				$success = $f->editSection($_POST['id'],$_POST['title'],$_POST['desciption']);
-				if($success == 1)
-					echo "success";
-				else
-					echo "failed";
+				$success = $f->createSection($_POST['title'],$_POST['description']);
+				echo $success;
+				header("refresh: 3; url=forum.php");
+			}		
+		}
+		
+		else if($_POST['action'] == 'deleteSection')
+		{
+			if(isset($_POST['id']) && !empty($_POST['id']))
+			{
+				echo $_POST['id'];
+				$success = $f->deleteSection($_POST['id']);
+				echo $success;
+				header("refresh: 3; url=forum.php");
 			}
 		}
-		else if($_POST['action'] == 'addSection')
-		{
-			if(isset($_POST['title']) && !empty($_POST['title']) isset($_POST['description']) && !empty($_POST['description']))
+		
+		else if($_POST['action'] == 'editSection')
+		{	
+			
+			if(isset($_POST['id']) && !empty($_POST['id'])&& isset($_POST['title']) && !empty($_POST['title'])&&  isset($_POST['description']) && !empty($_POST['description']))
 			{
 				$success = $f->editSection($_POST['id'],$_POST['title'],$_POST['desciption']);
-				if($success == 1)
-					echo "success";
-				else
-					echo "failed";
-			}		
+				echo $success;
+				header("refresh: 3; url=forum.php");
+			}
 		}
 		
 		$f->disconnect();
@@ -34,9 +46,8 @@ if(true)//check for session user
 	{
 		header("Location:error.php?code=X");
 	}
-else
+/* else
 {
 	header("Location:error.php?code=Y");
-}
-
+} */
 ?>

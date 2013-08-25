@@ -10,6 +10,7 @@ if(!isset($slider))
 	
 $styles[] = 'structure';
 $styles[] = 'bootstrap';
+$scripts[] = 'bootstrap.min';
 $scripts[] = 'jquery-1.10.2.min';
 ?>
 <!DOCTYPE html>
@@ -17,14 +18,14 @@ $scripts[] = 'jquery-1.10.2.min';
     <head>
         <title><?php echo $title ?></title>
 		
-		<!--styles-->
-		<?php foreach (array_reverse($styles) as $style): ?>
-		<link rel="stylesheet" type="text/css" href="/jobmatcher/css/<?php echo $style?>.css" />
-		<?php endforeach; ?>
-		
 		<!--scripts-->
 		<?php foreach (array_reverse($scripts) as $script): ?>
 		<script type='text/javascript' src='/jobmatcher/js/<?php echo $script?>.js'></script>
+		<?php endforeach; ?>
+		
+		<!--styles-->
+		<?php foreach (array_reverse($styles) as $style): ?>
+		<link rel="stylesheet" type="text/css" href="/jobmatcher/css/<?php echo $style?>.css" />
 		<?php endforeach; ?>
     </head>
     <body style=''>

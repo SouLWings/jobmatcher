@@ -8,6 +8,7 @@ class sampleDAO extends modal{
 	 *	get_first_row($selectquery) 	return array
 	 *	get_all_rows($selectquery)		return multidimentional array
 	 *	insert_values($values, $table)	return boolean
+	 *	row_count($selectquery)			return number of row int
 	 *	
 	 *	begin to write functions
 	 */
