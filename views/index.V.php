@@ -80,7 +80,6 @@ $styles[] = 'content';
 	
 <div class="browsejob">
 	<h2>Browse Job</h2>
-
 <div class="browsejob2">
 	<ul>
 	<?php foreach ($jobspecializations as $jobspecialization): ?>
@@ -97,4 +96,4 @@ $styles[] = 'content';
 
 <?php $content = ob_get_clean() ?>
 
-<?php include 'template/layout.php' ?>
+<?php include 'views/template/layout.php' ?>

@@ -1,20 +1,29 @@
 <?php
 //includes core controller functions and variables 
 include 'controller.inc.php';
-//includes the modal classes that needed to access resource
-include 'modals/jobDAO.php';
-
-//creating an instance of the data access object
-$jobDAO = new jobDAO();
 
 
-//output variables
-$pendingjobs = $jobDAO->get_all_pending_jobs();
+if(isset($_SESSION['user']) && $_SESSION['user']['usertype'] == 'admin')
+{
+	include 'modals/jobDAO.php';
+
+	//creating an instance of the data access object
+	$jobDAO = new jobDAO();
 
 
-//close the connection if not using it anymore
-$jobDAO->disconnect();
+	//output variables
+	$pendingjobs = $jobDAO->get_all_pending_jobs();
 
-//include a view to display declared variables
-include 'views/manageJobs.V.php';
+
+	//close the connection if not using it anymore
+	$jobDAO->disconnect();
+
+	//include a view to display declared variables
+	include 'views/manageJobs.V.php';
+
+}
+else
+{
+	header('Location:error.php?code=456');
+}
 ?>

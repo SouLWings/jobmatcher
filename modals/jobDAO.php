@@ -1,7 +1,7 @@
 <?php
-include 'connection.php';
+include_once 'modal.inc.php';
 
-class jobDAO extends connection{
+class jobDAO extends modal{
 
 
 	/************************************
@@ -14,22 +14,22 @@ class jobDAO extends connection{
 	
 	public function get_job($id)
 	{
-		return $this->get_first_row("SELECT * FROM jobs where id = $id");
+		return $this->get_first_row("SELECT * FROM jobs where UPPER(status) = 'APPROVED' AND id = $id");
 	}
 	
 	public function get_all_jobs_of_type($jobspecializationid)
 	{
-		return $this->get_all_rows("SELECT j.title, c.name as company, j.location, j.salary, j.experience, j.date, j.id FROM jobs j INNER JOIN employer e ON j.employer_ID = e.id INNER JOIN company c ON e.company_ID = c.id WHERE j.jobspecialization_ID = $jobspecializationid");
+		return $this->get_all_rows("SELECT j.title, c.name as company, j.location, j.salary, j.experience, j.date, j.id FROM jobs j INNER JOIN employer e ON j.employer_ID = e.id INNER JOIN company c ON e.company_ID = c.id WHERE UPPER(j.status) = 'APPROVED' AND j.jobspecialization_ID = $jobspecializationid");
 	}
 	
 	public function get_job_type_by_id($jobspecializationid)
 	{
-		return $this->get_first_row("SELECT specialization FROM jobspecialization where id = $jobspecializationid")['specialization'];
+		return $this->get_first_row("SELECT specialization FROM jobspecialization WHERE id = $jobspecializationid")['specialization'];
 	}
 	
 	public function search($keyword)
 	{
-		return $this->get_all_rows("SELECT j.title, c.name as company, j.location, j.salary, j.experience, j.date, j.id FROM jobs j INNER JOIN employer e ON j.employer_ID = e.id INNER JOIN company c ON e.company_ID = c.id  WHERE j.title LIKE '%$keyword%' OR j.position LIKE '%$keyword%'");
+		return $this->get_all_rows("SELECT j.title, c.name as company, j.location, j.salary, j.experience, j.date, j.id FROM jobs j INNER JOIN employer e ON j.employer_ID = e.id INNER JOIN company c ON e.company_ID = c.id  WHERE UPPER(j.status) = 'APPROVED' AND j.title LIKE '%$keyword%' OR j.position LIKE '%$keyword%'");
 	}
 	
 	public function advanced_Search($name, $company, $location, $salaryMin, $salaryMax, $jobspecializationid, $expmin, $expmax)
@@ -48,7 +48,7 @@ class jobDAO extends connection{
 		$query = "SELECT j.title, c.name as company, j.location, j.salary, j.experience, j.date, j.id
 					FROM jobs j 
 					INNER JOIN employer e ON j.employer_ID = e.id INNER JOIN company c ON e.company_ID = c.id
-					WHERE (lower(j.title) LIKE lower('%$name%') 
+					WHERE UPPER(j.status) = 'APPROVED' AND (lower(j.title) LIKE lower('%$name%') 
 						AND lower(c.name) LIKE lower('%$company%') 
 						$extraFilter)";
 		
@@ -57,7 +57,7 @@ class jobDAO extends connection{
 	
 	public function get_all_pending_jobs()
 	{
-		return $this->get_all_rows("SELECT * FROM jobs WHERE UPPER(status) = 'PENDING'");
+		return $this->get_all_rows("SELECT c.name, e.firstname, j.title, j.position, j.date, j.salary, j.experience FROM jobs j INNER JOIN employer e ON j.employer_ID = e.id INNER JOIN company c ON e.company_ID = c.id WHERE UPPER(status) = 'PENDING'");
 	}
 	
 

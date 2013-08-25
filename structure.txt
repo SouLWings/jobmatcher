@@ -46,6 +46,7 @@ webapps - source codes
 	|- 	applicants.php
 	|- 	manageAccounts.php		/* admin */
 	|- 	manageJobs.php
+	|- 	company.php
 	|- 	manageResource.php
 	|- 	composeEmail.php
 	|- 	forum.php				/* common */

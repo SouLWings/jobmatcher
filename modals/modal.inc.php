@@ -1,5 +1,5 @@
 <?php
-class connection{
+class modal{
 	
 	public $con;
 	
@@ -39,6 +39,11 @@ class connection{
 	public function insert_row($values, $table)
 	{
 		return $this->con->query("INSERT INTO `$table` VALUES($values)");
+	}
+	
+	public function row_count($selectquery)
+	{
+		return $this->con->query($selectquery)->num_rows;
 	}
 }
 ?>
