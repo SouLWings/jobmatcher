@@ -115,7 +115,7 @@ class userDAO extends modal{
 	***************************/	
 	public function do_log_in($un, $pw)
 	{
-		$query = "SELECT a.id, at.type, a.firstname, a.accountstatus FROM account a INNER JOIN accounttype at ON a.accounttype_ID = at.id WHERE a.username = '$un' AND a.password = '$pw'";
+		$query = "SELECT a.id, at.type, a.firstname, a.lastname, a.accountstatus FROM account a INNER JOIN accounttype at ON a.accounttype_ID = at.id WHERE a.username = '$un' AND a.password = '$pw'";
 		if($result = $this->con->query($query))
 		{
 			if($result->num_rows != 1)
@@ -131,6 +131,7 @@ class userDAO extends modal{
 				$user['usertype'] = $row['type'];
 				$user['accountstatus'] = $row['accountstatus'];
 				$user['firstname'] = $row['firstname'];
+				$user['lastname'] = $row['lastname'];
 				$id = $user['id'];
 				$table = $user['usertype'];
 				

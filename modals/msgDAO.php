@@ -11,6 +11,7 @@ class msgDAO extends modal{
 	 *	
 	 *	begin to write functions
 	 */
+
 	
 	public function get_num_new_msg($reciever_id)
 	{
@@ -22,13 +23,30 @@ class msgDAO extends modal{
 		$rows = $this->get_all_rows("SELECT CONCAT_WS(' ',a.firstname,a.lastname) as lastchat, m1.content FROM message m1 INNER JOIN account a ON a.id = m1.sender_ID WHERE `time` = (SELECT MAX(`time`) FROM message m2 WHERE m2.sender_ID = m1.sender_ID) AND m1.receiver_ID = $receiver_id ORDER BY m1.id DESC");
 		if(sizeof($rows)>0)
 		{		
-			$chatpersons = $this->get_all_rows("SELECT m1.id, CONCAT_WS(' ',a.firstname,a.lastname) as name FROM message m1 INNER JOIN account a ON a.id = m1.sender_ID WHERE m1.receiver_ID = 1 GROUP BY m1.sender_ID ORDER BY m1.id DESC");
+			$chatpersons = $this->get_all_rows("SELECT m1.sender_ID, CONCAT_WS(' ',a.firstname,a.lastname) as name FROM message m1 INNER JOIN account a ON a.id = m1.sender_ID WHERE m1.receiver_ID = $receiver_id GROUP BY m1.sender_ID ORDER BY m1.id DESC");
 			$x = 0;
 			foreach($chatpersons as $chatperson):
-				$rows[$x]['id'] = $chatperson['id'];
+				$rows[$x]['id'] = $chatperson['sender_ID'];
 				$rows[$x]['name'] = $chatperson['name'];
+				$x++;
 			endforeach;
 		}
 		return $rows;
 	}
+	
+	public function get_msg($contact_ID, $own_ID, $limit)
+	{
+		return array_reverse($this->get_all_rows("SELECT CONCAT_WS(' ',a1.firstname,a1.lastname) as sender, CONCAT_WS(' ',a2.firstname,a2.lastname) as receiver, content FROM message m INNER JOIN account a1 ON a1.id = m.sender_ID INNER JOIN account a2 ON a2.id = m.receiver_ID WHERE (sender_ID = $contact_ID AND receiver_ID = $own_ID)OR (sender_ID = $own_ID AND receiver_ID = $contact_ID) ORDER BY time DESC"));
+	}	
+	public function get_username_by_id($id)
+	{
+		return $this->get_first_row("SELECT CONCAT_WS(' ',firstname,lastname) as name FROM account WHERE id = $id")['name'];
+	}
+	
+	public function new_message($msg, $from, $to)
+	{
+		return $this->con->query("INSERT INTO message(sender_ID, receiver_ID, content) VALUES($from, $to, $msg)");
+	}
+	
+	public function 
 }
