@@ -46,8 +46,9 @@ textarea{
 		</div>
     </div>
 </div>
-
-
+<script>
+$("input[name='action']").val("editsection");
+</script>
 <div class="modal fade" id="editsection" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
     <div class="modal-dialog" style=''>
 		<div class="modal-content">
@@ -64,7 +65,7 @@ textarea{
 						<div class='form-group'>
 							<label for='inputAddress' class='col-lg-2 control-label'>Section Description:</label>
 							<div class='col-lg-4'>
-								<textarea required class='form-control' spellcheck='false' autocomplete='off' name='address' rows='3' style='width:400px'></textarea>
+								<textarea required class='form-control' spellcheck='false' autocomplete='off' name='description' rows='3' style='width:400px'></textarea>
 							</div>
 						</div>
 						<input type='hidden' value='editsection' name='action'/>

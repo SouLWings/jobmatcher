@@ -117,8 +117,13 @@ class forumDAO extends modal{
 
 	function deleteSection($id)
 	{
+<<<<<<< HEAD
 		$qry="DELETE FROM f0  WHERE id='$id'" ;
 		$res=mysql_query($qry);	
+=======
+		$sql="DELETE FROM f0  WHERE id='$id'" ;
+		$res=$this->con->query($sql);	
+>>>>>>> origin/dev
 		
 		if($res)
 			$msg='success';
@@ -178,6 +183,7 @@ class forumDAO extends modal{
 	 
 	function totalPost($id)
 	{
+<<<<<<< HEAD
 		$qry= "SELECT f2.id FROM f0 INNER JOIN f1 on f1.f0id = f0.id INNER JOIN f2 on f2.f1id = f1.id where f0.id = $f0id";
 		$total=$this->row_count($qry);
 		
@@ -185,8 +191,17 @@ class forumDAO extends modal{
 	} 
 	 
 	function numPost($f1id)
+=======
+		$qry= "SELECT COUNT(*) FROM f2 WHERE f1id=$f1id";
+		$res=mysql_query($qry,$this->con);
+		$num=mysql_result($res,0);
+		return $num;
+	}
+	 */
+	function numPost($f0id)
+>>>>>>> origin/dev
 	{
-		$qry= "SELECT * FROM f2 WHERE f1id=$f1id";
+		$qry= "SELECT f2.id FROM `f0` INNER JOIN f1 on f1.f0id = f0.id inner join f2 on f2.f1id = f1.id where f0.id = $f0id";
 		$num=$this->row_count($qry);
 		return $num;
 	}

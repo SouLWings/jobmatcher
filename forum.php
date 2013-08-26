@@ -10,7 +10,11 @@ foreach($sections as $section)
 {
 	$id=$section['id'];
 	$numthread ["$id"]=$f->numThread($id);
+<<<<<<< HEAD
 	$totalpost["$id"]=$f->totalPost($id);
+=======
+	$numpost ["$id"]=$f->numpost($id);
+>>>>>>> origin/dev
 }
 
 

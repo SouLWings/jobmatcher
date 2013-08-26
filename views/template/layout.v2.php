@@ -47,7 +47,7 @@ $scripts[] = 'jquery-1.10.2.min';
 			
 			
 			<aside>
-				<div id='login'><?php include $asideinclude ?></div>
+				<?php include $asideinclude ?>
 				<br><br>
 				<div id='quickjobsearch'>
 					<form action ='jobs.php' method = 'GET'>
@@ -69,12 +69,11 @@ $scripts[] = 'jquery-1.10.2.min';
 				resource - HR corner
 			</aside>
 
-			
+			<section id='slidersection'>
+				<?php echo $slider ?>
+			</section> 
 			
 			<section id='contentsection'>
-				<section id='slidersection'>
-					<?php echo $slider ?>
-				</section> 
 				<?php echo $content ?>
 			</section>			
 			
