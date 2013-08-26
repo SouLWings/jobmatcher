@@ -3,6 +3,16 @@ jobmatcher
 
 UM job matching system
 
+Online mysql database
+=====================
+Host: sql2.freemysqlhosting.net
+Database name: sql217015
+Database user: sql217015
+Database password: wY9*aE4!
+Port number: 3306
+
+
+
 
 configure email smtp
 

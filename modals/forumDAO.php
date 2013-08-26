@@ -109,7 +109,7 @@ class forumDAO extends modal{
 	function deleteSection($id)
 	{
 		$sql="DELETE FROM f0  WHERE id='$id'" ;
-		$res=mysql_query($sql);	
+		$res=$this->con->query($sql);	
 		
 		if($res)
 			$msg='success';
@@ -166,9 +166,9 @@ class forumDAO extends modal{
 		return $num;
 	}
 	 */
-	function numPost($f1id)
+	function numPost($f0id)
 	{
-		$qry= "SELECT * FROM f2 WHERE f1id=$f1id";
+		$qry= "SELECT f2.id FROM `f0` INNER JOIN f1 on f1.f0id = f0.id inner join f2 on f2.f1id = f1.id where f0.id = $f0id";
 		$num=$this->row_count($qry);
 		return $num;
 	}

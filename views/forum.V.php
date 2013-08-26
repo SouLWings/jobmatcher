@@ -41,15 +41,16 @@ $title = 'Forum Sections';
 			
 			<td><form action="forumManager.php" method="post"><?php echo"<input type='hidden' value=$section[id] name='id'/>";?><input type="submit"  value="editSection" name="action" /></form></td>
 			
-			<td><form action="forumManager.php" method="post"><?php echo "<input type='hidden' value=$section[id] name='id'/>"?><input type="submit"  value="deleteSection" name="action" /></form></td>
+			<td><a data-toggle="modal" href="#editsection" class="btn btn-primary btn-lg" id='editsectionbtn<?php echo $section['id']?>'>Edit Section</a></form></td>
 			
 			<td><?php echo $numthread["$section[id]"]?></td>
 			
 			<td><?php echo $numpost["$section[id]"]?></td>
-			<td><?//echo $section['view']?></td>
 			<td><?php //echo $section['lastPost']?></td>
 		</tr>	
-	
+		<script>
+			
+		</script>
 	<?php endforeach; ?>
 	
 	

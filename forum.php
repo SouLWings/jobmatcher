@@ -10,6 +10,7 @@ foreach($sections as $section)
 {
 	$id=$section['id'];
 	$numthread ["$id"]=$f->numThread($id);
+	$numpost ["$id"]=$f->numpost($id);
 }
 
 /* $sections = $f-> getSections();

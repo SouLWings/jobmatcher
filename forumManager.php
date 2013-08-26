@@ -1,5 +1,5 @@
 <?php
-include 'controller.inc.php';
+include_once 'controller.inc.php';
 include 'modals/forumDAO.php';
 //if(true)//check for session user
 	if(isset($_POST['action']) && !empty($_POST['action']))
@@ -30,7 +30,7 @@ include 'modals/forumDAO.php';
 		}
 		
 		else if($_POST['action'] == 'editSection')
-		{	
+		{
 			
 			if(isset($_POST['id']) && !empty($_POST['id'])&& isset($_POST['title']) && !empty($_POST['title'])&&  isset($_POST['description']) && !empty($_POST['description']))
 			{
