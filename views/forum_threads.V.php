@@ -20,19 +20,40 @@ $title = 'Forum Posts';
     <h1>Forum Posts</h1>
 
     <table class="table-striped table-bordered table-hover tablesorter">
+		<tr><td>datetime</td><tr>
 		<tr>
-			<td>User</td>
-			<td>Posts</td>
+
+			<td>
+			 <table class="table-striped table-bordered table-hover tablesorter">
+			<tr>	
+			<td>username/pic/post</td>
+			<td>threadtopic/description</td>
+			</tr>
+			</table>
+			</td>
 			
+			<br>
 		</tr>
+	</table>	
+		
+	<table class="table-striped table-bordered table-hover tablesorter">	
 	<?php foreach ($posts as $post): ?>
+		<tr><td>datetime</td><tr>
 		<tr>
-			<td><?php //user ?></td>
-			<td><?php echo $post['content']?></td>
+
+			<td>
+			 <table class="table-striped table-bordered table-hover tablesorter">
+			<tr>	
+			<td>username/pic/post</td>
+			<td>comment</td>
+			</tr>
+			</table>
+			</td>
 			
-			
-			
-		</tr>		
+			<br>
+		</tr>
+	</table>	
+				
 	<?php endforeach; ?>
 	
 	</table>

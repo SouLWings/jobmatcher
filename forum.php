@@ -1,7 +1,7 @@
 <?php
 include 'controller.inc.php';
 include 'modals/forumDAO.php';
-
+//ghj
 $f = new forumDAO();
 //print threadnum
 $sections = $f-> getSections();
@@ -10,7 +10,9 @@ foreach($sections as $section)
 {
 	$id=$section['id'];
 	$numthread ["$id"]=$f->numThread($id);
+	$totalpost["$id"]=$f->totalPost($id);
 }
+
 
 /* $sections = $f-> getSections();
 

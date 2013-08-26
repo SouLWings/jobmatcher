@@ -41,7 +41,8 @@ class forumDAO extends modal{
 	}  */
 	function getSections()
 	{
-		return $this->get_all_rows("SELECT * FROM f0");
+		$qry="SELECT * FROM f0";
+		return $this->get_all_rows($qry);
 	} 
 /* 
 	function getThreads($id)
@@ -59,7 +60,8 @@ class forumDAO extends modal{
 	} */
 	function getThreads($id)
 	{
-		return $this->get_all_rows("SELECT * FROM f1 WHERE f0id='$id' ORDER BY status DESC");
+		$qry="SELECT * FROM f1 WHERE f0id='$id' ORDER BY status DESC";
+		return $this->get_all_rows($qry);
 	}
 /* 
 	function getPosts($id)
@@ -79,18 +81,25 @@ class forumDAO extends modal{
 	 */
 	function getPosts($id)
 	{
-		return $this->get_all_rows("SELECT * FROM f2 WHERE f1id='$id'");
+		$qry="SELECT * FROM f2 WHERE f1id='$id'";
+		return $this->get_all_rows($qry);
 	}
-	
-	function getUsers($id)
+	//$qry="SELECT account.username AS 'name' FROM account INNER JOIN f1 ON account.id=f1.uid  WHERE account.id=$uid";
+	function getUsers($f1id)
 	{
-		return $this->get_all_rows();
+		$qry="SELECT username FROM account WHERE id=(SELECT uid FROM f1 WHERE id=$f1id)";
+		$users=$this->get_all_rows($qry);
+		foreach($users as $user)
+		{
+			$usernames=$user['username'];
+		}
+		return $usernames;
 	}
 	
 	function editSection($id, $topic, $descr)
 	{
-		$sql="UPDATE f0 SET section='$topic', description='$descr' WHERE id='$id'";
-		$res=$this->con->query($sql);	
+		$qry="UPDATE f0 SET section='$topic', description='$descr' WHERE id='$id'";
+		$res=$this->con->query($qry);	
 		
 		if($res)
 			$msg='success';
@@ -108,8 +117,8 @@ class forumDAO extends modal{
 
 	function deleteSection($id)
 	{
-		$sql="DELETE FROM f0  WHERE id='$id'" ;
-		$res=mysql_query($sql);	
+		$qry="DELETE FROM f0  WHERE id='$id'" ;
+		$res=mysql_query($qry);	
 		
 		if($res)
 			$msg='success';
@@ -126,8 +135,8 @@ class forumDAO extends modal{
 
 	function createSection($topic,$descr)
 	{
-		$sql="INSERT INTO f0 (section, description) VALUES ('$topic','$descr')" ;
-		$res=$this->con->query($sql);	
+		$qry="INSERT INTO f0 (section, description) VALUES ('$topic','$descr')" ;
+		$res=$this->con->query($qry);	
 		if($res)
 			$msg='success';
 		else
@@ -136,8 +145,17 @@ class forumDAO extends modal{
 		return $msg;
 	}
 
-	function createThread()
-	{}
+	function createThread($topic,$descr,$id)
+	{
+		$qry="INSERT INTO f1 (title, content, f0id) VALUES ('$topic','$descr','$id')" ;
+		$res=$this->con->query($qry);	
+		if($res)
+			$msg='success';
+		else
+			$msg='failed';
+			
+		return $msg;
+	}
 
 	function createPost()
 	{}
@@ -157,15 +175,15 @@ class forumDAO extends modal{
 		$num=$this->row_count($qry);
 		return $num;
 	}
-	/* 
-	function numPost($f1id)
+	 
+	function totalPost($id)
 	{
-		$qry= "SELECT COUNT(*) FROM f2 WHERE f1id=$f1id";
-		$res=mysql_query($qry,$this->con);
-		$num=mysql_result($res,0);
-		return $num;
-	}
-	 */
+		$qry= "SELECT f2.id FROM f0 INNER JOIN f1 on f1.f0id = f0.id INNER JOIN f2 on f2.f1id = f1.id where f0.id = $f0id";
+		$total=$this->row_count($qry);
+		
+		return $total;
+	} 
+	 
 	function numPost($f1id)
 	{
 		$qry= "SELECT * FROM f2 WHERE f1id=$f1id";
@@ -173,6 +191,16 @@ class forumDAO extends modal{
 		return $num;
 	}
 	
+	function sectionname($id)
+	{
+		$qry= "SELECT section FROM f0 WHERE id=(SELECT f0id FROM f1 WHERE id=$id)";
+		$names=$this->get_all_rows($qry);
+		foreach($names as $name)
+		{
+			$sect=$name['section'];
+		}
+		return $sect;
+	}
 	/* function numThread()
 	{
 		$sections=$this->getSections();

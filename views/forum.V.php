@@ -21,6 +21,7 @@ $title = 'Forum Sections';
 
 <a data-toggle="modal" href="#addsection" class="btn btn-primary btn-lg">New Section</a>
 <?php include('forum-modal-forms.inc.php'); ?>
+
     <h1>Forum Sections</h1>
 	
     <table class="table-striped table-bordered table-hover tablesorter">
@@ -45,8 +46,8 @@ $title = 'Forum Sections';
 			
 			<td><?php echo $numthread["$section[id]"]?></td>
 			
-			<td><?php echo $numpost["$section[id]"]?></td>
-			<td><?//echo $section['view']?></td>
+			<td><?php echo $totalpost["$section[id]"]?></td>
+			
 			<td><?php //echo $section['lastPost']?></td>
 		</tr>	
 	
