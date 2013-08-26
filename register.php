@@ -33,7 +33,9 @@ else if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST[
 					{
 						if($userDAO->register_jobseeker($matric))
 						{
-							$msg = 'Thank you for registering in UM Job Matching Portal. Your account is pending for approval. You will recieve an email when your account is approved.';
+							$msg = 'Thank you for registering in UM Job Matching Portal. Your account is pending for approval. You will receive an email when your account is approved.';
+							if(!$userDAO->send_registration_email($email,$firstname))
+								echo 'send email failed';
 							include 'views/register-result.V.php';
 						}else
 							$registrationsuccess = false;//echo 'register jobseeker failed';
@@ -77,7 +79,9 @@ else if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST[
 						{
 							if($userDAO->register_employer($position, $companyid))
 							{
-								$msg = 'Thank you for registering in UM Job Matching Portal. Your account is pending for approval. You will recieve an email when your account is approved.';
+								$msg = 'Thank you for registering in UM Job Matching Portal. Your account is pending for approval. You will receive an email when your account is approved.';
+								if(!$userDAO->send_registration_email($email,$firstname))
+									echo 'send email failed';
 								include 'views/register-result.V.php';
 							}else
 								$registrationsuccess = false;//echo 'register employer failed';

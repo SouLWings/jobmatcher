@@ -47,7 +47,7 @@ class userDAO extends modal{
 	
 	public function register_account($un, $pw, $em, $fn, $ln, $ut)
 	{
-		$success = $this->insert_row("NULL, '$un', '$pw', '$em', '$fn', '$ln', $ut, CURRENT_TIMESTAMP, 'PENDING'", 'account');
+		$success = $this->insert_row("NULL, '$un', '$pw', '$em', '$fn', '$ln', $ut, CURRENT_TIMESTAMP, 'PENDING','OFFLINE'", 'account');
 		$this->account_id = $this->con->insert_id;
 		return $success;
 	}
@@ -67,11 +67,27 @@ class userDAO extends modal{
 		return $this->insert_row("NULL, '$name', '$address', '$website', '$phone', '$fax', '$overview'",'company');
 	}
 	
-	public function send_approval_email($email, $fn, $un)
-	{
+	public function send_approval_email($id)
+	{	
+		$row = $this->get_first_row("SELECT email, firstname, username FROM account WHERE id = $id");
+		$email = $row['email'];
+		$fn = $row['firstname'];
+		$un = $row['username'];
 		$to = $email;
 		$subject = "Welcome to UM Job Matching Portal";
-		$message = "Dear $fn,\n\nYour account is not approved. Your may log in to the portal.\n\nUsername is: $un";
+		$message = "Dear $fn,\n\nYour account is now approved. You may log in to the portal.\n\nUsername is: $un";
+		return (mail($to,$subject,$message) == true);
+	}
+	
+	public function send_disapproval_email($id)
+	{	
+		$row = $this->get_first_row("SELECT email, firstname, username FROM account WHERE id = $id");
+		$email = $row['email'];
+		$fn = $row['firstname'];
+		$un = $row['username'];
+		$to = $email;
+		$subject = "UM Job Matching Portal";
+		$message = "Dear $fn,\n\nSorry, Your account is not approved.\n\nRegards,\nUMJobPortal";
 		return (mail($to,$subject,$message) == true);
 	}
 
@@ -80,7 +96,7 @@ class userDAO extends modal{
 	{
 		$to = $email;
 		$subject = "Pending account approval - UM Job Matching Portal";
-		$message = "Dear $fn,\n\nThank you for signing up with UM Job Matching Portal.\nPlease wait while your account is being approved. Your will recieve an email notification when your account get approved.";
+		$message = "Dear $fn,\n\nThank you for signing up with UM Job Matching Portal.\nPlease wait while your account is being approved. You will receive an email notification when your account get approved.";
 		return (mail($to,$subject,$message) == true);
 	}	
 	
@@ -94,12 +110,12 @@ class userDAO extends modal{
 		return $this->get_first_row("SELECT id FROM company WHERE name = '$cname'")['id'];
 	}
 
-	/***********************
-	  functions for log in
-	***********************/	
+	/***************************
+	  functions for log in/out
+	***************************/	
 	public function do_log_in($un, $pw)
 	{
-		$query = "SELECT a.id, at.type, a.firstname, a.status FROM account a INNER JOIN accounttype at ON a.accounttype_ID = at.id WHERE a.username = '$un' AND a.password = '$pw'";
+		$query = "SELECT a.id, at.type, a.firstname, a.accountstatus FROM account a INNER JOIN accounttype at ON a.accounttype_ID = at.id WHERE a.username = '$un' AND a.password = '$pw'";
 		if($result = $this->con->query($query))
 		{
 			if($result->num_rows != 1)
@@ -113,7 +129,7 @@ class userDAO extends modal{
 				$result->free();
 				$user['id'] = $row['id'];
 				$user['usertype'] = $row['type'];
-				$user['status'] = $row['status'];
+				$user['accountstatus'] = $row['accountstatus'];
 				$user['firstname'] = $row['firstname'];
 				$id = $user['id'];
 				$table = $user['usertype'];
@@ -127,24 +143,44 @@ class userDAO extends modal{
 					echo 'loginlog';
 				else
 					echo 'no log';
-
+				
+				if($this->con->query("UPDATE account SET onlinestatus = 'online' WHERE id = $id"))
+					echo 'online-ed';
+				else
+					echo 'online status unchanged';
 				return $user;
 			}
 		}
 	}
 	
+	public function do_log_out($id)
+	{
+		if($this->con->query("UPDATE account SET onlinestatus = 'offline' WHERE id = $id"))
+			echo 'offline-ed';
+		else
+			echo 'online status unchanged';
+	}
 	
+	public function is_online($id)
+	{
+		return ($this->get_first_row("SELECT onlinestatus FROM account WHERE id = $id")['onlinestatus'] == 'ONLINE');
+	}
+	
+	public function num_current_online_user()
+	{
+		return $this->row_count("SELECT id FROM account WHERE UPPER(onlinestatus) = 'ONLINE'");
+	}
 
 	/****************************************
 	  functions for selecting users/company
 	****************************************/
 	public function get_all_pending_jobseeker()
 	{
-		return $this->get_all_rows("SELECT a.id, a.firstname, a.lastname, js.matric, a.email, a.createTime FROM account a INNER JOIN jobseeker js ON a.id = js.account_ID WHERE UPPER(a.status) = 'PENDING'");
+		return $this->get_all_rows("SELECT a.id, a.firstname, a.lastname, js.matric, a.email, a.createTime FROM account a INNER JOIN jobseeker js ON a.id = js.account_ID WHERE UPPER(a.accountstatus) = 'PENDING'");
 	}
 	public function get_all_pending_employer()
 	{
-		return $this->get_all_rows("SELECT a.id, a.firstname, a.lastname, c.name, a.email, a.createTime, c.id as cid FROM account a INNER JOIN employer e ON a.id = e.account_ID INNER JOIN company c ON e.company_ID = c.id WHERE UPPER(a.status) = 'PENDING'");
+		return $this->get_all_rows("SELECT a.id, a.firstname, a.lastname, c.name, a.email, a.createTime, c.id as cid FROM account a INNER JOIN employer e ON a.id = e.account_ID INNER JOIN company c ON e.company_ID = c.id WHERE UPPER(a.accountstatus) = 'PENDING'");
 	}
 	public function get_company_by_id($id)
 	{
@@ -152,7 +188,7 @@ class userDAO extends modal{
 	}
 	public function approve_user($id)
 	{
-		return $this->con->query("UPDATE account SET status = 'APPROVED' WHERE id = $id");
+		return $this->con->query("UPDATE account SET accountstatus = 'APPROVED' WHERE id = $id");
 	}
 	public function disapprove_user($id)
 	{

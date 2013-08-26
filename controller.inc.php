@@ -99,5 +99,13 @@ function get_last_visited_msg($time)
 	return $lastvisitedmsg;
 }
 
+function require_account_type($ut)
+{
+	if(strtoupper($_SESSION['user']['usertype']) != strtoupper($ut))
+	{
+		header('Location:error.php?code=456');
+		die();
+	}
+}
 
 ?>
