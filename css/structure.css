@@ -11,8 +11,8 @@ body{
 	margin: auto;
 	margin-bottom:15px;
 	height:40px;
-	background-color: black;
-	background-color: #000000;
+	background: -webkit-linear-gradient(rgb(80, 80, 80), rgb(40, 40, 40), rgb(0, 0, 0));
+	background: -moz-linear-gradient(rgb(80, 80, 80), rgb(40, 40, 40), rgb(0, 0, 0));
 	font-family: Tahoma; 
 	font-weight: bold;
 	font-size: 1.1em;
@@ -49,21 +49,24 @@ body{
 .container > nav ul li a:hover{
 	border-radius: 0;
 	background-color: white;
-	-webkit-box-shadow: 0 18px 18px -18px #3C3C3D inset;
-    -moz-box-shadow: 0 18px 18px -18px #3C3C3D inset;
-    box-shadow: 0 18px 18px -18px #3C3C3D inset;
+	-webkit-box-shadow: 0 20px 20px -20px #000000 inset;
+    -moz-box-shadow: 0 20px 20px -20px #000000 inset;
+    box-shadow: 0 20px 20px -20px #000000 inset;
 }
 
 #contentsection{	
-	padding-bottom: 15px;
+	padding-bottom: 20px;
 	clear:left;
 	min-height: 500px;
+	margin-bottom: 10px;
 }
 
 .container > aside{
 	float:right;
+}
+
+.container > aside #login{
 	width: 280px;
-	height: 290px;
 	padding: 20px;
 	background-color: #9EB8E6;
 	border-radius: 18px;
@@ -72,6 +75,7 @@ body{
 .container > aside #quickjobsearch{
 	height: 80px;
 	width: 250px;
+	margin: auto;
 	padding: 20px;
 	background-color: #C0D6FC;
 	border-radius: 10px;
@@ -83,38 +87,39 @@ body{
 	margin: auto;
 	clear: both;
 	width:100%;
-	background-color: #4D5A70;
-	text-align:center;
+	text-align:left;
 	font-size:14px;
 	padding-top: 10px;
 	padding-bottom: 5px;
-	color: white;
+	background: -webkit-linear-gradient(rgb(242, 242, 242), rgb(255, 255, 255), rgb(255, 255, 255));
+	background: -moz-linear-gradient(rgb(242, 242, 242), rgb(255, 255, 255), rgb(255, 255, 255));
 }
 
 .container footer a{
-	color: white;
+	text-decoration: none;
+	color: #A3A2A2;
 }
 
- .container footer > ul{
+ .container footer ul{
 	list-style: none;
-	text-align: center;
+	text-align: left;
 	width:802px;
-	margin:auto;
-	height:20px;
 	padding:5px;
+	padding-top: 15px;
+	padding-left: 30px;
 	margin-bottom:5px;
 }
 
-.container footer > ul  li{
+.container footer ul  li{
 	float:left;
-	width:132px;
-	text-align:center;
+	width: 108px;
+	text-align:left;
 	text-decoration:none;
-	font-size:14px;
 	font:calibri;
+	font-size: 0.8em;
+	color: #A3A2A2;
 }
 
-.container footer > ul li:hover{
-	text-decoration: underline;
-	color: white;
+.container footer ul li a:hover{
+	color: black;
 }

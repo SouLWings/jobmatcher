@@ -43,11 +43,10 @@ $scripts[] = 'jquery-1.10.2.min';
 					<li><a href="contactus.php">Resources</a></li>
 				</ul>
 			</nav>
-			
-			
+		
 			<aside>
 				<div id='login'><?php include $asideinclude ?></div>
-				<br><br>
+				<br>
 				<div id='quickjobsearch'>
 					<form action ='jobs.php' method = 'GET'>
 						<div class="input-group">
@@ -61,14 +60,7 @@ $scripts[] = 'jquery-1.10.2.min';
 						<input type='hidden' name='search'>
 					</form>
 				</div>
-				top company
-				<br>
-				featured job
-				<br>
-				resource - HR corner
 			</aside>
-
-			
 			
 			<section id='contentsection'>
 				<section id='slidersection'>
@@ -78,17 +70,15 @@ $scripts[] = 'jquery-1.10.2.min';
 			</section>			
 			
 			<footer>
-				<b>Sitemap</b>
 				<ul>
-				  <a href=""><li>Home</li></a>
-				  <a href=""><li>About Us</li></a>
-				  <a href=""><li>Job Search</li></a>
-				  <a href=""><li>Job Match</li></a>
-				  <a href=""><li>Job Forum</li></a>
-				  <a href=""><li>Send Enquiry</li></a>  
+				  <li><a href="index.php">Home</a></li>
+				  <li><a href="aboutus.php">About Us</a></li>
+				  <li><a href="advanced-search.php">Job Search </a></li>
+				  <li><a href="match.php">Job Match </a></li>
+				  <li><a href="forum.php">Job Forum </a></li>
+				  <li><a href="contactus.php">Send Enquiry</a></li> 
+				  <li>&copy; 2013 UM Job Portal</li>
 				</ul>
-				<br>
-				<p style="color:black"><small><i>&copy; 2013 UM Job Portal</i></small></p>
 			</footer>			
 		</div>
     </body>
