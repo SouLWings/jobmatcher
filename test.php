@@ -1,13 +1,12 @@
 <html>
 <body>
 
-<?php
-  
-echo intval('<asd><script>alert()</script>');
-
-
-
-?>
+<form action='messageCTRL.php' method='post'>
+<input type='hidden' value='sendmsg' name='action'/>
+<input type='hidden' value='3' name='receiver'/>
+<input type='hidden' value='asdasdsadasdasds' name='content'/>
+<input type='submit' value='submit'/>
+</form>
 
 </body>
 </html>

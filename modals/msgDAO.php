@@ -36,17 +36,28 @@ class msgDAO extends modal{
 	
 	public function get_msg($contact_ID, $own_ID, $limit)
 	{
-		return array_reverse($this->get_all_rows("SELECT CONCAT_WS(' ',a1.firstname,a1.lastname) as sender, CONCAT_WS(' ',a2.firstname,a2.lastname) as receiver, content FROM message m INNER JOIN account a1 ON a1.id = m.sender_ID INNER JOIN account a2 ON a2.id = m.receiver_ID WHERE (sender_ID = $contact_ID AND receiver_ID = $own_ID)OR (sender_ID = $own_ID AND receiver_ID = $contact_ID) ORDER BY time DESC"));
+		return array_reverse($this->get_all_rows("SELECT CONCAT_WS(' ',a1.firstname,a1.lastname) as sender, CONCAT_WS(' ',a2.firstname,a2.lastname) as receiver, content FROM message m INNER JOIN account a1 ON a1.id = m.sender_ID INNER JOIN account a2 ON a2.id = m.receiver_ID WHERE (sender_ID = $contact_ID AND receiver_ID = $own_ID)OR (sender_ID = $own_ID AND receiver_ID = $contact_ID) ORDER BY time DESC LIMIT $limit"));
 	}	
 	public function get_username_by_id($id)
 	{
 		return $this->get_first_row("SELECT CONCAT_WS(' ',firstname,lastname) as name FROM account WHERE id = $id")['name'];
 	}
 	
-	public function new_message($msg, $from, $to)
+	public function new_message($msg, $to, $from)
 	{
-		return $this->con->query("INSERT INTO message(sender_ID, receiver_ID, content) VALUES($from, $to, $msg)");
+		$query="INSERT INTO message(sender_ID, receiver_ID, content) VALUES($from, $to, '$msg')";
+		return $this->con->query($query);
 	}
 	
-	public function 
+	public function get_update($contact_ID, $own_ID, $latesttime)
+	{
+		return array_reverse($this->get_all_rows("SELECT CONCAT_WS(' ',a1.firstname,a1.lastname) as sender, CONCAT_WS(' ',a2.firstname,a2.lastname) as receiver, content FROM message m INNER JOIN account a1 ON a1.id = m.sender_ID INNER JOIN account a2 ON a2.id = m.receiver_ID WHERE (sender_ID = $contact_ID AND receiver_ID = $own_ID) AND time > '$latesttime' ORDER BY time DESC"));
+	}
+	
+	public function get_latest_msg_time($own_id)
+	{
+		if($result = $this->con->query("SELECT max(time) as latesttime FROM message WHERE sender_ID = $own_id OR receiver_ID = $own_id"))
+			return $result->fetch_assoc()['latesttime'];
+		return 0;
+	}
 }

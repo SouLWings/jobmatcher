@@ -39,10 +39,7 @@ CREATE TABLE IF NOT EXISTS `account` (
   `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `accountstatus` varchar(30) NOT NULL DEFAULT 'pending',
   `onlinestatus` varchar(10) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `accountType_ID` (`accounttype_ID`),
-  KEY `accountType_ID_2` (`accounttype_ID`),
-  KEY `id` (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
 
 --
@@ -52,12 +49,6 @@ CREATE TABLE IF NOT EXISTS `account` (
 INSERT INTO `account` (`id`, `username`, `password`, `email`, `firstname`, `lastname`, `accounttype_ID`, `createTime`, `accountstatus`, `onlinestatus`) VALUES
 (1, 'alan_tang', '123', 'alan@mail', 'Alan', 'Tang', 3, '2013-08-19 03:48:53', 'approved', 'online'),
 (2, 'richard-lam', '123', 'contactus@f-secure.com', 'Richard', 'Lam', 2, '2013-08-19 03:49:59', 'approved', 'offline'),
-(3, 'senopy', '123', 'senopy@mail', 'Senopy', 'Chew', 1, '2013-08-19 03:50:43', 'approved', 'offline'),
-(15, 'bryanyim', '123123', 'a@f', 'Bryan', 'Yim', 2, '2013-08-24 01:03:26', 'pending', 'offline'),
-(16, 'superman', '123123', 's@r', 'Super', 'Man', 1, '2013-08-24 06:13:42', 'APPROVED', 'offline'),
-(18, 'yongling', '123123', 'yongling@mail', 'yong', 'ling', 1, '2013-08-25 10:53:41', 'APPROVED', 'offline'),
-(20, 'spiderman', '123123', 'alan_98797@Hotmail.com', 'spider', 'man', 1, '2013-08-26 07:04:07', 'APPROVED', 'offline'),
-(21, 'iamPM', '123123', 'alan_98797@Hotmail.com', 'iam', 'pm', 1, '2013-08-26 07:11:37', 'PENDING', 'offline'),
 (22, 'qianni', '123456', 'qianni526@hotmail.my', 'Qian Ni', 'Ea', 1, '2013-08-26 07:23:35', 'APPROVED', 'offline');
 
 -- --------------------------------------------------------

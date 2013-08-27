@@ -30,6 +30,7 @@ if(is_logged_in())
 	//if user logged in, retrieve the id and firstname,
 	$aid = $_SESSION['user']['id'];
 	$firstname = $_SESSION['user']['firstname'];
+	$fullname = $firstname.' '.$_SESSION['user']['lastname'];
 	
 	//call the function to get the last login message
 	if(isset($_SESSION['user']['time'])){
@@ -38,9 +39,9 @@ if(is_logged_in())
 		$lastvisitedmsg = 'This is your first log in.';
 		
 	//retrieve number of unreaded msg
-	$msgDAO = new msgDAO();
-	$newmsgnum = $msgDAO->get_num_new_msg($aid);
-	
+	$msgDAOt = new msgDAO();
+	$newmsgnum = $msgDAOt->get_num_new_msg($aid);
+	$msgDAOt->disconnect();
 	
 	if($_SESSION['user']['usertype'] == 'admin')
 		$asideinclude = 'adminmenu.php';

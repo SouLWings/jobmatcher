@@ -8,7 +8,7 @@ if(is_logged_in())
 	//creating an instance of the data access object
 	$msgDAO = new msgDAO();
 
-	$msgprevlist = $msgDAO->get_msg_preview($_SESSION['user']['id']);
+	$msgprevlist = $msgDAO->get_msg_preview($aid);
 	if(sizeof($msgprevlist) > 0)
 	{
 		if(isset($_GET['id']))
@@ -19,9 +19,9 @@ if(is_logged_in())
 		{
 			$contact_id = $msgprevlist[0]['id'];
 		}
-		$msghistory = $msgDAO->get_msg($contact_id,$_SESSION['user']['id'],20);
+		$msghistory = $msgDAO->get_msg($contact_id,$aid,20);
 		$contact_name = $msgDAO->get_username_by_id($contact_id);
-		
+		$latesttime = $msgDAO->get_latest_msg_time($aid);
 		$msgDAO->disconnect();
 		include 'views/message.V.php';
 	}
@@ -30,10 +30,11 @@ if(is_logged_in())
 		$msgDAO->disconnect();
 		include 'views/nomessage.V.php';
 	}
+	
 	echo '<pre>';
 	print_r($msgprevlist);
 	echo '</pre>';
-	
+	echo $latesttime;
 	//close the connection if not using it anymore
 }
 else
