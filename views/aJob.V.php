@@ -27,7 +27,26 @@
         salary: <?php echo $job['salary'] ?><br>
         experience: <?php echo $job['experience'] ?><br>
     </div>
+	
+<?php	
+if()
+{
+?>
+	<a href='#editjob' class='btn btn-primary btn-sm'>Edit Job</a>
+	<a href='#deletejob' class='btn btn-primary btn-sm'>Delete Job</a>
+<?php
+}
+else if()
+{
+?>
 	<a href='#' class='btn btn-primary btn-sm'>Apply Job</a>
-<?php $content = ob_get_clean() ?>
+<?php
+}
+else if
+{
+?>	
+	<a href='#' class='btn btn-primary btn-sm'>Disapprove Job</a>
+
+<?php} $content = ob_get_clean() ?>
 
 <?php include 'template/layout.php' ?>

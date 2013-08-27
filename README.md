@@ -3,8 +3,10 @@ jobmatcher
 
 UM job matching system
 
+
 Online mysql database
 =====================
+http://www.phpmyadmin.co/
 Host: sql2.freemysqlhosting.net
 Database name: sql217015
 Database user: sql217015
@@ -28,9 +30,9 @@ configure email smtp
 	smtp_port=587
 	error_logfile=error.log
 	debug_logfile=debug.log
-	auth_username=*****@gmail.com
-	auth_password=*****
-	force_sender=*****@gmail.com
+	auth_username=nonreply.umjobportal@gmail.com
+	auth_password=umjobport
+	force_sender=nonreply.umjobportal@gmail.com
 	
 controllers 
 	must include 'controller.inc.php';

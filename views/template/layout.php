@@ -90,7 +90,13 @@ $scripts[] = 'jquery-1.10.2.min';
 				</ul>
 				<br>
 				<p style="color:black"><small><i>&copy; 2013 UM Job Portal</i></small></p>
-			</footer>			
+			</footer>
+
+			<?php 
+			foreach ($modalforms as $modalform): 
+				include "views/$modalform".'.inc.php';
+			endforeach; 
+			?>			
 		</div>
     </body>
 </html>

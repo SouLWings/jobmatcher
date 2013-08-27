@@ -1,5 +1,5 @@
 Hi, <?php echo $firstname ?>
-<br><?php echo $newmsgnum ?> new message
+<br><a href='message.php'><?php echo $newmsgnum ?> new message</a>
 <br><?php echo $lastvisitedmsg ?>
 <br><a href='manageAccounts.php'>Pending accounts</a>
 <br><a href='manageJobs.php'>Pending jobs</a>
