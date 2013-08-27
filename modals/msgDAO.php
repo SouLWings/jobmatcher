@@ -23,7 +23,7 @@ class msgDAO extends modal{
 		$rows = $this->get_all_rows("SELECT CONCAT_WS(' ',a.firstname,a.lastname) as lastchat, m1.content FROM message m1 INNER JOIN account a ON a.id = m1.sender_ID WHERE `time` = (SELECT MAX(`time`) FROM message m2 WHERE m2.sender_ID = m1.sender_ID) AND m1.receiver_ID = $receiver_id ORDER BY m1.id DESC");
 		if(sizeof($rows)>0)
 		{		
-			$chatpersons = $this->get_all_rows("SELECT m1.sender_ID, CONCAT_WS(' ',a.firstname,a.lastname) as name FROM message m1 INNER JOIN account a ON a.id = m1.sender_ID WHERE m1.receiver_ID = $receiver_id GROUP BY m1.sender_ID ORDER BY m1.id DESC");
+			$chatpersons = $this->get_all_rows("SELECT m1.sender_ID, CONCAT_WS(' ',a.firstname,a.lastname) as name FROM message m1 INNER JOIN account a ON a.id = m1.sender_ID WHERE m1.receiver_ID = $receiver_id GROUP BY m1.sender_ID ORDER BY m1.id ASC");
 			$x = 0;
 			foreach($chatpersons as $chatperson):
 				$rows[$x]['id'] = $chatperson['sender_ID'];

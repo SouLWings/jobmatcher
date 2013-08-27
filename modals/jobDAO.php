@@ -60,6 +60,10 @@ class jobDAO extends modal{
 		return $this->get_all_rows("SELECT c.name, e.firstname, j.title, j.position, j.date, j.salary, j.experience FROM jobs j INNER JOIN employer e ON j.employer_ID = e.id INNER JOIN company c ON e.company_ID = c.id WHERE UPPER(status) = 'PENDING'");
 	}
 	
+	public function get_employer_jobs($aid)
+	{
+		return $this->get_all_rows("SELECT j.id, j.date, j.title, js.specialization, j.salary, j.experience, j.status FROM jobs j INNER JOIN jobspecialization js ON js.id = j.jobSpecialization_ID INNER JOIN employer e ON e.id = j.employer_ID INNER JOIN account a ON a.id = e.account_ID WHERE a.id = $aid");
+	}
 
 	/************************
 	  functions for add job
