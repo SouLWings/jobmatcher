@@ -7,6 +7,8 @@ if(!isset($content))
 	$content = 'Nothing to display';
 if(!isset($slider))
 	$slider = '';
+if(!isset($modalforms))
+	$modalforms = array();
 	
 $styles[] = 'structure';
 $styles[] = 'bootstrap';
@@ -86,7 +88,7 @@ $scripts[] = 'jquery-1.10.2.min';
 				  <a href=""><li>Job Search</li></a>
 				  <a href=""><li>Job Match</li></a>
 				  <a href=""><li>Job Forum</li></a>
-				  <a href=""><li>Send Enquiry</li></a>  
+				  <a href=""><li>Send Enquiry</li></a>
 				</ul>
 				<br>
 				<p style="color:black"><small><i>&copy; 2013 UM Job Portal</i></small></p>

@@ -16,15 +16,15 @@ textarea{
 }
 </style>
 
-<div class="modal fade" id="addsection" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="modaleditjob" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style=''>
 		<div class="modal-content">
 			<div class="modal-body">
-				<form id='addsectionform' action='forumManager.php' method='post' class='form-horizontal'>
+				<form id='editjobform' action='jobCTRL.php' method='post' class='form-horizontal'>
 					<fieldset>
-						<legend>Create Section</legend>
+						<legend>Edit Job</legend>
 						<div class='form-group'>
-							<label for='inputtitle' class='col-lg-2 control-label'>Section Title:</label>
+							<label for='inputtitle' class='col-lg-2 control-label'>Job Title:</label>
 							<div class='col-lg-4'>
 								<input required type='text' id='inputName' autocomplete='off' class='form-control' placeholder='Enter New Section Title Here' name='title'/>
 							</div>
