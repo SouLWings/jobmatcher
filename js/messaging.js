@@ -11,7 +11,7 @@ $(document).ready(function(){
 			event.preventDefault(); 
 			var msg = $.trim($("#inputmsg").val());
 			$("#inputmsg").val("");
-			$.post("messageCTRL.php",
+			$.post("messageAJAX.php",
 			{
 				action:"sendmsg",
 				receiver:contact_id,
@@ -36,7 +36,7 @@ $(document).ready(function(){
 function updatemsg(){
 	var d;
 	$('#test').text('now requesting '+time);
-	$.post("messageCTRL.php",
+	$.post("messageAJAX.php",
 	{
 		action:"getnewmsg",
 		receiver:contact_id,
