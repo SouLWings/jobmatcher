@@ -82,8 +82,6 @@ $scripts[] = 'jquery-1.10.2.min';
 				  <li><a href="contactus.php">Send Enquiry</a></li> 
 				  <li>&copy; 2013 UM Job Portal</li>
 				</ul>
-				<br>
-				<p style="color:black"><small><i>&copy; 2013 UM Job Portal</i></small></p>
 			</footer>
 
 			<?php 

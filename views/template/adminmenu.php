@@ -4,4 +4,4 @@
 <li><a href='manageArticles.php'>Articles</a></li>
 <li><a href='profile.php?id=<?php echo $aid?>'>My profile</a></li>
 <li><a href='logoutCTRL.php'>Log out</a></li>
-</ul>
+</ul> 

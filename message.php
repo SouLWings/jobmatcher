@@ -31,7 +31,7 @@ if(is_logged_in())
 		include 'views/nomessage.V.php';
 	}
 	
-	echo '<pre>';
+	echo 'msg preview array<pre>';
 	print_r($msgprevlist);
 	echo '</pre>';
 	echo $latesttime;

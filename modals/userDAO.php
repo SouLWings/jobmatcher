@@ -140,6 +140,18 @@ class userDAO extends modal{
 					$user['time'] = $result->fetch_assoc()["time"];
 				$result->free();
 				
+				if($user['usertype'] == 'employer')
+				{
+					$result = $this->con->query("SELECT id, company_ID FROM employer WHERE account_ID = $id");
+					if($result->num_rows > 0)
+					{	
+						$row = $result->fetch_assoc();
+						$user['eid'] = $row["id"];
+						$user['cid'] = $row["company_ID"];
+						$result->free();
+					}
+				}
+				
 				if($this->con->query("INSERT INTO loginlog VALUES(NULL,$id,CURRENT_TIMESTAMP)"))
 					echo 'loginlog';
 				else

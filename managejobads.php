@@ -5,13 +5,13 @@ include_once 'controller.inc.php';
 include_once 'modals/jobDAO.php';
 
 require_account_type('employer');
-
-//creating an instance of the data access object
 $jobDAO = new jobDAO();
 
-$jobs = $jobDAO->get_employer_jobs($aid);
 
-//close the connection if not using it anymore
+$jobs = $jobDAO->get_employer_jobs($aid);
+$jobspecializations = $jobDAO->get_all_job_Types();
+
+
 $jobDAO->disconnect();
 
 //include a view to display declared variables

@@ -17,7 +17,15 @@
 ?>
 
 <?php ob_start() ?>
-    <h1><?php echo $company['name'] ?></h1>
+
+    <h1>
+	<?php 
+		echo $company['name'];
+		if($editable)
+			echo ' <a data-toggle="modal" href="#modaleditcompany" class="btn btn-primary btn-md" id="btneditcompany">Edit</a>';
+	?>
+	
+	</h1>
 
     <div class="">
 		address: <?php echo $company['address'] ?><br>
