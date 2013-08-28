@@ -47,7 +47,7 @@ textarea{
     </div>
 </div>
 <script>
-$("input[name='action']").val("editsection");
+//$("input[name='action']").val("editsection");
 </script>
 <div class="modal fade" id="editsection" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
     <div class="modal-dialog" style=''>

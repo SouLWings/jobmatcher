@@ -13,7 +13,7 @@
  *  --  printing a variable  --
  *  <?php echo $ ?>
  */
- 
+ $modalforms[] = 'jobads-modal-forms';
 ?>
 
 <?php ob_start() ?>
@@ -30,17 +30,19 @@
 				<th width=''>Salary</th>
 				<th width=''>Yrs Exp</th>
 				<th width=''>Status</th>
+				<th width=''>Action</th>
 			</tr>
 		</thead>
 		<tbody>
 		<?php foreach ($jobs as $job): ?>
-			<tr onclick="location.href='jobs.php?id=<?php echo $job['id']?>'" style='cursor:pointer;'>	
+			<tr style='cursor:pointer;'>	
 				<td><?php echo $job['date'] ?></td>
 				<td><?php echo $job['title'] ?></td>
 				<td><?php echo $job['specialization'] ?></td>
 				<td><?php echo $job['salary'] ?></td>
 				<td><?php echo $job['experience'] ?></td>
 				<td><?php echo $job['status'] ?></td>
+				<td><a data-toggle="modal" href="#modaleditjob" class="btn btn-primary btn-xs">Edit</a> <a href='#modaldeletejob'>Delete</a> </td>
 			</tr>
 		<?php endforeach; ?>
 		</tbody>
