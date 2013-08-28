@@ -34,7 +34,7 @@ select{
 </style>
 
 <div class="modal fade" id="modaleditjob" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style=''>
+    <div class="modal-dialog">
 		<div class="modal-content">
 			<form id='editjobform' action='jobCTRL.php' method='post' class='form-horizontal'>
 				<fieldset>
@@ -97,7 +97,7 @@ select{
 							</div>
 						</div>
 						<input type='hidden' value='editjob' name='action'/>
-						<input type='hidden' value='0' name='jobid'/>
+						<input type='hidden' value='0' name='jobid' id='editid'/>
 					</div>
 					<div class='modal-footer'>
 						<input type='submit' class='btn btn-primary' value='Edit'/>
@@ -110,14 +110,14 @@ select{
 </div>
 
 <div class="modal fade" id="modaldeletejob" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
-    <div class="modal-dialog" style=''>
+    <div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-body">
-				<form id='editsectionform' action='forumManager.php' method='post' class='form-horizontal'>
+				<form id='deletejob' action='jobCTRL.php' method='post' class='form-horizontal'>
 					<fieldset>
 						<legend>Are you sure to delete this job?</legend>
 						<input type='hidden' value='deletejob' name='action'/>
-						<input type='hidden' value='0' name='jobid'/>
+						<input type='hidden' value='0' name='jobid' id='deleteid'/>
 						<div class='submit-group'>
 							<input type='submit' class='btn btn-primary' value='Confirm'/>
 							<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

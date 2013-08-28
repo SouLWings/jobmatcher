@@ -23,7 +23,7 @@
 			$("#modaleditjob legend").text("Add Job");
 			$("#modaleditjob input[type='submit']").val("Add");
 			$("input[name='action']").val("addjob");
-			$("input[name='jobid']").val('0');
+			$("#editid").val('0');
 			$("input[name='title']").val('');
 			$("input[name='salary']").val('');
 			$("input[name='experience']").val('');
@@ -52,7 +52,7 @@
 						$("#modaleditjob legend").text("Edit Job");
 						$("#modaleditjob input[type='submit']").val("Edit");
 						$("input[name='action']").val("editjob");
-						$("input[name='jobid']").val(job.id);
+						$("#editid").val(job.id);
 						$("input[name='title']").val(job.title);
 						$("input[name='salary']").val(job.salary);
 						$("input[name='experience']").val(job.experience);
@@ -69,7 +69,8 @@
 			});
 		});
 		$("#btndelete<?php echo $job['id']?>").click(function(){
-			
+			$("#deleteid").val('<?php echo $job['id']?>');
+			$("input[name='action']").val("deletejob");
 		});
 	<?php endforeach; ?>
 	});

@@ -26,7 +26,7 @@
 						<div class='form-group'>
 							<label class='col-sm-2 control-label'>Name:</label>
 							<div class='col-sm-9'>
-								<input required type='text' id='inputName' autocomplete='off' class='form-control' placeholder='' name='name' value='<?php echo $company['name'] ?><'/>
+								<input required type='text' id='inputName' autocomplete='off' class='form-control' placeholder='' name='name' value='<?php echo $company['name'] ?>'/>
 							</div>
 						</div>
 						<div class='form-group'>
@@ -56,7 +56,7 @@
 						<div class='form-group'>
 							<label class='col-sm-2 control-label'>Overview:</label>
 							<div class='col-sm-9'>
-								<textarea required class='form-control' spellcheck='false' autocomplete='off' name='overview' rows='7' placeholder=''><?php echo $company['overview'] ?><</textarea>
+								<textarea required class='form-control' spellcheck='false' autocomplete='off' name='overview' rows='7' placeholder=''><?php echo $company['overview'] ?></textarea>
 							</div>
 						</div>
 						<input type='hidden' value='editcompany' name='action'/>
