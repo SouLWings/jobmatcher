@@ -1,6 +1,5 @@
 <?php
 require 'controller.inc.php';
-<<<<<<< HEAD
 if(isset($_SESSION['user']))
 {
 	include 'modals/userDAO.php';
@@ -12,10 +11,5 @@ if(isset($_SESSION['user']))
 	$userDAO->disconnect();
 	session_destroy();
 }
-=======
-session_destroy();
-if($referer == $curr_location)
-	$referer = 'index.php';
->>>>>>> origin/senopi
 header('Location: index.php');
 ?>
