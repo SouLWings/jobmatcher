@@ -74,7 +74,6 @@ $scripts[] = 'jquery-1.10.2.min';
 			
 			<footer>
 				<ul>
-<<<<<<< HEAD
 				  <li><a href="index.php">Home</a></li>
 				  <li><a href="aboutus.php">About Us</a></li>
 				  <li><a href="advanced-search.php">Job Search </a></li>
@@ -82,17 +81,7 @@ $scripts[] = 'jquery-1.10.2.min';
 				  <li><a href="forum.php">Job Forum </a></li>
 				  <li><a href="contactus.php">Send Enquiry</a></li> 
 				  <li>&copy; 2013 UM Job Portal</li>
-=======
-				  <a href=""><li>Home</li></a>
-				  <a href=""><li>About Us</li></a>
-				  <a href=""><li>Job Search</li></a>
-				  <a href=""><li>Job Match</li></a>
-				  <a href=""><li>Job Forum</li></a>
-				  <a href=""><li>Send Enquiry</li></a>
->>>>>>> origin/alan
 				</ul>
-				<br>
-				<p style="color:black"><small><i>&copy; 2013 UM Job Portal</i></small></p>
 			</footer>
 
 			<?php 
