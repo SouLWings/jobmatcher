@@ -73,7 +73,7 @@ class jobDAO extends modal{
 	************************/
 	public function add_job($specID, $employerId, $date, $title, $position, $responsibility, $requirement, $location, $salary, $experience)
 	{
-		$this->insert_row("NULL, $specID, $employerId, '$date', '$title', '$position', '$responsibility', '$requirement', '$location', $salary, $experience, 'PENDING'",'jobs');
+		return $this->insert_row("NULL, $specID, $employerId, '$date', '$title', '$position', '$responsibility', '$requirement', '$location', $salary, $experience, 'PENDING'",'jobs');
 	}
 	
 	
@@ -84,9 +84,9 @@ class jobDAO extends modal{
 	{
 		return $this->con->query("UPDATE jobs SET jobSpecialization_ID = $specID, employer_ID = $employerId, title = '$title', position = '$position', responsibility = '$responsibility', requirement = '$requirement', location = '$location', salary = $salary, experience = $experience WHERE id = $id");
 	}
-	public function edit_company($id, $name, $address, $website, $phone, $fax, $overview)
+	public function edit_company($cid, $name, $address, $website, $phone, $fax, $overview)
 	{
-		return $this->con->query("UPDATE jobs SET jobSpecialization_ID = $specID, employer_ID = $employerId, title = '$title', position = '$position', responsibility = '$responsibility', requirement = '$requirement', location = '$location', salary = $salary, experience = $experience WHERE id = $id");
+		return $this->con->query("UPDATE company SET name = '$name', address = '$address', website = '$website', phone = '$phone', fax = '$fax', overview = '$overview' WHERE id = $cid");
 	}
 	
 	public function approve_job($id)
