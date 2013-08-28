@@ -46,7 +46,11 @@ if(is_logged_in())
 	if($_SESSION['user']['usertype'] == 'admin')
 		$asideinclude = 'adminmenu.php';
 	else if($_SESSION['user']['usertype'] == 'employer')
+	{
 		$asideinclude = 'employermenu.php';
+		$eid = $_SESSION['user']['eid'];
+		$cid = $_SESSION['user']['cid'];
+	}
 	else if($_SESSION['user']['usertype'] == 'jobseeker')
 		$asideinclude = 'jobseekermenu.php';
 }

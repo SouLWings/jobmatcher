@@ -1,40 +1,60 @@
 <style>
-.modal-content .btn + .btn {
-	margin-left:5px;
-}
 .submit-group{
 	text-align:right;
-}
-fieldset input[type='text']{
-	width:400px;
+}/*
+fieldset input[type='text'],fieldset input[type='number']{
+	width:420px;
 }
 textarea{
-	width:400px;
+	width:420px;
+}
+select{
+	width:420px;
+}
+*/
+#modaleditjob .modal-dialog{
+	width:650px;
+}
+
+#modaldeletejob .modal-dialog{
+	width:370px;
+	padding-top:20%;
+}
+
+.modal-body{
+	background:linear-gradient(to bottom,#ddefff 0,#b4d3e7 100%);
+	border-radius: 6px 6px 0px 0px;
+}
+.modal-footer{
+	margin-top:0;
+	background:#9EB8E6;
+	border-radius:0px 0px 6px 6px;
+	border:none;
 }
 </style>
 
 <div class="modal fade" id="modaleditjob" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style=''>
 		<div class="modal-content">
-			<div class="modal-body">
-				<form id='editjobform' action='jobCTRL.php' method='post' class='form-horizontal'>
-					<fieldset>
+			<form id='editjobform' action='jobCTRL.php' method='post' class='form-horizontal'>
+				<fieldset>
+					<div class="modal-body">
 						<legend>Edit Job</legend>
 						<div class='form-group'>
-							<label for='inputtitle' class='col-lg-2 control-label'>Job Title:</label>
-							<div class='col-lg-4'>
+							<label class='col-sm-3 control-label'>Title:</label>
+							<div class='col-sm-8'>
 								<input required type='text' id='inputName' autocomplete='off' class='form-control' placeholder='' name='title'/>
 							</div>
 						</div>
 						<div class='form-group'>
-							<label for='inputtitle' class='col-lg-2 control-label'>Position:</label>
-							<div class='col-lg-4'>
+							<label class='col-sm-3 control-label'>Position:</label>
+							<div class='col-sm-8'>
 								<input required type='text' id='inputPosition' autocomplete='off' class='form-control' placeholder='' name='position'/>
 							</div>
 						</div>
 						<div class='form-group'>
-							<label class='col-sm-2 control-label' for='inputlocation'>Job Specialization:</label>
-							<div class='col-sm-2'>
+							<label class='col-sm-3 control-label'>Specialization:</label>
+							<div class='col-sm-8'>
 								<select name='jobspecializationid' class='form-control'>
 									<?php foreach ($jobspecializations as $jobspecialization): ?>
 										<option value='<?php echo $jobspecialization['id'] ?>'>
@@ -45,69 +65,59 @@ textarea{
 							</div>
 						</div>
 						<div class='form-group'>
-							<label for='inputAddress' class='col-lg-2 control-label'>Responsibility:</label>
-							<div class='col-lg-4'>
-								<textarea required class='form-control' spellcheck='false' autocomplete='off' name='responsibility' rows='3' style='width:400px' placeholder=''></textarea>
+							<label class='col-sm-3 control-label'>Responsibility:</label>
+							<div class='col-sm-8'>
+								<textarea required class='form-control' spellcheck='false' autocomplete='off' name='responsibility' rows='5' placeholder=''></textarea>
 							</div>
 						</div>
 						<div class='form-group'>
-							<label for='inputAddress' class='col-lg-2 control-label'>Requirement:</label>
-							<div class='col-lg-4'>
-								<textarea required class='form-control' spellcheck='false' autocomplete='off' name='requirement' rows='3' style='width:400px' placeholder=''></textarea>
+							<label class='col-sm-3 control-label'>Requirement:</label>
+							<div class='col-sm-8'>
+								<textarea required class='form-control' spellcheck='false' autocomplete='off' name='requirement' rows='5' placeholder=''></textarea>
 							</div>
 						</div>
 						<div class='form-group'>
-							<label class='col-lg-2 control-label'>Location:</label>
-							<div class='col-lg-4'>
+							<label class='col-sm-3 control-label'>Location:</label>
+							<div class='col-sm-8'>
 								<input required type='text' id='inputLocation' autocomplete='off' class='form-control' placeholder='' name='location'/>
 							</div>
 						</div>
 						<div class='form-group'>
-							<label class='col-lg-2 control-label'>Salary:</label>
-							<div class='col-lg-4'>
-								<input required type='text' id='inputSalary' autocomplete='off' class='form-control' placeholder='' name='salary'/>
+							<label class='col-sm-3 control-label'>Salary:</label>
+							<div class='col-sm-3 input-group'>
+								<span class="input-group-addon">RM</span>
+								<input required type='number' id='inputSalary' autocomplete='off' class='form-control' placeholder='' name='salary' step='100'/>
 							</div>
 						</div>
 						<div class='form-group'>
-							<label class='col-lg-2 control-label'>Experience:</label>
-							<div class='col-lg-4'>
-								<input required type='number' id='inputExperience' autocomplete='off' class='form-control' placeholder='' name='experiece'/>
+							<label class='col-sm-3 control-label'>Experience:</label>
+							<div class='col-sm-4 input-group'>
+								<input required type='number' id='inputExperience' autocomplete='off' class='form-control' placeholder='' name='experience'/>
+								<span class="input-group-addon">Year(s)</span>
 							</div>
 						</div>
 						<input type='hidden' value='editjob' name='action'/>
-						<div class='submit-group'>
-							<input type='submit' class='btn btn-primary' value='Confirm'/>
-							<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-						</div>
-					</fieldset>
-				</form>
-			</div>
+						<input type='hidden' value='0' name='jobid'/>
+					</div>
+					<div class='modal-footer'>
+						<input type='submit' class='btn btn-primary' value='Edit'/>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					</div>
+				</fieldset>
+			</form>
 		</div>
     </div>
 </div>
-<script>
-//$("input[name='action']").val("editsection");
-</script>
-<div class="modal fade" id="editsection" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+
+<div class="modal fade" id="modaldeletejob" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
     <div class="modal-dialog" style=''>
 		<div class="modal-content">
 			<div class="modal-body">
 				<form id='editsectionform' action='forumManager.php' method='post' class='form-horizontal'>
 					<fieldset>
-						<legend>Edit Section</legend>
-						<div class='form-group'>
-							<label for='inputtitle' class='col-lg-2 control-label'>Section Title:</label>
-							<div class='col-lg-4'>
-								<input required type='text' type='text' id='inputName' autocomplete='off' class='form-control' value='' name='name'/>
-							</div>
-						</div>
-						<div class='form-group'>
-							<label for='inputAddress' class='col-lg-2 control-label'>Section Description:</label>
-							<div class='col-lg-4'>
-								<textarea required class='form-control' spellcheck='false' autocomplete='off' name='description' rows='3' style='width:400px'></textarea>
-							</div>
-						</div>
-						<input type='hidden' value='editsection' name='action'/>
+						<legend>Are you sure to delete this job?</legend>
+						<input type='hidden' value='deletejob' name='action'/>
+						<input type='hidden' value='0' name='jobid'/>
 						<div class='submit-group'>
 							<input type='submit' class='btn btn-primary' value='Confirm'/>
 							<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

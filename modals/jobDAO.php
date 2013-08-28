@@ -12,9 +12,12 @@ class jobDAO extends modal{
 		return $this->get_all_rows('SELECT * FROM jobspecialization ORDER BY specialization');
 	}
 	
-	public function get_job($id)
+	public function get_job($id, $isApproved = true)
 	{
-		return $this->get_first_row("SELECT * FROM jobs where UPPER(status) = 'APPROVED' AND id = $id");
+		if($isApproved)
+			return $this->get_first_row("SELECT * FROM jobs where UPPER(status) = 'APPROVED' AND id = $id");
+		else
+			return $this->get_first_row("SELECT * FROM jobs where id = $id");
 	}
 	
 	public function get_all_jobs_of_type($jobspecializationid)
@@ -70,16 +73,20 @@ class jobDAO extends modal{
 	************************/
 	public function add_job($specID, $employerId, $date, $title, $position, $responsibility, $requirement, $location, $salary, $experience)
 	{
-		$this->insert_row("NULL, $specID, $employerId, $date, '$title', '$position', '$responsibility', '$requirement', '$location', $salary, $experience, 'PENDING'",'jobs');
+		$this->insert_row("NULL, $specID, $employerId, '$date', '$title', '$position', '$responsibility', '$requirement', '$location', $salary, $experience, 'PENDING'",'jobs');
 	}
 	
 	
 	/*************************
 	  functions for edit job
 	*************************/
-	public function edit_job($id, $specID, $employerId, $date, $title, $position, $responsibility, $requirement, $location, $salary, $experience)
+	public function edit_job($id, $specID, $employerId, $title, $position, $responsibility, $requirement, $location, $salary, $experience)
 	{
-		return $this->con->query("UPDATE jobs SET jobSpecialization_ID = $specID, employer_ID = $employerId, date = $date, title = '$title', position = '$position', responsibility = '$responsibility', requirement = '$requirement', location = '$location', salary = $salary, experience = $experience WHERE id = $id");
+		return $this->con->query("UPDATE jobs SET jobSpecialization_ID = $specID, employer_ID = $employerId, title = '$title', position = '$position', responsibility = '$responsibility', requirement = '$requirement', location = '$location', salary = $salary, experience = $experience WHERE id = $id");
+	}
+	public function edit_company($id, $name, $address, $website, $phone, $fax, $overview)
+	{
+		return $this->con->query("UPDATE jobs SET jobSpecialization_ID = $specID, employer_ID = $employerId, title = '$title', position = '$position', responsibility = '$responsibility', requirement = '$requirement', location = '$location', salary = $salary, experience = $experience WHERE id = $id");
 	}
 	
 	public function approve_job($id)
