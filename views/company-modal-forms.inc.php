@@ -56,7 +56,7 @@
 						<div class='form-group'>
 							<label class='col-sm-2 control-label'>Overview:</label>
 							<div class='col-sm-9'>
-								<textarea required class='form-control' spellcheck='false' autocomplete='off' name='overview' rows='7' placeholder=''><?php echo $company['overview'] ?></textarea>
+								<textarea required class='form-control' spellcheck='false' name='overview' rows='7' placeholder=''><?php echo $company['overview'] ?></textarea>
 							</div>
 						</div>
 						<input type='hidden' value='editcompany' name='action'/>

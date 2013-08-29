@@ -40,9 +40,7 @@ webapps - source codes
 	|- 	resources.php
 	|- 	mangeResume.php			/* job seekers */
 	|- 	applications.php
-	|- 	editProfile.php
-	|- 	postedJobs.php			/* employers */
-	|- 	manageJob.php
+	|- 	manageJob.php			/* employers */
 	|- 	applicants.php
 	|- 	manageAccounts.php		/* admin */
 	|- 	manageJobs.php
@@ -111,10 +109,12 @@ database design - tables
 	
 	resume
 		id
-		email
+		jobseeker_ID
+		fullname
+		address
 		phone
+		email
 		data of birth
-		state
 		field of study
 		course name
 		graduation date

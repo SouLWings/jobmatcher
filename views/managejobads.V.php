@@ -25,8 +25,8 @@
 			$("input[name='action']").val("addjob");
 			$("#editid").val('0');
 			$("input[name='title']").val('');
-			$("input[name='salary']").val('');
-			$("input[name='experience']").val('');
+			$("input[name='salary']").val('3000');
+			$("input[name='experience']").val('0');
 			$("input[name='location']").val('');
 			$("input[name='position']").val('');
 			$("textarea[name='responsibility']").val('');
@@ -44,6 +44,7 @@
 			function(data,status){
 				if(status == 'success')
 				{
+					//alert(data);
 					if(data == 'no')
 						alert('Error. No job found');
 					else
@@ -55,6 +56,7 @@
 						$("#editid").val(job.id);
 						$("input[name='title']").val(job.title);
 						$("input[name='salary']").val(job.salary);
+						$("select[name='type']").val(job.type);
 						$("input[name='experience']").val(job.experience);
 						$("input[name='location']").val(job.location);
 						$("input[name='position']").val(job.position);
@@ -92,15 +94,18 @@
 		</thead>
 		<tbody>
 		<?php foreach ($jobs as $job): ?>
-			<tr style='cursor:pointer;' <?php //echo onclick="location.href='jobs.php?id= $job['id']?>'">	
+			<tr class='trhover' style='cursor:pointer;' <?php //echo onclick="location.href='jobs.php?id= $job['id']?>'">	
 				<td><?php echo $job['date'] ?></td>
 				<td><?php echo $job['title'] ?></td>
 				<td><?php echo $job['specialization'] ?></td>
 				<td><?php echo $job['salary'] ?></td>
 				<td><?php echo $job['experience'] ?></td>
 				<td><?php echo $job['status'] ?></td>
-				<td><a data-toggle="modal" href="#modaleditjob" class="btn btn-primary btn-xs" id='btnedit<?php echo $job['id']?>job'>Edit</a> <a data-toggle="modal" href="#modaldeletejob" class="btn btn-primary btn-xs" id='btndelete<?php echo $job['id']?>'>Delete</a>  
+				<td><a data-toggle="modal" href="#modaleditjob" class="btn btn-primary btn-xs" id='btnedit<?php echo $job['id']?>job'>Edit</a> <a data-toggle="modal" href="#modaldeletejob" class="btn btn-primary btn-xs" id='btndelete<?php echo $job['id']?>'>Delete</a>  <a data-toggle="modal" href="#modalcriteria" class="btn btn-primary btn-xs" id='btnedit<?php echo $job['id']?>criteria'>Manage Criteria</a>
 				</td>
+			</tr>
+			<tr class='trhide'>
+				<td>asd</td>
 			</tr>
 		<?php endforeach; ?>
 		</tbody>

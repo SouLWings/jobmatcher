@@ -3,13 +3,15 @@
 include_once 'controller.inc.php';
 //includes the modal classes that needed to access resource
 include_once 'modals/userDAO.php';
+include_once 'modals/JobDAO.php';
 
 require_account_type('admin');
 
 if(isset($_GET['action']) && isset($_GET['id']))
 {
 	$userDAO = new userDAO();
-	if($_GET['action'] == 'approve')
+	$jobDAO = new jobDAO();
+	if($_GET['action'] == 'approveaccount')
 	{
 		if($userDAO->approve_user($_GET['id']))
 		{
@@ -22,7 +24,7 @@ if(isset($_GET['action']) && isset($_GET['id']))
 			echo 'fail approve';
 		}
 	}
-	else if($_GET['action'] == 'disapprove')
+	else if($_GET['action'] == 'disapproveaccount')
 	{
 		if($userDAO->disapprove_user($_GET['id']))
 		{
@@ -35,7 +37,30 @@ if(isset($_GET['action']) && isset($_GET['id']))
 			echo 'fail disapproved';
 		}
 	}
+	else if($_GET['action'] == 'approvejob')
+	{
+		if($jobDAO->approve_job($_GET['id']))
+		{
+			echo 'approved';
+		}
+		else
+		{
+			echo 'fail approve';
+		}
+	}
+	else if($_GET['action'] == 'disapprovejob')
+	{
+		if($jobDAO->disapprove_job($_GET['id']))
+		{
+			echo 'disapproved';
+		}
+		else
+		{
+			echo 'fail disapproved';
+		}
+	}
 	$userDAO->disconnect();
+	$jobDAO->disconnect();
 	header('Location: '.$referer);
 }
 ?>

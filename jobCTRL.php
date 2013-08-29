@@ -6,12 +6,12 @@ include_once 'modals/jobDAO.php';
 
 require_account_type('employer');
 
+$jobDAO = new jobDAO();
 if(isset($_POST['action']))
 {
-	$jobDAO = new jobDAO();
 	if($_POST['action'] == 'addjob')
 	{
-		if(isset($_POST['jobid']) && $_POST['jobid'] == 0 && isset($_POST['title']) && isset($_POST['position']) && isset($_POST['jobspecializationid']) && isset($_POST['responsibility']) && isset($_POST['requirement']) && isset($_POST['location']) && isset($_POST['salary']) && isset($_POST['experience']))
+		if(isset($_POST['jobid']) && $_POST['jobid'] == 0 && isset($_POST['title']) && isset($_POST['position']) && isset($_POST['jobspecializationid']) && isset($_POST['responsibility']) && isset($_POST['requirement']) && isset($_POST['type'])  && isset($_POST['location']) && isset($_POST['salary']) && isset($_POST['experience']))
 		{
 			$specID = intval($_POST['jobspecializationid']);
 			$employerId = $eid;
@@ -20,10 +20,11 @@ if(isset($_POST['action']))
 			$position = get_secured($_POST['position']);
 			$responsibility = get_secured($_POST['responsibility']);
 			$requirement = get_secured($_POST['requirement']);
+			$type = get_secured($_POST['type']);
 			$location = get_secured($_POST['location']);
 			$salary = intval($_POST['salary']);
 			$experience = intval($_POST['experience']);
-			if(!$jobDAO->add_job($specID, $employerId, $date, $title, $position, $responsibility, $requirement, $location, $salary, $experience))
+			if(!$jobDAO->add_job($specID, $employerId, $date, $title, $position, $responsibility, $requirement, $type, $location, $salary, $experience))
 				echo 'failed add job';
 			else
 				header('Location:managejobads.php');
@@ -35,7 +36,7 @@ if(isset($_POST['action']))
 	}
 	else if($_POST['action'] == 'editjob')
 	{
-		if(isset($_POST['jobid']) && isset($_POST['title']) && isset($_POST['position']) && isset($_POST['jobspecializationid']) && isset($_POST['responsibility']) && isset($_POST['requirement']) && isset($_POST['location']) && isset($_POST['salary']) && isset($_POST['experience']))
+		if(isset($_POST['jobid']) && isset($_POST['title']) && isset($_POST['position']) && isset($_POST['jobspecializationid']) && isset($_POST['responsibility']) && isset($_POST['requirement']) && isset($_POST['type']) && isset($_POST['location']) && isset($_POST['salary']) && isset($_POST['experience']))
 		{
 			$id = intval($_POST['jobid']);
 			$specID = intval($_POST['jobspecializationid']);
@@ -44,10 +45,11 @@ if(isset($_POST['action']))
 			$position = get_secured($_POST['position']);
 			$responsibility = get_secured($_POST['responsibility']);
 			$requirement = get_secured($_POST['requirement']);
+			$type = get_secured($_POST['type']);
 			$location = get_secured($_POST['location']);
 			$salary = intval($_POST['salary']);
 			$experience = intval($_POST['experience']);
-			if(!$jobDAO->edit_job($id, $specID, $employerId, $title, $position, $responsibility, $requirement, $location, $salary, $experience))
+			if(!$jobDAO->edit_job($id, $specID, $employerId, $title, $position, $responsibility, $requirement, $type, $location, $salary, $experience))
 				echo 'failed';
 			else
 				header('Location:managejobads.php');
@@ -85,19 +87,20 @@ if(isset($_POST['action']))
 			$website = get_secured($_POST['website']);
 			$phone = get_secured($_POST['phone']);
 			$fax = get_secured($_POST['fax']);
-			$overview = get_secured($_POST['overview']);
-			//if(!$jobDAO->edit_company($cid, $name, $address, $website, $phone, $fax, $overview))
-			//	echo 'failed edit company';
-			//else
-				//header('Location:managejobads.php');
-				echo 'name: '.$name;
-				echo 'overvieew: '.$overview;
+			$overview = mysql_real_escape_string(stripslashes($_POST['overview']));
+			if(!$jobDAO->edit_company($cid, $name, $address, $website, $phone, $fax, $overview))
+				echo 'failed edit company';
+			else
+				header("Location:company.php?id=$cid");
+			echo 'name: '.$name;
+			echo '<br>address: '.$address;
+			echo '<br>overvieew: '.$overview;
 		}
 		else
 		{
 			echo 'invalid form';
 		}	
 	}
-	$jobDAO->disconnect();
 }
+$jobDAO->disconnect();
 ?>
