@@ -184,9 +184,9 @@ class userDAO extends modal{
 		return $this->row_count("SELECT id FROM account WHERE UPPER(onlinestatus) = 'ONLINE'");
 	}
 
-	/****************************************
-	  functions for selecting users/company
-	****************************************/
+	/*********************************
+	  functions for account approval
+	*********************************/
 	public function get_all_pending_jobseeker()
 	{
 		return $this->get_all_rows("SELECT a.id, a.firstname, a.lastname, js.matric, a.email, a.createTime FROM account a INNER JOIN jobseeker js ON a.id = js.account_ID WHERE UPPER(a.accountstatus) = 'PENDING'");
@@ -194,10 +194,6 @@ class userDAO extends modal{
 	public function get_all_pending_employer()
 	{
 		return $this->get_all_rows("SELECT a.id, a.firstname, a.lastname, c.name, a.email, a.createTime, c.id as cid FROM account a INNER JOIN employer e ON a.id = e.account_ID INNER JOIN company c ON e.company_ID = c.id WHERE UPPER(a.accountstatus) = 'PENDING'");
-	}
-	public function get_company_by_id($id)
-	{
-		return $this->get_first_row("SELECT * FROM company WHERE id = $id");
 	}
 	public function approve_user($id)
 	{
@@ -208,5 +204,21 @@ class userDAO extends modal{
 		$ut = $this->get_first_row("SELECT at.type FROM account a INNER JOIN accounttype at ON  at.id = a.accounttype_ID WHERE a.id = $id")['type'];
 		echo "deleting from table: $ut";
 		return($this->con->query("DELETE FROM $ut WHERE account_ID = $id") && ($this->con->query("DELETE FROM account WHERE id = $id")));
+	}
+
+	/********************************
+	  functions for retrieving data
+	********************************/
+	public function get_company_by_id($id)
+	{
+		return $this->get_first_row("SELECT * FROM company WHERE id = $id");
+	}
+	public function get_user_by_id($id)
+	{
+		$ut = $this->get_first_row("SELECT type FROM account a INNER JOIN accounttype at ON a.accounttype_ID = at.id WHERE a.id = $id")->fetch_assoc()['type'];
+		if($ut == 'admin')
+			$result = $this->get_first_row("SELECT * FROM account WHERE a.id = $id");
+		else
+			$result = $this->get_first_row("SELECT a.* FROM account a INNER JOIN $ut t ON t.account_ID = a.id WHERE a.id = $id");
 	}
 }
