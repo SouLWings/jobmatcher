@@ -21,6 +21,10 @@ select{
 	padding-top:20%;
 }
 
+#modalcriteria .modal-dialog{
+	width:570px;
+}
+
 .modal-body{
 	background:linear-gradient(to bottom,#ddefff 0,#b4d3e7 100%);
 	border-radius: 6px 6px 0px 0px;
@@ -67,13 +71,29 @@ select{
 						<div class='form-group'>
 							<label class='col-sm-3 control-label'>Responsibility:</label>
 							<div class='col-sm-8'>
-								<textarea required class='form-control' spellcheck='false' autocomplete='off' name='responsibility' rows='5' placeholder=''></textarea>
+								<textarea required class='form-control' spellcheck='false' autocomplete='off' name='responsibility' rows='3' placeholder=''></textarea>
 							</div>
 						</div>
 						<div class='form-group'>
 							<label class='col-sm-3 control-label'>Requirement:</label>
 							<div class='col-sm-8'>
-								<textarea required class='form-control' spellcheck='false' autocomplete='off' name='requirement' rows='5' placeholder=''></textarea>
+								<textarea required class='form-control' spellcheck='false' autocomplete='off' name='requirement' rows='3' placeholder=''></textarea>
+							</div>
+						</div>
+						<div class='form-group'>
+							<label class='col-sm-3 control-label'>Type:</label>
+							<div class='col-sm-8'>
+								<select name='type' class='form-control' id='selectjobtype'>
+									<option value='Permenant'>
+										Permenant
+									</option>
+									<option value='Short term'>
+										Short term
+									</option>
+									<option value='Internship'>
+										Internship
+									</option>
+								</select>
 							</div>
 						</div>
 						<div class='form-group'>
@@ -125,6 +145,51 @@ select{
 					</fieldset>
 				</form>
 			</div>
+		</div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalcriteria" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+		<div class="modal-content">
+			<form id='editjobform' action='jobCTRL.php' method='post' class='form-horizontal'>
+				<fieldset>
+					<div class="modal-body">
+						<legend>Edit Criteria</legend>
+						<div class='form-group'>
+							<label class='col-sm-2 control-label'>No</label>
+							<label class='col-sm-2 control-label'>Criteria</label>
+							<label class='col-sm-7 control-label'>Min rating </label>
+						</div>
+						<div class='form-group'>
+							<label class='col-sm-2 control-label'>1.</label>
+							<div class='col-sm-7'>
+								<select name='criteriaid' class='form-control'>
+									<?php foreach ($criterias as $criteria): ?>
+										<option value='<?php echo $criteria['id'] ?>'>
+											<?php echo $criteria['name'] ?>
+										</option>
+									<?php endforeach; ?>					
+								</select>
+							</div>
+							<div class='col-sm-2 col-sm-offset-1 input-group'>
+								<input required type='number' id='inputExperience' autocomplete='off' class='form-control' value='1' name='minrating' max='5' min='1'/>
+							</div>
+						</div>
+						<div class='form-group'>
+							<button type="button" class="col-sm-1 col-sm-offset-1 btn btn-primary">
+								<span class="glyphicon glyphicon-plus"></span>
+							</button>
+						</div>
+						<input type='hidden' value='updatecriteria' name='action'/>
+						<input type='hidden' value='0' name='jobid' id='editid'/>
+					</div>
+					<div class='modal-footer'>
+						<input type='submit' class='btn btn-primary' value='Edit'/>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					</div>
+				</fieldset>
+			</form>
 		</div>
     </div>
 </div>

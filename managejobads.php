@@ -9,8 +9,8 @@ $jobDAO = new jobDAO();
 
 
 $jobs = $jobDAO->get_employer_jobs($aid);
-$jobspecializations = $jobDAO->get_all_job_Types();
-
+$jobspecializations = $jobDAO->get_all_job_Specializations();
+$criterias = $jobDAO->get_all_criterias();
 
 $jobDAO->disconnect();
 
