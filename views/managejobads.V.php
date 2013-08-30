@@ -78,7 +78,7 @@
 	});
 	</script>
     <h1>My Posted Job Ads</h1>
-	<a data-toggle="modal" href="#modaleditjob" class="btn btn-primary btn-xs" id='btnaddjob'>Add</a>
+	<a data-toggle="modal" href="#modaleditjob" class="btn btn-primary btn-xs" id='btnaddjob'><span class="glyphicon glyphicon-asterisk"></span> Add a new job</a>
 	<?php if(sizeof($jobs) > 0){ ?>
 	<table id="jobslist" class="table-striped table-bordered table-hover tablesorter">
 		<thead>
@@ -101,7 +101,7 @@
 				<td><?php echo $job['salary'] ?></td>
 				<td><?php echo $job['experience'] ?></td>
 				<td><?php echo $job['status'] ?></td>
-				<td><a data-toggle="modal" href="#modaleditjob" class="btn btn-primary btn-xs" id='btnedit<?php echo $job['id']?>job'>Edit</a> <a data-toggle="modal" href="#modaldeletejob" class="btn btn-primary btn-xs" id='btndelete<?php echo $job['id']?>'>Delete</a>  <a data-toggle="modal" href="#modalcriteria" class="btn btn-primary btn-xs" id='btnedit<?php echo $job['id']?>criteria'>Manage Criteria</a>
+				<td><a data-toggle="modal" href="#modaleditjob" class="btn btn-primary btn-xs" id='btnedit<?php echo $job['id']?>job' title='Edit'><span class="glyphicon glyphicon-edit"></span></a> <a data-toggle="modal" href="#modalcriteria" class="btn btn-primary btn-xs" id='btnedit<?php echo $job['id']?>criteria' title='Criteria'><span class="glyphicon glyphicon-list"></span></a> <a data-toggle="modal" href="#modaldeletejob" class="btn btn-primary btn-xs" id='btndelete<?php echo $job['id']?>' title='Delete'><span class="glyphicon glyphicon-trash"></span></a> 
 				</td>
 			</tr>
 			<tr class='trhide'>

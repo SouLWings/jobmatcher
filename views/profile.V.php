@@ -5,7 +5,9 @@
  *  $styles[] - additional style of the page eg. $styles[] = 'asd'; to include asd.css inside css folder  	* as the loop will begin from backward
  * 
  *  --  variables supplied to this page from controller --
- *  $example - explaination/details of the variable
+ *  $user - singular array of 	{usertype, onlinestatus, email, firstname, lastname, createTime}
+ *  							{usertype, onlinestatus, email, firstname, lastname, createTime, position, name(company)}
+ *  							{usertype, onlinestatus, email, firstname, lastname, createTime, matric}
  *  
  *  --  list of tasks for this view  --
  *  
@@ -19,16 +21,17 @@
 <?php ob_start() ?>
 	
     <div>
-		<div style='width:200px;height:200px;' class='pull-left'>
-			<img src="img/profile_pic/aid1.png" alt="" class="img-thumbnail" style='margin:auto;'>
+		<div style='width:200px;height:200px;' class='pull-left img-thumbnail'>
+			<img src="img/profile_pic/aid1.png" alt="" class="img-thumbnail" style='margin:auto;height:100%;'>
 		</div>
-		<div class="panel panel-info" style='height:200px'>
+		<div class="panel panel-info pull-left" style='height:200px;margin-left:20px; width:600px;'>
 			<div class="panel-heading">
-				<h3 class="panel-title">Panel title</h3>
+				<h2 class="panel-title">  <b><?php echo $user['firstname'].' '.$user['lastname'] ?></b>  <span style='color:<?php echo $onlinecolor ?>' class="glyphicon glyphicon-stop"></span></h2>
 			</div>
 			<div class="panel-body">
-		<h2>SoulWIngs</h2>
-		Joined on Aug 18, 2013
+				<span class="glyphicon glyphicon-user"></span> <?php echo $user['usertype'] ?><br>
+				<span class="glyphicon glyphicon-time"></span> Joined on <?php echo $user['createTime'] ?><br>
+				
 				
 			</div>		
 		</div>
@@ -36,10 +39,12 @@
 	
     <div class="panel panel-info" style='clear:left'>
 		<div class="panel-heading">
-			<h3 class="panel-title">Panel title</h3>
+			<h3 class="panel-title">Personal Info</h3>
 		</div>
-		<div class="panel-body">
-			Panel content
+		<div class="panel-body">			
+			email:<?php echo $user['email'] ?>
+			<?php include $ut.'-profileinfo.inc.php'; ?>
+			
 		</div>		
     </div>
 	
