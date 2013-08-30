@@ -18,10 +18,12 @@ class modal{
 
 	public function get_first_row($selectquery)
 	{
-		$result = $this->con->query($selectquery);
-		$row = $result->fetch_assoc();
-		
-		$result->free();
+		$row = array();
+		if($result = $this->con->query($selectquery))
+		{
+			$row = $result->fetch_assoc();
+			$result->free();
+		}
 		return $row;
 	}
 	

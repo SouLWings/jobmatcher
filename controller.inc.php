@@ -31,7 +31,7 @@ if(is_logged_in())
 	$aid = $_SESSION['user']['id'];
 	$firstname = $_SESSION['user']['firstname'];
 	$fullname = $firstname.' '.$_SESSION['user']['lastname'];
-	
+	$ut = $_SESSION['user']['usertype'];
 	//call the function to get the last login message
 	if(isset($_SESSION['user']['time'])){
 		$lastvisitedmsg = get_last_visited_msg($_SESSION['user']['time']);
@@ -43,15 +43,15 @@ if(is_logged_in())
 	$newmsgnum = $msgDAOt->get_num_new_msg($aid);
 	$msgDAOt->disconnect();
 	
-	if($_SESSION['user']['usertype'] == 'admin')
+	if($ut == 'admin')
 		$asideinclude = 'adminmenu.php';
-	else if($_SESSION['user']['usertype'] == 'employer')
+	else if($ut == 'employer')
 	{
 		$asideinclude = 'employermenu.php';
 		$eid = $_SESSION['user']['eid'];
 		$cid = $_SESSION['user']['cid'];
 	}
-	else if($_SESSION['user']['usertype'] == 'jobseeker')
+	else if($ut == 'jobseeker')
 		$asideinclude = 'jobseekermenu.php';
 }
 else

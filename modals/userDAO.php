@@ -215,10 +215,10 @@ class userDAO extends modal{
 	}
 	public function get_user_by_id($id)
 	{
-		$ut = $this->get_first_row("SELECT type FROM account a INNER JOIN accounttype at ON a.accounttype_ID = at.id WHERE a.id = $id")->fetch_assoc()['type'];
+		$ut = $this->get_first_row("SELECT type FROM account a INNER JOIN accounttype at ON a.accounttype_ID = at.id WHERE a.id = $id")['type'];
 		if($ut == 'admin')
-			$result = $this->get_first_row("SELECT * FROM account WHERE a.id = $id");
+			return $this->get_first_row("SELECT * FROM account WHERE id = $id");
 		else
-			$result = $this->get_first_row("SELECT a.* FROM account a INNER JOIN $ut t ON t.account_ID = a.id WHERE a.id = $id");
+			return $this->get_first_row("SELECT a.onlinestatus, a.email, a.firstname, a.lastname, a.createTime, a.accounttype_ID, t.* FROM account a INNER JOIN $ut t ON t.account_ID = a.id WHERE a.id = $id");
 	}
 }
