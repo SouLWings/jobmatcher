@@ -31,7 +31,8 @@ select{
 }
 .modal-footer{
 	margin-top:0;
-	background:#9EB8E6;
+	padding:10px 20px 10px 10px;
+	background:#A5C1f0;
 	border-radius:0px 0px 6px 6px;
 	border:none;
 }
@@ -120,8 +121,8 @@ select{
 						<input type='hidden' value='0' name='jobid' id='editid'/>
 					</div>
 					<div class='modal-footer'>
-						<input type='submit' class='btn btn-primary' value='Edit'/>
-						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<input type='submit' class='btn btn-primary btn-xs' value='Edit'/>
+						<button type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
 					</div>
 				</fieldset>
 			</form>
@@ -139,8 +140,8 @@ select{
 						<input type='hidden' value='deletejob' name='action'/>
 						<input type='hidden' value='0' name='jobid' id='deleteid'/>
 						<div class='submit-group'>
-							<input type='submit' class='btn btn-primary' value='Confirm'/>
-							<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+							<input type='submit' class='btn btn-primary btn-xs' value='Confirm'/>
+							<button type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
 						</div>
 					</fieldset>
 				</form>
@@ -156,37 +157,42 @@ select{
 				<fieldset>
 					<div class="modal-body">
 						<legend>Edit Criteria</legend>
+						<input type='hidden' value='updatecriteria' name='action'/>
+						<input type='hidden' value='0' name='jobid' id='editid'/>
 						<div class='form-group'>
-							<label class='col-sm-2 control-label'>No</label>
+							<label class='col-sm-1 control-label'>No</label>
 							<label class='col-sm-2 control-label'>Criteria</label>
 							<label class='col-sm-7 control-label'>Min rating </label>
 						</div>
-						<div class='form-group'>
-							<label class='col-sm-2 control-label'>1.</label>
-							<div class='col-sm-7'>
-								<select name='criteriaid' class='form-control'>
-									<?php foreach ($criterias as $criteria): ?>
-										<option value='<?php echo $criteria['id'] ?>'>
-											<?php echo $criteria['name'] ?>
-										</option>
-									<?php endforeach; ?>					
-								</select>
-							</div>
-							<div class='col-sm-2 col-sm-offset-1 input-group'>
-								<input required type='number' id='inputExperience' autocomplete='off' class='form-control' value='1' name='minrating' max='5' min='1'/>
+						<div id='criterialist'>
+							<div class='form-group criteria'>
+								<label class='col-sm-1 control-label'>1.</label>
+								<div class='col-sm-7'>
+									<select name='criteriaid' class='form-control'>
+										<?php foreach ($criterias as $criteria): ?>
+											<option value='<?php echo $criteria['id'] ?>'>
+												<?php echo $criteria['name'] ?>
+											</option>
+										<?php endforeach; ?>					
+									</select>
+								</div>
+								<div class='col-sm-2 input-group'>
+									<input required type='number' id='inputExperience' autocomplete='off' class='form-control' value='1' name='minrating' max='5' min='1'/>
+								</div>
+								<button type="button" class="btn btn-danger btn-xs" style='margin:7px 0px 0px 20px;' id='btndeletecriteria'>
+									<span class="glyphicon glyphicon-remove"></span>
+								</button>
 							</div>
 						</div>
 						<div class='form-group'>
-							<button type="button" class="col-sm-1 col-sm-offset-1 btn btn-primary">
+							<button type="button" class="col-sm-offset-1 btn btn-primary btn-xs" style='margin-left:60px;' id='btnaddcriteria'>
 								<span class="glyphicon glyphicon-plus"></span>
 							</button>
 						</div>
-						<input type='hidden' value='updatecriteria' name='action'/>
-						<input type='hidden' value='0' name='jobid' id='editid'/>
 					</div>
 					<div class='modal-footer'>
-						<input type='submit' class='btn btn-primary' value='Edit'/>
-						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<input type='submit' class='btn btn-primary btn-sm' value='Edit'/>
+						<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
 					</div>
 				</fieldset>
 			</form>

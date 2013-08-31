@@ -42,7 +42,7 @@
 			<h3 class="panel-title">Personal Info</h3>
 		</div>
 		<div class="panel-body">			
-			email:<?php echo $user['email'] ?>
+			email:<?php echo $user['email'] ?><br>
 			<?php include $ut.'-profileinfo.inc.php'; ?>
 			
 		</div>		
