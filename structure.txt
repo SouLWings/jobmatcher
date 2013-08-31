@@ -1,3 +1,23 @@
+to do
+-----
+job criteria
+apply or job - answering the criteria for job
+job application list for jobseekers
+showing job application from jobseekers, response for job application
+articles.php, articlesCTRL.php, articleDAO.php
+forum
+all form validations
+instant messaging
+about us - about jobmatcher, why jobmatcher, how it works, about dev - HTML5 style
+
+
+doing
+-----
+
+
+done
+----
+
 webapps - source codes
 |-	fyp
 	|- 	css

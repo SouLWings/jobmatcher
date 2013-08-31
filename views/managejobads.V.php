@@ -19,6 +19,15 @@
 <?php ob_start() ?>
 	<script>
 	$(document).ready(function(){ 
+		$("#btnaddcriteria").click(function(){
+			$(".criteria").first().clone().appendTo( "#criterialist" );
+			$(".criteria").last().hide();
+			$(".criteria").last().slideDown('fast');
+		});
+		/* $(".btndeletecriteria").click(function(){
+			$("#btndeletecriteria").parent().slideUp();
+			$("#btndeletecriteria").parent().remove();
+		}); */
 		$("#btnaddjob").click(function(){
 			$("#modaleditjob legend").text("Add Job");
 			$("#modaleditjob input[type='submit']").val("Add");

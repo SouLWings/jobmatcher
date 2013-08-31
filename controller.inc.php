@@ -108,7 +108,7 @@ function require_account_type($ut)
 {
 	if(strtoupper($_SESSION['user']['usertype']) != strtoupper($ut))
 	{
-		header('Location:error.php?code=456');
+		header('Location:error.php?code=401');
 		die();
 	}
 }
