@@ -12,11 +12,6 @@ class jobDAO extends modal{
 		return $this->get_all_rows('SELECT * FROM jobspecialization ORDER BY specialization');
 	}
 	
-	public function get_all_criterias()
-	{
-		return $this->get_all_rows('SELECT * FROM criteriatype');
-	}
-	
 	public function get_job($id, $isApproved = true)
 	{
 		if($isApproved)
@@ -113,6 +108,35 @@ class jobDAO extends modal{
 		return $this->con->query("DELETE FROM jobs WHERE id = $id");
 	}
 	
+	/*****************************
+	  functions for job criteria
+	*****************************/
+	public function get_all_criterias()
+	{
+		return $this->get_all_rows('SELECT * FROM criteriatype');
+	}
 	
+	public function get_criterias_of_job($jid)
+	{
+		return $this->get_all_rows("SELECT * from jobcriteria WHERE job_ID = $jid");
+	}
+	
+	public function update_criteria($jid, $criterias)
+	{
+		if(sizeof($criterias) > 0)
+		{
+			foreach($criterias as $c):
+			{
+				if(!isset($insertquery))
+					$insertquery = "INSERT INTO jobcriteria VALUES(NULL, '$jid', '$c[criteria_ID]', '$c[minrating]')";
+				else
+					$insertquery.=", (NULL, '$jid', '$c[criteria_ID]', '$c[minrating]')";
+			}
+			endforeach;
+			return ($this->con->query("DELETE FROM jobcriteria WHERE job_ID = $jid") && $this->con->query($insertquery));
+		}
+		else
+			return $this->con->query("DELETE FROM jobcriteria WHERE job_ID = $jid");
+	}
 }
 ?>

@@ -18,16 +18,60 @@
 
 <?php ob_start() ?>
 	<script>
+	var index = 1;
 	$(document).ready(function(){ 
 		$("#btnaddcriteria").click(function(){
-			$(".criteria").first().clone().appendTo( "#criterialist" );
-			$(".criteria").last().hide();
-			$(".criteria").last().slideDown('fast');
+			$.post("jobAJAX.php",
+			{
+				action:"getcriteriarow",
+			},
+			function(data,status){
+				if(status == 'success')
+				{
+					//alert(data);
+					index++;
+					$("#criterialist").append(data);
+					$(".criteria").last().parent().find("input[name='totalcriteria']").val(parseInt($(".criteria").last().parent().find("input[name='totalcriteria']").val())+1);
+					$(".criteria").last().find("label").text(index);
+					$(".criteria").last().find("select[name='criteriaid']").attr('name', 'criteriaid'+parseInt($(".criteria").last().parent().find("input[name='totalcriteria']").val()));
+					$(".criteria").last().find("input[name='minrating']").attr('name', 'minrating'+parseInt($(".criteria").last().parent().find("input[name='totalcriteria']").val()));
+					$(".criteria").last().find("label").text(index);
+					$(".criteria").last().hide();
+					$(".criteria").last().slideDown('fast');
+				}
+				else
+					alert('retrieve criteria failed');
+			});
+			
 		});
-		/* $(".btndeletecriteria").click(function(){
-			$("#btndeletecriteria").parent().slideUp();
-			$("#btndeletecriteria").parent().remove();
-		}); */
+		$('#criterialist').on('click', '.btndeletecriteria', function() {
+			$(this).parent().slideUp(function(){
+				$(this).nextAll('.criteria').each(function i(){
+				
+				});
+				$(this).remove();
+			});;
+			index--;
+		});
+		$(".btneditcriteria").click(function(){
+			var jobid = $(this).parent().find("input[name='jobid']").val();
+			$('#editcriteriaform').find("input[name='jobid']").val(jobid);
+			$.post("jobAJAX.php",
+			{
+				action:"getjobcriteria",
+				id:jobid
+			},
+			function(data,status){
+				if(status == 'success')
+				{
+					//alert(data);
+					$('#criterialist').html(data);
+					index = $("#criterialist").find("input[name='totalcriteria']").val();
+				}
+				else
+					alert('retrieve criteria failed');
+			});
+		});
 		$("#btnaddjob").click(function(){
 			$("#modaleditjob legend").text("Add Job");
 			$("#modaleditjob input[type='submit']").val("Add");
@@ -110,7 +154,14 @@
 				<td><?php echo $job['salary'] ?></td>
 				<td><?php echo $job['experience'] ?></td>
 				<td><?php echo $job['status'] ?></td>
-				<td><a data-toggle="modal" href="#modaleditjob" class="btn btn-primary btn-xs" id='btnedit<?php echo $job['id']?>job' title='Edit'><span class="glyphicon glyphicon-edit"></span></a> <a data-toggle="modal" href="#modalcriteria" class="btn btn-primary btn-xs" id='btnedit<?php echo $job['id']?>criteria' title='Criteria'><span class="glyphicon glyphicon-list"></span></a> <a data-toggle="modal" href="#modaldeletejob" class="btn btn-primary btn-xs" id='btndelete<?php echo $job['id']?>' title='Delete'><span class="glyphicon glyphicon-trash"></span></a> 
+				<td>
+					<a data-toggle="modal" href="#modaleditjob" class="btn btn-primary btn-xs" id='btnedit<?php echo $job['id']?>job' title='Edit'><span class="glyphicon glyphicon-edit"></span></a> 
+					
+					<a data-toggle="modal" href="#modalcriteria" class="btn btn-primary btn-xs btneditcriteria" id='btneditcriteria' title='Criteria'><span class="glyphicon glyphicon-list"></span></a> 
+					
+					<a data-toggle="modal" href="#modaldeletejob" class="btn btn-primary btn-xs" id='btndelete<?php echo $job['id']?>' title='Delete'><span class="glyphicon glyphicon-trash"></span></a> 
+					
+					<input type='hidden' value='<?php echo $job['id']?>' name='jobid'/>
 				</td>
 			</tr>
 			<tr class='trhide'>

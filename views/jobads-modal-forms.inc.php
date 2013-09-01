@@ -153,36 +153,19 @@ select{
 <div class="modal fade" id="modalcriteria" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
 		<div class="modal-content">
-			<form id='editjobform' action='jobCTRL.php' method='post' class='form-horizontal'>
+			<form id='editcriteriaform' action='jobCTRL.php' method='post' class='form-horizontal'>
 				<fieldset>
 					<div class="modal-body">
 						<legend>Edit Criteria</legend>
 						<input type='hidden' value='updatecriteria' name='action'/>
-						<input type='hidden' value='0' name='jobid' id='editid'/>
+						<input type='hidden' value='10' name='jobid' id='editid'/>
 						<div class='form-group'>
 							<label class='col-sm-1 control-label'>No</label>
 							<label class='col-sm-2 control-label'>Criteria</label>
 							<label class='col-sm-7 control-label'>Min rating </label>
 						</div>
 						<div id='criterialist'>
-							<div class='form-group criteria'>
-								<label class='col-sm-1 control-label'>1.</label>
-								<div class='col-sm-7'>
-									<select name='criteriaid' class='form-control'>
-										<?php foreach ($criterias as $criteria): ?>
-											<option value='<?php echo $criteria['id'] ?>'>
-												<?php echo $criteria['name'] ?>
-											</option>
-										<?php endforeach; ?>					
-									</select>
-								</div>
-								<div class='col-sm-2 input-group'>
-									<input required type='number' id='inputExperience' autocomplete='off' class='form-control' value='1' name='minrating' max='5' min='1'/>
-								</div>
-								<button type="button" class="btn btn-danger btn-xs" style='margin:7px 0px 0px 20px;' id='btndeletecriteria'>
-									<span class="glyphicon glyphicon-remove"></span>
-								</button>
-							</div>
+							
 						</div>
 						<div class='form-group'>
 							<button type="button" class="col-sm-offset-1 btn btn-primary btn-xs" style='margin-left:60px;' id='btnaddcriteria'>
