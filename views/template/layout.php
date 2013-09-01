@@ -25,7 +25,8 @@ $scripts[] = 'jquery-1.10.2.min';
 		<?php foreach (array_reverse($scripts) as $script): ?>
 		<script type='text/javascript' src='/jobmatcher/js/<?php echo $script?>.js'></script>
 		<?php endforeach; ?>
-		
+		<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+		<!--<link href="//netdna.bootstrapcdn.com/bootswatch/3.0.0/amelia/bootstrap.min.css" rel="stylesheet">-->
 		<!--styles-->
 		<?php foreach (array_reverse($styles) as $style): ?>
 		<link rel="stylesheet" type="text/css" href="/jobmatcher/css/<?php echo $style?>.css" />

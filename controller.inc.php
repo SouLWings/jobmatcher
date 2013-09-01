@@ -8,11 +8,15 @@ include 'modals/msgDAO.php';
  *  	$curr_location
  *  	$referer
  *  	$firstname
+ *  	$fulltname
  *  	$lastvisitedmsg
  *  	$errormsg
  *  	$asideinclude
  *  	$newmsgnum
  *  	$aid
+ *  	$eid
+ *  	$cid
+ *  	$ut
  */
 
 /*****************************
@@ -30,7 +34,7 @@ if(is_logged_in())
 	//if user logged in, retrieve the id and firstname,
 	$aid = $_SESSION['user']['id'];
 	$firstname = $_SESSION['user']['firstname'];
-	$fullname = $firstname.' '.$_SESSION['user']['lastname'];
+	$lastname = $_SESSION['user']['lastname'];
 	$ut = $_SESSION['user']['usertype'];
 	//call the function to get the last login message
 	if(isset($_SESSION['user']['time'])){

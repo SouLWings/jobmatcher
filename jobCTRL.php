@@ -101,6 +101,24 @@ if(isset($_POST['action']))
 			echo 'invalid form';
 		}	
 	}
+	else if($_POST['action'] == 'updatecriteria')
+	{
+		$jid = $_POST['jobid'];
+		for($i = 1; $i <= $_POST['totalcriteria']; $i++)
+		{
+			if(isset($_POST['criteriaid'.$i]) && isset($_POST['minrating'.$i]))
+			{
+				$criterialist[] = array("criteria_ID"=>intval($_POST['criteriaid'.$i]),"minrating"=>intval($_POST['minrating'.$i]));
+			}
+		}
+		if(!$jobDAO->update_criteria($jid, $criterialist))
+			echo 'failed update criteria';
+		else
+			header('Location:managejobads.php');
+		/* foreach($_POST as $k => $v):
+			echo "$k has value $v<br>";
+		endforeach; */
+	}
 }
 $jobDAO->disconnect();
 ?>
