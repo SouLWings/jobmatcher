@@ -17,7 +17,7 @@
 ?>
 
 <?php ob_start() ?>
-	<a href='resume.php?edit' class='btn btn-sm btn-primary'>Edit  <span class="glyphicon glyphicon-edit"></span> </a>
+	<a href='resume.php?edit' class='btn btn-sm btn-primary'><span class="glyphicon glyphicon-edit"></span> Edit</a>
     <div class="panel panel-info">
 		<div class="panel-heading">
 			<h3 class="panel-title">Personal Info</h3>

@@ -22,7 +22,7 @@
 	<?php 
 		echo $company['name'];
 		if($editable)
-			echo ' <a data-toggle="modal" href="#modaleditcompany" class="btn btn-primary btn-md" id="btneditcompany">Edit</a>';
+			echo ' <a data-toggle="modal" href="#modaleditcompany" class="btn btn-primary btn-md" id="btneditcompany"><span class="glyphicon glyphicon-edit"></span>  Edit</a>';
 	?>
 	
 	</h1>

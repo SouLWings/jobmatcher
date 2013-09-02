@@ -40,7 +40,7 @@
 						else if(data.substring(0,1) == 'J')
 						{
 							$('#btnapplyjob').remove();
-							$('#contentsection').append("<a class='btn btn-primary btn-lg'><span class='glyphicon glyphicon-thumbs-up'></span> Job Applied</a>");
+							$('#contentsection').append("<a class='btn btn-success btn-lg'><span class='glyphicon glyphicon-thumbs-up'></span> Job Applied</a>");
 						}
 					}
 				}).fail(function() {

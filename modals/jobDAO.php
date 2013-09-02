@@ -161,5 +161,15 @@ class jobDAO extends modal{
 	{
 		return $this->insert_row("NULL,$jid,$jsid,CURRENT_TIMESTAMP,'$status'",'jobapplication');
 	}
+		
+	public function get_applicants_of_job($jid)
+	{
+		return $this->get_all_rows("SELECT CONCAT_WS(' ',a.firstname, a.lastname) as name, ja.time, r.id as resumeID FROM jobapplication ja INNER JOIN jobseeker js ON ja.jobSeeker_ID = js.id INNER JOIN account a ON a.id = js.account_ID INNER JOIN resume r ON r.jobseeker_ID = js.id WHERE ja.jobs_ID = $jid");
+	}
+		
+	public function get_applications_of_js($jsid)
+	{
+		return $this->get_all_rows("SELECT ja.time, j.title, j.position, c.name, j.location, j.salary FROM jobapplication ja INNER JOIN jobs j ON j.id = ja.jobs_ID INNER JOIN employer e ON e.id = j.employer_ID INNER JOIN company c ON c.id = e.company_ID WHERE ja.jobSeeker_ID = $jsid");
+	}
 }
 ?>
