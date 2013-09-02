@@ -1,11 +1,10 @@
 to do
 -----
+showing job application from jobseekers
 job application list for jobseekers
-showing job application from jobseekers, response for job application
-articles.php, articlesCTRL.php, articleDAO.php
 resume upload
+articles.php, articlesCTRL.php, articleDAO.php
 edit profile
-password md5 hash
 forum
 
 profile pic
@@ -23,11 +22,11 @@ jobcriteria modalform label numbering
 
 doing
 -----
-apply for job - answering the criteria for job
 
 
 done
 ----
+apply for job - answering the criteria for job
 job criteria
 
 webapps - source codes

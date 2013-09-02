@@ -138,5 +138,28 @@ class jobDAO extends modal{
 		else
 			return $this->con->query("DELETE FROM jobcriteria WHERE job_ID = $jid");
 	}
+	
+	public function get_criteria_form_of_job($jid)
+	{
+		return $this->get_all_rows("SELECT ct.name, jc.minrating FROM jobcriteria jc INNER JOIN criteriatype ct ON ct.id = jc.criteria_ID WHERE jc.job_ID = $jid");
+	}
+	
+	/********************************
+	  functions for job application
+	********************************/
+	public function failed_job_in24hrs($jid, $jsid)
+	{
+		return $this->con->query("SELECT * FROM jobapplication WHERE jobs_ID = $jid AND jobSeeker_ID = $jsid AND time > DATE_SUB(CURDATE(), INTERVAL 1 DAY) AND criteriastatus = 'fail'")->num_rows > 0;
+	}
+	
+	public function passed_job($jid, $jsid)
+	{
+		return $this->con->query("SELECT * FROM jobapplication WHERE jobs_ID = $jid AND jobSeeker_ID = $jsid AND criteriastatus = 'pass'")->num_rows > 0;
+	}
+	
+	public function add_job_application($jid, $jsid, $status)
+	{
+		return $this->insert_row("NULL,$jid,$jsid,CURRENT_TIMESTAMP,'$status'",'jobapplication');
+	}
 }
 ?>

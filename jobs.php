@@ -1,5 +1,6 @@
 <?php
 include 'controller.inc.php';
+include 'modals/resumeDAO.php'; 
 include 'modals/jobDAO.php';
 
 if(isset($_GET['typeid']) && !empty($_GET['typeid']))
@@ -45,11 +46,46 @@ else if(isset($_GET['id']) && !empty($_GET['id']))
 {
 	$jobDAO = new jobDAO();
 	
-	//output variables
+	
 	$job = $jobDAO->get_job($_GET['id']);
+	$criterias = $jobDAO->get_criteria_form_of_job($_GET['id']);
+	$jid = $job['id'];
+	//if is logged in
+	if(is_logged_in())
+	{
+		//if the user is a jobseeker
+		if($ut == 'jobseeker')
+		{
+			//if the user not failed this job within 24hours
+			if(!$jobDAO->failed_job_in24hrs($jid, $jsid))
+			{
+				//if the user not passed the job
+				if(!$jobDAO->passed_job($jid, $jsid))
+				{
+					$resumeDAO = new resumeDAO();
+					
+					//if the resume exist
+					if(sizeof($resumeDAO->get_resume_by_aid($aid)) > 0)
+					{
+						$modalforms[] = 'apply-job-modal-form';
+					}
+					else
+						$errMsg = 'Please create or upload your resume first.';
+					$resumeDAO->disconnect();
+				}
+				else
+					$errMsg = 'Your resume already sent for review. Please wait for futher info.';
+			}
+			else
+				$errMsg = 'Your are not qualified for this job. Please try again another day.';
+		}
+		else
+			$errMsg = 'Access denied. Only jobseeker accounts can apply for jobs.';
+	}
+	else
+		$errMsg = 'Please log in first.';	
 	
 	$jobDAO->disconnect();
-
 	include 'views/aJob.V.php';
 }
 else

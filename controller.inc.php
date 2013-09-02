@@ -56,7 +56,10 @@ if(is_logged_in())
 		$cid = $_SESSION['user']['cid'];
 	}
 	else if($ut == 'jobseeker')
+	{
+		$jsid = $_SESSION['user']['jsid'];
 		$asideinclude = 'jobseekermenu.php';
+	}
 }
 else
 {

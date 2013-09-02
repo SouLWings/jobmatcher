@@ -47,6 +47,7 @@ class userDAO extends modal{
 	
 	public function register_account($un, $pw, $em, $fn, $ln, $ut)
 	{
+		$pw = md5($pw);
 		$success = $this->insert_row("NULL, '$un', '$pw', '$em', '$fn', '$ln', $ut, CURRENT_TIMESTAMP, 'PENDING','OFFLINE'", 'account');
 		$this->account_id = $this->con->insert_id;
 		return $success;
@@ -115,6 +116,7 @@ class userDAO extends modal{
 	***************************/	
 	public function do_log_in($un, $pw)
 	{
+		$pw = md5($pw);
 		$query = "SELECT a.id, at.type, a.firstname, a.lastname, a.accountstatus FROM account a INNER JOIN accounttype at ON a.accounttype_ID = at.id WHERE a.username = '$un' AND a.password = '$pw'";
 		if($result = $this->con->query($query))
 		{
@@ -148,6 +150,17 @@ class userDAO extends modal{
 						$row = $result->fetch_assoc();
 						$user['eid'] = $row["id"];
 						$user['cid'] = $row["company_ID"];
+						$result->free();
+					}
+				}
+				else if($user['usertype'] == 'jobseeker')
+				{
+					$result = $this->con->query("SELECT id, matric FROM jobseeker WHERE account_ID = $id");
+					if($result->num_rows > 0)
+					{	
+						$row = $result->fetch_assoc();
+						$user['jsid'] = $row["id"];
+						$user['matric'] = $row["matric"];
 						$result->free();
 					}
 				}
