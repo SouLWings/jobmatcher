@@ -1,3 +1,35 @@
+to do
+-----
+job application list for jobseekers
+showing job application from jobseekers, response for job application
+articles.php, articlesCTRL.php, articleDAO.php
+resume upload
+edit profile
+password md5 hash
+forum
+
+profile pic
+search job include job type
+forget password
+reset passowrd
+all form validations
+instant messaging
+about us - about jobmatcher, why jobmatcher, how it works, about dev - HTML5 style
+
+issue
+-----
+profile.php - company name havent show up
+jobcriteria modalform label numbering
+
+doing
+-----
+apply for job - answering the criteria for job
+
+
+done
+----
+job criteria
+
 webapps - source codes
 |-	fyp
 	|- 	css
@@ -40,9 +72,7 @@ webapps - source codes
 	|- 	resources.php
 	|- 	mangeResume.php			/* job seekers */
 	|- 	applications.php
-	|- 	editProfile.php
-	|- 	postedJobs.php			/* employers */
-	|- 	manageJob.php
+	|- 	manageJob.php			/* employers */
 	|- 	applicants.php
 	|- 	manageAccounts.php		/* admin */
 	|- 	manageJobs.php
@@ -111,10 +141,12 @@ database design - tables
 	
 	resume
 		id
-		email
+		jobseeker_ID
+		fullname
+		address
 		phone
+		email
 		data of birth
-		state
 		field of study
 		course name
 		graduation date

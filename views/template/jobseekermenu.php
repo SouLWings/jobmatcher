@@ -1,7 +1,6 @@
-Hi, <?php echo $firstname ?>
-<br><?php echo $newmsgnum ?> new message
-<br><?php echo $lastvisitedmsg ?>
-<br><a href='resume.php'>My resume</a>
-<br><a href='applications.php'>My applications</a>
-<br><a href='profile.php?id=<?php echo $aid?>'>My profile</a>
-<br><a href='logoutCTRL.php'>Log out</a>
+<?php include 'welcome.inc.php'; ?>
+<li><a href='resume.php'>My resume</a></li>
+<li><a href='applications.php'>My applications</a></li>
+<li><a href='profile.php?id=<?php echo $aid?>'>My profile</a></li>
+<li><a href='logoutCTRL.php'>Log out</a></li>
+</ul>  

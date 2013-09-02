@@ -18,11 +18,23 @@
 
 <?php ob_start() ?>
 	
-    <h1>Error: 456 account right error</h1>
+    <h1>Chat</h1>
 
-    <div class="">
-		Sorry, your account doesn't seems to have the privilege to view the content of that page.
-	</div>
+	<table id="jobslist" class="table-striped table-bordered table-hover tablesorter">
+		<thead>
+			<tr>
+				<th width='300px'>Inbox</th>
+				<th>Conversation</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					No conversation history found.
+				</td>
+			</tr>
+		</tbody>
+	</table>
 	
 <?php $content = ob_get_clean() ?>
 

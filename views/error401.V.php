@@ -18,10 +18,10 @@
 
 <?php ob_start() ?>
 	
-    <h1>Error: 404 <span class="glyphicon glyphicon-remove-sign"></span> Page not found.</h1>
+    <h1>Error: 401 <span class="glyphicon glyphicon-minus-sign"></span> Access denied.</h1>
 
     <div class="">
-		Sorry, the requested URL was not found on this server.
+		Authorization failed by filter. Your account doesn't seems to have the privilege to view the content of the page.
 	</div>
 	
 <?php $content = ob_get_clean() ?>

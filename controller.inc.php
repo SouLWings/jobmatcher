@@ -8,11 +8,15 @@ include 'modals/msgDAO.php';
  *  	$curr_location
  *  	$referer
  *  	$firstname
+ *  	$fulltname
  *  	$lastvisitedmsg
  *  	$errormsg
  *  	$asideinclude
  *  	$newmsgnum
  *  	$aid
+ *  	$eid
+ *  	$cid
+ *  	$ut
  */
 
 /*****************************
@@ -30,7 +34,8 @@ if(is_logged_in())
 	//if user logged in, retrieve the id and firstname,
 	$aid = $_SESSION['user']['id'];
 	$firstname = $_SESSION['user']['firstname'];
-	
+	$lastname = $_SESSION['user']['lastname'];
+	$ut = $_SESSION['user']['usertype'];
 	//call the function to get the last login message
 	if(isset($_SESSION['user']['time'])){
 		$lastvisitedmsg = get_last_visited_msg($_SESSION['user']['time']);
@@ -38,15 +43,19 @@ if(is_logged_in())
 		$lastvisitedmsg = 'This is your first log in.';
 		
 	//retrieve number of unreaded msg
-	$msgDAO = new msgDAO();
-	$newmsgnum = $msgDAO->get_num_new_msg($aid);
+	$msgDAOt = new msgDAO();
+	$newmsgnum = $msgDAOt->get_num_new_msg($aid);
+	$msgDAOt->disconnect();
 	
-	
-	if($_SESSION['user']['usertype'] == 'admin')
+	if($ut == 'admin')
 		$asideinclude = 'adminmenu.php';
-	else if($_SESSION['user']['usertype'] == 'employer')
+	else if($ut == 'employer')
+	{
 		$asideinclude = 'employermenu.php';
-	else if($_SESSION['user']['usertype'] == 'jobseeker')
+		$eid = $_SESSION['user']['eid'];
+		$cid = $_SESSION['user']['cid'];
+	}
+	else if($ut == 'jobseeker')
 		$asideinclude = 'jobseekermenu.php';
 }
 else
@@ -99,5 +108,13 @@ function get_last_visited_msg($time)
 	return $lastvisitedmsg;
 }
 
+function require_account_type($ut)
+{
+	if(strtoupper($_SESSION['user']['usertype']) != strtoupper($ut))
+	{
+		header('Location:error.php?code=401');
+		die();
+	}
+}
 
 ?>

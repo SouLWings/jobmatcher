@@ -4,7 +4,7 @@ include 'modals/jobDAO.php';
 $jobDAO = new jobDAO();
 
 
-$jobspecializations = $jobDAO->get_all_job_Types();
+$jobspecializations = $jobDAO->get_all_job_Specializations();
 
 
 $jobDAO->disconnect();
