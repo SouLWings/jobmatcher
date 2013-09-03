@@ -9,6 +9,6 @@
 <?php 
 
 			$date = ''.getdate()['year'].'-'.getdate()['mon'].'-'.getdate()['mday'];
-			echo md5('123');?>
+			echo md5('123456');?>
 </body>
 </html>

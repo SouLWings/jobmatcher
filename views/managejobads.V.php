@@ -6,6 +6,8 @@
  *  
  *  --  variables supplied to this page from controller --
  *  $jobs - 2 dimentional array of {id,date,title,specialization,salary,experience,status}
+ *  $jobspecializations - 2 dimentional array of {id,specialization}
+ *  $alljobapplicants - 3 dimentional array of {{name(jobseeker),time,resumeID,aid(jobseeker account id)}}
  *  
  *  --  list of tasks for this view  --
  *  style
@@ -133,21 +135,21 @@
     <h1>My Posted Job Ads</h1>
 	<a data-toggle="modal" href="#modaleditjob" class="btn btn-primary btn-xs" id='btnaddjob'><span class="glyphicon glyphicon-asterisk"></span> Add a new job</a>
 	<?php if(sizeof($jobs) > 0){ ?>
-	<table id="jobslist" class="table-striped table-bordered table-hover tablesorter">
+	<table id="jobslist" class="table-striped table-hover tablesorter">
 		<thead>
 			<tr>
-				<th width=''>Date</th>
+				<th width='90px'>Date</th>
 				<th width=''>Job Title</th>
 				<th width=''>specialization</th>
 				<th width=''>Salary</th>
 				<th width=''>Yrs Exp</th>
 				<th width=''>Status</th>
-				<th width=''>Action</th>
+				<th width='100px'>Action</th>
 			</tr>
 		</thead>
 		<tbody>
-		<?php foreach ($jobs as $job): ?>
-			<tr class='trhover' style='cursor:pointer;' <?php //echo onclick="location.href='jobs.php?id= $job['id']?>'">	
+		<?php $x=0; foreach ($jobs as $job): ?>
+			<tr class='trhover'>	
 				<td><?php echo $job['date'] ?></td>
 				<td><?php echo $job['title'] ?></td>
 				<td><?php echo $job['specialization'] ?></td>
@@ -164,10 +166,16 @@
 					<input type='hidden' value='<?php echo $job['id']?>' name='jobid'/>
 				</td>
 			</tr>
+			<?php foreach ($alljobapplicants[$x] as $jobapplicants): ?>
 			<tr class='trhide'>
-				<td>asd</td>
+				<td></td>
+				<td>Applicant: </td>
+				<td colspan='4'><a href='profile.php?id=<?php echo $jobapplicants['aid'] ?>'><?php echo $jobapplicants['name'] ?></a>, <?php echo $jobapplicants['time'] ?></td>
+				<td><a href='resume.php?id=<?php echo $jobapplicants['resumeID'] ?>' class='btn btn-primary btn-xs'><span class="glyphicon glyphicon-zoom-in"></span> Resume</a></td>
+				<td></td>
 			</tr>
-		<?php endforeach; ?>
+			<?php endforeach; ?>
+		<?php $x++; endforeach; ?>
 		</tbody>
 	</table>
 	<?php }else{ ?>

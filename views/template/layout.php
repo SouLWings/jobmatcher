@@ -43,9 +43,8 @@ $scripts[] = 'jquery-1.10.2.min';
 					<li><a href="index.php">Home</a></li>
 					<li><a href="aboutus.php">About Us</a></li>
 					<li><a href="advanced-search.php">Job Search</a></li>
-					<li><a href="match.php">Job Match</a></li>
 					<li><a href="forum.php">Job Forum</a></li>
-					<li><a href="contactus.php">Resources</a></li>
+					<li><a href="articles.php">Resources</a></li>
 				</ul>
 			</nav>
 		
@@ -68,9 +67,6 @@ $scripts[] = 'jquery-1.10.2.min';
 			</aside>
 			
 			<section id='contentsection'>
-				<section id='slidersection'>
-					<?php echo $slider ?>
-				</section> 
 				<?php echo $content ?>
 			</section>			
 			

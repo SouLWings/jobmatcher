@@ -149,7 +149,7 @@ class jobDAO extends modal{
 	********************************/
 	public function failed_job_in24hrs($jid, $jsid)
 	{
-		return $this->con->query("SELECT * FROM jobapplication WHERE jobs_ID = $jid AND jobSeeker_ID = $jsid AND time > DATE_SUB(CURDATE(), INTERVAL 1 DAY) AND criteriastatus = 'fail'")->num_rows > 0;
+		return $this->con->query("SELECT * FROM jobapplication WHERE jobs_ID = $jid AND jobSeeker_ID = $jsid AND time > DATE_SUB(NOW(), INTERVAL 1 DAY) AND criteriastatus = 'fail'")->num_rows > 0;
 	}
 	
 	public function passed_job($jid, $jsid)
@@ -164,12 +164,12 @@ class jobDAO extends modal{
 		
 	public function get_applicants_of_job($jid)
 	{
-		return $this->get_all_rows("SELECT CONCAT_WS(' ',a.firstname, a.lastname) as name, ja.time, r.id as resumeID FROM jobapplication ja INNER JOIN jobseeker js ON ja.jobSeeker_ID = js.id INNER JOIN account a ON a.id = js.account_ID INNER JOIN resume r ON r.jobseeker_ID = js.id WHERE ja.jobs_ID = $jid");
+		return $this->get_all_rows("SELECT CONCAT_WS(' ',a.firstname, a.lastname) as name, ja.time, r.id as resumeID, a.id as aid FROM jobapplication ja INNER JOIN jobseeker js ON ja.jobSeeker_ID = js.id INNER JOIN account a ON a.id = js.account_ID INNER JOIN resume r ON r.jobseeker_ID = js.id WHERE ja.jobs_ID = $jid AND ja.criteriastatus = 'pass'");
 	}
 		
 	public function get_applications_of_js($jsid)
 	{
-		return $this->get_all_rows("SELECT ja.time, j.title, j.position, c.name, j.location, j.salary FROM jobapplication ja INNER JOIN jobs j ON j.id = ja.jobs_ID INNER JOIN employer e ON e.id = j.employer_ID INNER JOIN company c ON c.id = e.company_ID WHERE ja.jobSeeker_ID = $jsid");
+		return $this->get_all_rows("SELECT ja.time, j.title, j.position, c.name, j.location, j.salary FROM jobapplication ja INNER JOIN jobs j ON j.id = ja.jobs_ID INNER JOIN employer e ON e.id = j.employer_ID INNER JOIN company c ON c.id = e.company_ID WHERE ja.jobSeeker_ID = $jsid AND ja.criteriastatus = 'pass'");
 	}
 }
 ?>

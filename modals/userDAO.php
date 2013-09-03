@@ -234,4 +234,13 @@ class userDAO extends modal{
 		else
 			return $this->get_first_row("SELECT a.onlinestatus, a.email, a.firstname, a.lastname, a.createTime, a.accounttype_ID, t.* FROM account a INNER JOIN $ut t ON t.account_ID = a.id WHERE a.id = $id");
 	}
+	
+
+	/****************************
+	  functions for modify data
+	****************************/
+	public function update_profile($aid, $firstname, $lastname, $email)
+	{
+		return $this->con->query("UPDATE account set firstname = '$firstname', lastname = '$lastname', email = '$email' WHERE id = $aid");
+	}
 }

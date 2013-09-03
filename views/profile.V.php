@@ -15,7 +15,6 @@
  *  --  printing a variable  --
  *  <?php echo $ ?>
  */
- 
 ?>
 
 <?php ob_start() ?>
@@ -39,11 +38,11 @@
 	
     <div class="panel panel-info" style='clear:left'>
 		<div class="panel-heading">
-			<h3 class="panel-title">Personal Info</h3>
+			<h3 class="panel-title">Personal Info <?php if($editable)echo ' <a data-toggle="modal" href="#modaleditprofile" class="btn btn-primary btn-xs" id="btneditprofile" style="color:white"><span class="glyphicon glyphicon-edit"></span>  Edit</a>';?></h3>
 		</div>
 		<div class="panel-body">			
-			email:<?php echo $user['email'] ?><br>
-			<?php include $ut.'-profileinfo.inc.php'; ?>
+			Email:<?php echo $user['email'] ?><br>
+			<?php include $user['ut'].'-profileinfo.inc.php'; ?>
 			
 		</div>		
     </div>

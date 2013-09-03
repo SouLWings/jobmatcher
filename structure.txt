@@ -1,10 +1,7 @@
 to do
 -----
-showing job application from jobseekers
-job application list for jobseekers
 resume upload
 articles.php, articlesCTRL.php, articleDAO.php
-edit profile
 forum
 
 profile pic
@@ -19,6 +16,7 @@ issue
 -----
 profile.php - company name havent show up
 jobcriteria modalform label numbering
+error.php switch case instead of if else
 
 doing
 -----
@@ -26,6 +24,9 @@ doing
 
 done
 ----
+edit profile
+job application list for jobseekers
+showing job application from jobseekers
 apply for job - answering the criteria for job
 job criteria
 

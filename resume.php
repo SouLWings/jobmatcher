@@ -85,8 +85,12 @@ if(is_logged_in() && $ut == 'jobseeker')
 	}
 	$resumeDAO->disconnect();
 }
+else if(is_logged_in() && $ut == 'jobseeker')
+{
+	//employer id -> job -> jobpplication -> student- id
+}
 else
 {
-	employer id -> job -> jobpplication -> student- id
+	header('Location:error.php?code=401');
 }
 ?>

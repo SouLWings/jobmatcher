@@ -174,7 +174,7 @@ select{
 						</div>
 					</div>
 					<div class='modal-footer'>
-						<input type='submit' class='btn btn-primary btn-sm' value='Edit'/>
+						<input type='submit' class='btn btn-primary btn-sm' value='Save'/>
 						<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
 					</div>
 				</fieldset>
