@@ -1,30 +1,34 @@
 <?php
 include 'controller.inc.php';
 include 'modals/forumDAO.php';
-//ghj
+//include 'session.php';
+//session_start();
+//$user=$_SESSION['user']['firstname'].', '.$_SESSION['user']['lastname'];
+//$uuid=$_SESSION['user']['id'];
+//$type=$_SESSION['user']['usertype'];
+
+$user='llaw_lee';
+$uuid='20';
+$type='admin';
+
 $f = new forumDAO();
-//print threadnum
-$sections = $f-> getSections();
+if(!isset($_GET['startrow']))
+{
+	$startrow=0;
+}
+else
+{
+	$startrow=(int)$_GET['startrow'];
+}
+
+$sections = $f-> getSections($startrow);
 
 foreach($sections as $section)
 {
 	$id=$section['id'];
 	$numthread ["$id"]=$f->numThread($id);
-<<<<<<< HEAD
 	$totalpost["$id"]=$f->totalPost($id);
-=======
-	$numpost ["$id"]=$f->numpost($id);
->>>>>>> origin/dev
 }
-
-
-/* $sections = $f-> getSections();
-
-
-$numthread [$id]=$f->numThread($id);
-$numpost["$id"]=$f->numPost($id);	*/
-
-
 
 
 $f->disconnect();

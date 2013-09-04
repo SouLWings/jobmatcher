@@ -5,7 +5,7 @@ class modal{
 	
 	public function __construct()
 	{
-		$this->con = new mysqli("localhost", "root", "", "job_matcher");
+		$this->con = new mysqli("localhost", "root", "", "job_matcher");//("sql2.freemysqlhosting.net", "sql217015", "wY9*aE4!", "sql217015");
 		if ($this->con->connect_errno)
 			die("Unable to enstablish connection to database: " . $con->connect_error);
 	}
@@ -45,5 +45,6 @@ class modal{
 	{
 		return $this->con->query($selectquery)->num_rows;
 	}
+	
 }
 ?>

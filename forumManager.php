@@ -5,7 +5,7 @@ include 'modals/forumDAO.php';
 	if(isset($_POST['action']) && !empty($_POST['action']))
 	{
 		echo $_POST['action']."<br>";
-		echo $_POST['id'];
+		
 		//echo $id;
 		$f = new forumDAO();
 		
@@ -21,6 +21,7 @@ include 'modals/forumDAO.php';
 		
 		else if($_POST['action'] == 'deleteSection')
 		{
+			echo $_POST['id'];
 			if(isset($_POST['id']) && !empty($_POST['id']))
 			{
 				$success = $f->deleteSection($_POST['id']);
@@ -42,26 +43,30 @@ include 'modals/forumDAO.php';
 		
 		else if($_POST['action'] == 'addThread')
 		{
-			if(isset($_POST['title']) && !empty($_POST['title']) && isset($_POST['description']) && !empty($_POST['description']))
+			echo $_POST['title'];
+			echo $_POST['description'];
+			echo $_POST['f0id'];
+			echo $_POST['uuid'];
+			if(isset($_POST['title']) && !empty($_POST['title']) && isset($_POST['description']) && !empty($_POST['description']) && isset($_POST['f0id']) && isset($_POST['uuid']))
 			{
-				$success = $f->createThread($_POST['title'],$_POST['description'],$_POST['f0id']);
+				$success = $f->createThread(get_secured($_POST['f0id']), $_POST['uuid'], $_POST['title'],$_POST['description']);
 				echo $success;
 				header("refresh: 3; url=forum.php");
 			}		
 		}
 		
-		else if($_POST['action'] == 'deleteSection')
+		else if($_POST['action'] == 'deleteThread')
 		{
-			if(isset($_POST['id']) && !empty($_POST['id']))
+			if(isset($_POST['f1id']) && !empty($_POST['f1id']))
 			{
-				echo $_POST['id'];
-				$success = $f->deleteSection($_POST['id']);echo 'babi';
+				echo $_POST['f1id'];
+				$success = $f->deleteThread($_POST['f1id']);
 				echo $success;
 				header("refresh: 3; url=forum.php");
 			}
 		}
 		
-		else if($_POST['action'] == 'editSection')
+		else if($_POST['action'] == 'editThread')
 		{	
 			
 			if(isset($_POST['id']) && !empty($_POST['id'])&& isset($_POST['title']) && !empty($_POST['title'])&&  isset($_POST['description']) && !empty($_POST['description']))
@@ -71,6 +76,41 @@ include 'modals/forumDAO.php';
 				header("refresh: 3; url=forum.php");
 			}
 		}
+		
+		else if($_POST['action'] == 'alterStatus')
+		{	
+			
+			if(isset($_POST['f1id']) && !empty($_POST['f1id']))
+			{
+				$success = $f->alterStatus($_POST['f1id']);
+				echo $success;
+				header("refresh: 3; url=forum.php");
+			}
+		}
+		else if($_POST['action'] == 'addPost')
+		{
+			echo $_POST['title'];
+			echo $_POST['description'];
+			echo $_POST['f1id'];
+			echo $_POST['uuid'];
+			if(isset($_POST['title']) && !empty($_POST['title']) && isset($_POST['description']) && !empty($_POST['description']) && isset($_POST['f1id']) && isset($_POST['uuid']))
+			{
+				$success = $f->createPost($_POST['f1id'], $_POST['uuid'], $_POST['title'],$_POST['description']);
+				echo $success;
+				header("refresh: 3; url=forum.php");
+			}		
+		}
+		else if($_POST['action'] == 'alterType')
+		{	
+			
+			if(isset($_POST['f2id']) && !empty($_POST['f2id']))
+			{
+				$success = $f->alterType($_POST['f2id']);
+				echo $success;
+				header("refresh: 3; url=forum.php");
+			}
+		}
+		
 		
 		$f->disconnect();
 	}

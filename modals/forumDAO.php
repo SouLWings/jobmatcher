@@ -12,79 +12,32 @@ class forumDAO extends modal{
 	 *	begin to write functions
 	 */
 
-	/* function getSection($id)
+	
+	
+	function getSections($startrow)
 	{
-		$qry= "SELECT * FROM f0 WHERE id='$id'";
-		$res= mysql_query($qry,$this->con);
-		$sections=array();
-		
-		while($row=mysql_fetch_assoc($res))
-		{
-			$sections[]=$row;
-		}
-		
-		return $sections;
-	} */
-	/* 
-	function getSections()
-	{
-		$qry= "SELECT * FROM f0 ";
-		$res= mysql_query($qry,$this->con);
-		$sections= array();
-		
-		while($row=mysql_fetch_assoc($res))
-		{
-			$sections[]=$row;
-		}
-		
-		return $sections;
-	}  */
-	function getSections()
-	{
-		$qry="SELECT * FROM f0";
+		$qry="SELECT * FROM f0 LIMIT $startrow,1";
 		return $this->get_all_rows($qry);
 	} 
-/* 
-	function getThreads($id)
-	{
-		$qry= "SELECT * FROM f1 WHERE f0id='$id' ORDER BY status DESC" ;
-		$res= mysql_query($qry,$this->con);
-		$threads= array();
-		
-		while($row=mysql_fetch_assoc($res))
-		{
-			$threads[]=$row;
-		}
-		
-		return $threads;
-	} */
+
 	function getThreads($id)
 	{
 		$qry="SELECT * FROM f1 WHERE f0id='$id' ORDER BY status DESC";
 		return $this->get_all_rows($qry);
 	}
-/* 
-	function getPosts($id)
+
+	function getPosts($f1id)
 	{
-		
-		$qry= "SELECT * FROM f2 WHERE f1id='$id'";
-		$res= mysql_query($qry,$this->con);
-		$posts= array();
-		
-		while($row=mysql_fetch_assoc($res))
-		{
-			$posts[]=$row;
-		}
-		
-		return $posts;
-	}
-	 */
-	function getPosts($id)
-	{
-		$qry="SELECT * FROM f2 WHERE f1id='$id'";
+		$qry="SELECT * FROM f2 WHERE f1id='$f1id'";
 		return $this->get_all_rows($qry);
 	}
-	//$qry="SELECT account.username AS 'name' FROM account INNER JOIN f1 ON account.id=f1.uid  WHERE account.id=$uid";
+	
+	function getPosts2($f1id)
+	{
+		$qry="SELECT * FROM f2 WHERE f1id='$f1id' AND type='visible'";
+		return $this->get_all_rows($qry);
+	}
+	
 	function getUsers($f1id)
 	{
 		$qry="SELECT username FROM account WHERE id=(SELECT uid FROM f1 WHERE id=$f1id)";
@@ -95,6 +48,7 @@ class forumDAO extends modal{
 		}
 		return $usernames;
 	}
+	
 	
 	function editSection($id, $topic, $descr)
 	{
@@ -117,14 +71,9 @@ class forumDAO extends modal{
 
 	function deleteSection($id)
 	{
-<<<<<<< HEAD
 		$qry="DELETE FROM f0  WHERE id='$id'" ;
-		$res=mysql_query($qry);	
-=======
-		$sql="DELETE FROM f0  WHERE id='$id'" ;
-		$res=$this->con->query($sql);	
->>>>>>> origin/dev
-		
+		$res=$this->con->query($qry);	
+
 		if($res)
 			$msg='success';
 		else
@@ -132,8 +81,17 @@ class forumDAO extends modal{
 		return $msg;
 	}
 
-	function deleteThread()
-	{}
+	function deleteThread($id)
+	{
+		$qry="DELETE FROM f1  WHERE id='$id'" ;
+		$res=$this->con->query($qry);	
+
+		if($res)
+			$msg='success';
+		else
+			$msg='failed';
+		return $msg;
+	}
 
 	function deletePost()
 	{}
@@ -150,9 +108,9 @@ class forumDAO extends modal{
 		return $msg;
 	}
 
-	function createThread($topic,$descr,$id)
+	function createThread($f0id,$uuid,$topic,$descr)
 	{
-		$qry="INSERT INTO f1 (title, content, f0id) VALUES ('$topic','$descr','$id')" ;
+		$qry="INSERT INTO f1 (f0id, uid, title, content) VALUES ('$f0id', '$uuid', '$topic', '$descr')" ;
 		$res=$this->con->query($qry);	
 		if($res)
 			$msg='success';
@@ -162,17 +120,17 @@ class forumDAO extends modal{
 		return $msg;
 	}
 
-	function createPost()
-	{}
-	/* 
-
-	function numThread($id)
+	function createPost($f1id,$uuid,$topic,$descr)
 	{
-		$qry= "SELECT COUNT(*) FROM f1 WHERE f0id=$id";
-		$res=mysql_query($qry,$this->con);
-		$num=mysql_result($res,0);
-		return $num;
-	} */
+		$qry="INSERT INTO f2 (f1id, uid, topic, content) VALUES ('$f1id', '$uuid', '$topic', '$descr')" ;
+		$res=$this->con->query($qry);	
+		if($res)
+			$msg='success';
+		else
+			$msg='failed';
+			
+		return $msg;
+	}
 
 	function numThread($id)
 	{
@@ -181,89 +139,135 @@ class forumDAO extends modal{
 		return $num;
 	}
 	 
-	function totalPost($id)
+	function totalPost($f0id)
 	{
-<<<<<<< HEAD
-		$qry= "SELECT f2.id FROM f0 INNER JOIN f1 on f1.f0id = f0.id INNER JOIN f2 on f2.f1id = f1.id where f0.id = $f0id";
+		$qry= "SELECT f2.id FROM f0 INNER JOIN f1 ON f1.f0id = f0.id INNER JOIN f2 ON f2.f1id = f1.id where f0.id = $f0id";
 		$total=$this->row_count($qry);
 		
 		return $total;
 	} 
 	 
 	function numPost($f1id)
-=======
-		$qry= "SELECT COUNT(*) FROM f2 WHERE f1id=$f1id";
-		$res=mysql_query($qry,$this->con);
-		$num=mysql_result($res,0);
-		return $num;
-	}
-	 */
-	function numPost($f0id)
->>>>>>> origin/dev
 	{
-		$qry= "SELECT f2.id FROM `f0` INNER JOIN f1 on f1.f0id = f0.id inner join f2 on f2.f1id = f1.id where f0.id = $f0id";
-		$num=$this->row_count($qry);
+		$qry= "SELECT COUNT(*) as num FROM f2 WHERE f1id=$f1id";
+		$num=$this->con->query($qry)->fetch_assoc()['num'];
 		return $num;
 	}
-	
+	 
 	function sectionname($id)
 	{
 		$qry= "SELECT section FROM f0 WHERE id=(SELECT f0id FROM f1 WHERE id=$id)";
+		//$qry="SELECT section FROM f0 INNER JOIN f1 ON f0.id = f1.f0id WHERE f0.id= $id";
 		$names=$this->get_all_rows($qry);
+		$sect='';
 		foreach($names as $name)
 		{
 			$sect=$name['section'];
 		}
 		return $sect;
 	}
-	/* function numThread()
-	{
-		$sections=$this->getSections();
-		foreach($sections as $section)
+	
+	function alterStatus($f1id)
+	{	
+		$qry="SELECT status FROM f1  WHERE id='$f1id'";
+		$statuss=$this->get_all_rows($qry);
+		
+		$status='';
+		
+		foreach($statuss as $sta)
 		{
-			$f0id=$section['id'];
-			$qry1= "SELECT COUNT(*) FROM f1 WHERE f0id=$f0id AS num";
-			$res1=mysql_query($qry1,$this->con);
-			while($row=mysql_fetch_object($res1))
-			{
-				$threadnums[]=mysql_result($res1,0);
-			}
+			$status=$sta['status'];
 		}
-		return $threadnums;
+		
+		if($status=='normal')
+		{
+			$qry1="UPDATE f1 SET  status='sticky' WHERE id='$f1id'" ;
+			$res1=$this->con->query($qry1);	
+			
+			if($res1)
+				{$msg='success';}
+			else
+				{$msg='failed';}
+		}
+		else
+		{
+			$qry2="UPDATE f1 SET  status='normal' WHERE id='$f1id'" ;
+			$res2=$this->con->query($qry2);	
+			if($res2)
+				{$msg='success2';}
+			else
+				{$msg='failed2';}
+		}
+		return $msg;
 	}
-	 */
-	/* function numPost($id)
+	function getThread($f1id) 
 	{
-		$qry= "SELECT COUNT(*) FROM f2 INNER JOINED f1 ON f2.f1id=f1.id WHERE f2.f1id=$id";
-		$res=mysql_query($qry,$this->con);
-		$numpost=mysql_result($res,0);
-		return $numpost;
-	} */
+		$qry="SELECT * FROM f1 WHERE id='$f1id'";
+		$thread=$this->get_first_row($qry);
+		return $thread;
+	}
 	
-	/* function numPost($id)
+	function pnumPosts($uid)
 	{
-		$qry= "SELECT * FROM f1 WHERE f0id=$id";
-		$res=mysql_query($qry,$this->con);
-		
-		while($row=mysql_fetch_assoc($res));
-		{
-			$threads=$row;
-		
-		}
-		foreach($threads as $thread)
-		{
-			$qry1="SELECT COUNT(*) FROM f2 WHERE f1id='$thread[id]'";
-			$res1=mysql_query($qry1,$this->con);
-			$resvalue=mysql_result($res1,0);
-			while($row1=mysql_fetch_assoc(res1))
-			{
-				$numpost["$id"]=$numpost["$id"]+$resvalue;	
-			}
-		}
+		$qry= "SELECT COUNT(*) as num FROM f2 WHERE uid=$uid";
+		$num=$this->con->query($qry)->fetch_assoc()['num'];
+		return $num;
+	}
 	
+	function pgetUsers($uid)
+	{
+		$qry="SELECT username FROM account WHERE id=$uid";
+		$usernames=$this->get_all_rows($qry);
+		$username='';
+		foreach($usernames as $user)
+		{
+			$username=$user['username'];
 		}
-		return $numpost["$id"];
-	} 
- */
+		return $username;
+	}
+	
+	function alterType($f2id)
+	{	
+		$qry="SELECT type FROM f2  WHERE id='$f2id'";
+		$types=$this->get_all_rows($qry);
+		
+		$type='';
+		
+		foreach($types as $ty)
+		{
+			$type=$ty['type'];
+		}
+		
+		if($type=='hidden')
+		{
+			$qry1="UPDATE f2 SET  type='visible' WHERE id='$f2id'" ;
+			$res1=$this->con->query($qry1);	
+			if($res1)
+				{$msg='success';}
+			else
+				{$msg='failed';}
+		}
+		else
+		{
+			$qry2="UPDATE f2 SET  type='hidden' WHERE id='$f2id'" ;
+			$res2=$this->con->query($qry2);	
+			if($res2)
+				{$msg='success2';}
+			else
+				{$msg='failed2';}
+		}
+		return $msg;
+	}
+	//SELECT * FROM Table WHERE postID = (SELECT max(postID) from Table)
+	function lastPost($f1id)
+	{
+		$qry="SELECT * FROM f2  WHERE id=(SELECT max(id) FROM f2 WHERE f1id='$f1id')";
+		$lasts=$this->get_all_rows($qry);
+		
+		return $lasts;
+	}
+	
+	
+
 }
 ?>
