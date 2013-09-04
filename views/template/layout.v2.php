@@ -7,6 +7,8 @@ if(!isset($content))
 	$content = 'Nothing to display';
 if(!isset($slider))
 	$slider = '';
+if(!isset($modalforms))
+	$modalforms = array();
 	
 $styles[] = 'structure';
 $styles[] = 'bootstrap';
@@ -44,11 +46,10 @@ $scripts[] = 'jquery-1.10.2.min';
 					<li><a href="contactus.php">Resources</a></li>
 				</ul>
 			</nav>
-			
-			
+		
 			<aside>
-				<?php include $asideinclude ?>
-				<br><br>
+				<div id='login'><?php include $asideinclude ?></div>
+				<br>
 				<div id='quickjobsearch'>
 					<form action ='jobs.php' method = 'GET'>
 						<div class="input-group">
@@ -62,34 +63,32 @@ $scripts[] = 'jquery-1.10.2.min';
 						<input type='hidden' name='search'>
 					</form>
 				</div>
-				top company
-				<br>
-				featured job
-				<br>
-				resource - HR corner
 			</aside>
-
-			<section id='slidersection'>
-				<?php echo $slider ?>
-			</section> 
 			
 			<section id='contentsection'>
+				<section id='slidersection'>
+					<?php echo $slider ?>
+				</section> 
 				<?php echo $content ?>
 			</section>			
 			
 			<footer>
-				<b>Sitemap</b>
 				<ul>
-				  <a href=""><li>Home</li></a>
-				  <a href=""><li>About Us</li></a>
-				  <a href=""><li>Job Search</li></a>
-				  <a href=""><li>Job Match</li></a>
-				  <a href=""><li>Job Forum</li></a>
-				  <a href=""><li>Send Enquiry</li></a>  
+				  <li><a href="index.php">Home</a></li>
+				  <li><a href="aboutus.php">About Us</a></li>
+				  <li><a href="advanced-search.php">Job Search </a></li>
+				  <li><a href="match.php">Job Match </a></li>
+				  <li><a href="forum.php">Job Forum </a></li>
+				  <li><a href="contactus.php">Send Enquiry</a></li> 
+				  <li>&copy; 2013 UM Job Portal</li>
 				</ul>
-				<br>
-				<p style="color:black"><small><i>&copy; 2013 UM Job Portal</i></small></p>
-			</footer>			
+			</footer>
+
+			<?php 
+			foreach ($modalforms as $modalform): 
+				include "views/$modalform".'.inc.php';
+			endforeach; 
+			?>			
 		</div>
     </body>
 </html>
