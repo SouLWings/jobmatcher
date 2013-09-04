@@ -12,6 +12,12 @@ if(isset($_GET['id']) && !empty($_GET['id']))
 	$id = intval($_GET['id']);
 	//output variables
 	$company = $userDAO->get_company_by_id($id);
+	
+	if(is_logged_in() && $_SESSION['user']['usertype'] == 'employer')
+	{
+		$modalforms[] = 'company-modal-forms';
+		$editable = true;
+	}	
 
 	//close the connection if not using it anymore
 	$userDAO->disconnect();

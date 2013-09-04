@@ -42,7 +42,7 @@
 				<td><?php echo $jobseeker['matric'] ?></td>
 				<td><?php echo $jobseeker['email'] ?></td>
 				<td><?php echo $jobseeker['createTime'] ?></td>
-				<td><a href='accountCTRL.php?id=<?php echo $jobseeker['id']?>&action=approve'>Approve</a> <a href='accountCTRL.php?id=<?php echo $jobseeker['id']?>&action=disapprove'>Disapprove</a></td>
+				<td><a href='adminactionCTRL.php?id=<?php echo $jobseeker['id']?>&action=approveaccount'>Approve</a> <a href='adminactionCTRL.php?id=<?php echo $jobseeker['id']?>&action=disapproveaccount'>Disapprove</a></td>
 			</tr>
 		<?php endforeach; ?>
 		</tbody>
@@ -72,7 +72,7 @@
 				<td><a href='company.php?id=<?php echo $employer['cid']?>'><?php echo $employer['name'] ?></a></td>
 				<td><?php echo $employer['email'] ?></td>
 				<td><?php echo $employer['createTime'] ?></td>
-				<td><a href='accountCTRL.php?id=<?php echo $employer['id']?>&action=approve'>Approve</a> <a href='accountCTRL.php?id=<?php echo $employer['id']?>&action=disapprove'>Disapprove</a></td>
+				<td><a href='adminactionCTRL.php?id=<?php echo $employer['id']?>&action=approveaccount'>Approve</a> <a href='adminactionCTRL.php?id=<?php echo $employer['id']?>&action=disapproveaccount'>Disapprove</a></td>
 			</tr>
 		<?php endforeach; ?>
 		</tbody>

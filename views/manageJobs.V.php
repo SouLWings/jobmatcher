@@ -17,31 +17,38 @@
 ?>
 
 <?php ob_start() ?>
+	<?php if(sizeof($pendingjobs) > 0){ ?>
 	<table id="jobslist" class="table-striped table-bordered table-hover tablesorter">
 		<thead>
 			<tr>
-				<th width='200px'>Date</th>
-				<th width='200px'>Company name</th>
-				<th width='200px'>Employer name</th>
-				<th width='200px'>Job title</th>
-				<th width='200px'>Position</th>
-				<th width='200px'>salary</th>
-				<th width='200px'>Yrs Exp</th>
+				<th width=''>Date</th>
+				<th width=''>Company name</th>
+				<th width=''>Employer name</th>
+				<th width=''>Job title</th>
+				<th width=''>Position</th>
+				<th width=''>salary</th>
+				<th width=''>Yrs Exp</th>
+				<th width=''>Action</th>
 			</tr>
 		</thead>
 		<tbody>
 		<?php foreach ($pendingjobs as $job): ?>
-			<tr onclick="location.href='profile.php?id=<?php echo $jobseeker['id']?>'" style='cursor:pointer;'>	
-				<td><?php echo $jobseeker['firstname'] ?></td>
-				<td><?php echo $jobseeker['lastname'] ?></td>
-				<td><?php echo $jobseeker['matric'] ?></td>
-				<td><?php echo $jobseeker['email'] ?></td>
-				<td><?php echo $jobseeker['createTime'] ?></td>
-				<td><a href='accountCTRL.php?id=<?php echo $jobseeker['id']?>&action=approve'>Approve</a> <a href='accountCTRL.php?id=<?php echo $jobseeker['id']?>&action=disapprove'>Disapprove</a></td>
+			<tr>	
+				<td><?php echo $job['date'] ?></td>
+				<td><a href='company.php?id='><?php echo $job['name'] ?></a></td>
+				<td><a href='profile.php?id='><?php echo $job['firstname'] ?></a></td>
+				<td><?php echo $job['title'] ?></td>
+				<td><?php echo $job['position'] ?></td>
+				<td><?php echo $job['salary'] ?></td>
+				<td><?php echo $job['experience'] ?></td>
+				<td><a href='adminactionCTRL.php?id=<?php echo $job['id']?>&action=approvejob'>Approve</a> <a href='adminactionCTRL.php?id=<?php echo $job['id']?>&action=disapprovejob'>Disapprove</a></td>
 			</tr>
 		<?php endforeach; ?>
 		</tbody>
 	</table>
+	<?php }else{ ?>
+	<h3>No pending job found.</h3>
+	<?php }?>
 	
 <?php $content = ob_get_clean() ?>
 

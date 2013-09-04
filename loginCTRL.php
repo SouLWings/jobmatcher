@@ -10,9 +10,9 @@ if(!isset($_SESSION['user']))
 		$un = get_secured($_POST['loginusername']);
 		$pw = get_secured($_POST['loginpassword']);
 		$user = $userDAO->do_log_in($un, $pw);//md5($pw))
-		if(strtoupper($user['status']) == 'APPROVED')
+		if(strtoupper($user['accountstatus']) == 'APPROVED')
 			$_SESSION['user'] = $user;
-		else if(strtoupper($user['status']) == 'PENDING')
+		else if(strtoupper($user['accountstatus']) == 'PENDING')
 			$_SESSION['msg'] = 'accountpending';
 		else
 			$_SESSION['msg'] = 'loginfailed';
@@ -22,5 +22,6 @@ if(!isset($_SESSION['user']))
 		echo $_SESSION['msg'];
 	}
 }
+$userDAO->disconnect();
 header('Location: '.$referer);
 ?>
