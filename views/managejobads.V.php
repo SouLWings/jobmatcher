@@ -48,14 +48,16 @@
 		});
 		$('#criterialist').on('click', '.btndeletecriteria', function() {
 			$(this).parent().slideUp(function(){
-				$(this).nextAll('.criteria').each(function i(){
-				
+				$(this).nextAll('.criteria').each(function(index, val){
+					$(this).find('label').text((parseInt($(this).find('label').text())-1));
 				});
 				$(this).remove();
 			});;
 			index--;
 		});
 		$(".btneditcriteria").click(function(){
+			$("#btnaddcriteria").prop('disabled',true);
+			$("input[type='submit']").prop('disabled',true);
 			var jobid = $(this).parent().find("input[name='jobid']").val();
 			$('#editcriteriaform').find("input[name='jobid']").val(jobid);
 			$.post("jobAJAX.php",
@@ -66,12 +68,15 @@
 			function(data,status){
 				if(status == 'success')
 				{
-					//alert(data);
+					/*if(data.substr(1,2) == 'i')
+						alert("Press the plus button to add new criteria.");*/
 					$('#criterialist').html(data);
 					index = $("#criterialist").find("input[name='totalcriteria']").val();
+					$("#btnaddcriteria").prop('disabled',false);
+					$("input[type='submit']").prop('disabled',false);
 				}
 				else
-					alert('retrieve criteria failed');
+					alert('retrieve criteria failed, please reload the page');
 			});
 		});
 		$("#btnaddjob").click(function(){
@@ -148,13 +153,8 @@
 			</tr>
 		</thead>
 		<tbody>
-<<<<<<< HEAD
 		<?php $x=0; foreach ($jobs as $job): ?>
 			<tr class='trhover'>	
-=======
-		<?php foreach ($jobs as $job): ?>
-			<tr class='trhover' style='cursor:pointer;' <?php //echo onclick="location.href='jobs.php?id= $job['id']?>'">	
->>>>>>> 8a73cb34b0bfef286aceb258146aecd31c57090f
 				<td><?php echo $job['date'] ?></td>
 				<td><?php echo $job['title'] ?></td>
 				<td><?php echo $job['specialization'] ?></td>
@@ -171,7 +171,6 @@
 					<input type='hidden' value='<?php echo $job['id']?>' name='jobid'/>
 				</td>
 			</tr>
-<<<<<<< HEAD
 			<?php foreach ($alljobapplicants[$x] as $jobapplicants): ?>
 			<tr class='trhide'>
 				<td></td>
@@ -179,10 +178,6 @@
 				<td colspan='4'><a href='profile.php?id=<?php echo $jobapplicants['aid'] ?>'><?php echo $jobapplicants['name'] ?></a>, <?php echo $jobapplicants['time'] ?></td>
 				<td><a href='resume.php?id=<?php echo $jobapplicants['resumeID'] ?>' class='btn btn-primary btn-xs'><span class="glyphicon glyphicon-zoom-in"></span> Resume</a></td>
 				<td></td>
-=======
-			<tr class='trhide'>
-				<td>asd</td>
->>>>>>> 8a73cb34b0bfef286aceb258146aecd31c57090f
 			</tr>
 			<?php endforeach; ?>
 		<?php $x++; endforeach; ?>

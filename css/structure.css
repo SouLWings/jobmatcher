@@ -9,7 +9,7 @@ body{
 .dropdown-menu{
 	box-shadow:none;
 	padding:0;
-	border:none;
+	background: rgba(52, 152, 219,0.90);
 }
 
 .hidebehind{
@@ -84,7 +84,8 @@ body{
 #contentsection{	
 	padding-bottom: 20px;
 	clear:left;
-	min-height: 500px;
+	max-width:820px;
+	min-height: 76vh;
 	margin-bottom: 10px;
 }
 
@@ -92,22 +93,9 @@ body{
 	float:right;
 }
 
-.container > aside #login{
-	width: 280px;
-	padding: 20px;
-	background-color: #9EB8E6;
-	border-radius: 18px;
-}
-
-.container > aside #quickjobsearch{
-	height: 80px;
-	width: 250px;
-	margin: auto;
-	margin-top: 5%;
-}
 
 footer{
-	height: 75px;
+	height: 10vh;
 	margin: auto;
 	clear: both;
 	width:100%;
@@ -127,7 +115,6 @@ footer{
  footer .container ul{
 	list-style: none;
 	text-align: left;
-	width:802px;
 	padding:5px;
 	padding-top: 15px;
 	padding-left: 30px;

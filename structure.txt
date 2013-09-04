@@ -2,13 +2,15 @@ to do
 -----
 resume upload
 forum
-
 profile pic
 forget password
 reset passowrd
 all form validations
 instant messaging
 about us - about jobmatcher, why jobmatcher, how it works, about dev - HTML5 style
+last sign in time - profile account info
+chg header error code > include error code 401
+chg to carousel index.php
 
 issue
 -----

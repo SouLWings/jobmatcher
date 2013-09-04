@@ -6,7 +6,7 @@
         <ul class="dropdown-menu">
 			<li><a href='message.php'>Inbox <span class="badge"><?php echo $newmsgnum ?></span> </a></li>
 			<?php include $navbaruser; ?>
-			<li><a href='logoutCTRL.php'>Log out</a></li>
+			<li style='border-top:1px solid #dddddd'><a href='logoutCTRL.php'>Log out</a></li>
 		</ul> 
     </li>
 </ul>

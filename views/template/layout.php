@@ -66,25 +66,13 @@ $(document).ready(function(){
 			<a href="index.php" class="navbar-brand">HOME</a>
 			<a href="advanced-search.php" class="navbar-brand">JOB SEARCH</a>
 			<a href="forum.php" class="navbar-brand">JOB FORUM</a></li>
-			<a href="contactus.php" class="navbar-brand">RESOURCES</a></li>
+			<a href="articles.php" class="navbar-brand">RESOURCES</a></li>
 			<?php include $navbartype ?>
 		</div>
 		
 		<div class='container' style="padding-top:80px" id='maincontainer'>				
 			<aside>
-				<div id='quickjobsearch'>
-					<form action ='jobs.php' method = 'GET'>
-						<div class="input-group">
-							<input type="text" name='name' class="form-control" placeholder="Search jobs">
-							<span class="input-group-btn">
-								<button type="submit" class="btn btn-primary">
-									<span class="glyphicon glyphicon-search"></span>
-								</button>
-							</span>
-						</div>
-						<input type='hidden' name='search'>
-					</form>
-				</div>
+
 			</aside>
 			
 			<section id='contentsection'>
@@ -103,13 +91,10 @@ $(document).ready(function(){
 		<footer>
 			<div class='container'>
 				<ul>
-				  <li><a href="index.php">Home</a></li>
-				  <li><a href="aboutus.php">About Us</a></li>
-				  <li><a href="advanced-search.php">Job Search </a></li>
-				  <li><a href="match.php">Job Match </a></li>
-				  <li><a href="forum.php">Job Forum </a></li>
-				  <li><a href="contactus.php">Send Enquiry</a></li> 
-				  <li>&copy; 2013 UM Job Portal</li>
+					<li><a href="contactus.php">Send Enquiry</a></li> 
+					<li><a href="aboutus.php">About Job Portal</a></li>
+					<li><a href="http://portal.um.edu.my/">UM portal</a></li>
+					<li class='pull-right'>&copy; 2013 UM Job Portal</li>
 				</ul>
 			</div>		
 		</footer>

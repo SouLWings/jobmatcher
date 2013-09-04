@@ -43,6 +43,6 @@ class resumeDAO extends modal{
 	
 	public function is_permitted($eid, $rid)
 	{
-		return $this->con->query("SELECT j.employer_ID, r.id FROM resume r INNER JOIN jobapplication ja ON ja.jobSeeker_ID = r.jobseeker_ID INNER JOIN jobs j ON j.id = ja.jobs_ID WHERE j.employer_ID = $eid AND r.id = $rid")->num_rows > 0;
+		return $this->con->query("SELECT j.employer_ID, r.id FROM resume r INNER JOIN jobapplication ja ON ja.jobSeeker_ID = r.jobseeker_ID INNER JOIN jobs j ON j.id = ja.jobs_ID WHERE j.employer_ID = $eid AND r.id = $rid AND ja.criteriastatus = 'pass'")->num_rows > 0;
 	}
 }
