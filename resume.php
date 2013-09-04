@@ -85,9 +85,22 @@ if(is_logged_in() && $ut == 'jobseeker')
 	}
 	$resumeDAO->disconnect();
 }
-else if(is_logged_in() && $ut == 'jobseeker')
+else if(is_logged_in() && $ut == 'employer')
 {
-	//employer id -> job -> jobpplication -> student- id
+	if(isset($_GET['id']) &&  intval($_GET['id'] > 0))
+	{
+		$resumeDAO = new resumeDAO();
+		if($resumeDAO->is_permitted($eid, intval($_GET['id'])))
+		{
+			$resume = $resumeDAO->get_resume_by_rid(intval($_GET['id']));
+			$resumeDAO->disconnect();
+			include 'views/resume.V.php';
+		}
+		else
+			header('Location:error.php?code=401');
+	}
+	else
+		header('Location:error.php?code=401');
 }
 else
 {

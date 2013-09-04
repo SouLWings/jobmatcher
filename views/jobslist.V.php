@@ -45,6 +45,7 @@
 	</table>
 	<?php }else{ ?>
 	<h3>No job found.</h3>
+	<a href='advanced-search.php' class='btn btn-primary'><span class="glyphicon glyphicon-refresh"></span> Search again</a>
 	<?php }?>
 <?php $content = ob_get_clean() ?>
 

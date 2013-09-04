@@ -35,26 +35,27 @@ class jobDAO extends modal{
 		return $this->get_all_rows("SELECT j.title, c.name as company, j.location, j.salary, j.experience, j.date, j.id FROM jobs j INNER JOIN employer e ON j.employer_ID = e.id INNER JOIN company c ON e.company_ID = c.id  WHERE UPPER(j.status) = 'APPROVED' AND (j.title LIKE '%$keyword%' OR j.position LIKE '%$keyword%')");
 	}
 	
-	public function advanced_Search($name, $company, $location, $salaryMin, $salaryMax, $jobspecializationid, $expmin, $expmax)
+	public function advanced_Search($name, $company, $location, $type, $salaryMin, $salaryMax, $jobspecializationid, $expmin, $expmax)
 	{
 		$extraFilter = '';
 		if(!empty($location))
 			$extraFilter .= ' AND j.location = \''.$location.'\'';
+		if(!empty($type))
+			$extraFilter .= ' AND j.type = \''.$type.'\'';
 		if(!empty($salaryMin))
 			$extraFilter .= ' AND j.salary <= '.$salaryMin;
 		if(!empty($salaryMax))
 			$extraFilter .= ' AND j.salary >= '.$salaryMax;
 		if(!empty($jobspecializationid))
 			$extraFilter .= ' AND j.jobSpecialization_ID = '.$jobspecializationid;
-			$extraFilter .= ' AND j.experience >= '.$expmin;
-			$extraFilter .= ' AND j.experience <= '.$expmax;
+		$extraFilter .= ' AND j.experience >= '.$expmin;
+		$extraFilter .= ' AND j.experience <= '.$expmax;
 		$query = "SELECT j.title, c.name as company, j.location, j.salary, j.experience, j.date, j.id
 					FROM jobs j 
 					INNER JOIN employer e ON j.employer_ID = e.id INNER JOIN company c ON e.company_ID = c.id
 					WHERE UPPER(j.status) = 'APPROVED' AND (lower(j.title) LIKE lower('%$name%') 
 						AND lower(c.name) LIKE lower('%$company%') 
 						$extraFilter)";
-		
 		return $this->get_all_rows($query);
 	}
 	

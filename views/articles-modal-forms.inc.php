@@ -95,11 +95,11 @@
     <div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-body">
-				<form id='deletearticle' action='articles.php' method='post' class='form-horizontal'>
+				<form id='deletearticleform' action='articles.php' method='post' class='form-horizontal'>
 					<fieldset>
 						<legend>Are you sure to delete this article?</legend>
 						<input type='hidden' value='deletearticle' name='action'/>
-						<input type='hidden' value='0' name='jobid' id='deleteid'/>
+						<input type='hidden' value='0' name='articleid' id='deleteid'/>
 						<div class='submit-group'>
 							<input type='submit' class='btn btn-primary btn-xs' value='Confirm'/>
 							<button type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>

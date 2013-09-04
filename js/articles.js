@@ -2,9 +2,13 @@ $(document).ready(function(){
 	/*$('#btneditarticle').click(function(){
 		$(this).closest("section")
 	});*/
-	$('#btneditarticle').click(function(){
+	$('.btneditarticle').click(function(){
 		$('#editarticleform').find("input[name='articleid']").val($(this).closest("section").find("input[name='articleid']").val());
 		$('#editarticleform').find("#edittitle").val($(this).closest("section").find("header").text());
 		$('#editarticleform').find("#editcontent").val($(this).closest("section").find("article").text());
+	});
+	$('.btndeletearticle').click(function(){
+		alert($(this).closest("section").find("input[name='articleid']").val());
+		$('#deletearticleform').find("input[name='articleid']").val($(this).closest("section").find("input[name='articleid']").val());
 	});
 });

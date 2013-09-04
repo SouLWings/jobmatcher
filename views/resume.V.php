@@ -17,7 +17,8 @@
 ?>
 
 <?php ob_start() ?>
-	<a href='resume.php?edit' class='btn btn-sm btn-primary'><span class="glyphicon glyphicon-edit"></span> Edit</a>
+	<h1>My resume <?php if($ut=='jobseeker')echo "<a href='resume.php?edit' class='btn btn-sm btn-primary'><span class='glyphicon glyphicon-edit'></span> Edit</a>" ?></h1>
+	
     <div class="panel panel-info">
 		<div class="panel-heading">
 			<h3 class="panel-title">Personal Info</h3>

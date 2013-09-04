@@ -17,10 +17,10 @@
 ?>
 
 <?php ob_start() ?>
-	
+	<h1>Update resume</h1>
 	<form id='resumeform' action='resume.php' method='POST' class="form-horizontal">
 		<fieldset>
-			<legend>Update resume</legend>
+			<legend>Personal Details</legend>
 			<div class='form-group'>
 				<label class='col-sm-3 control-label'>Full name:</label>  
 				<div class='col-sm-4'>
@@ -46,6 +46,13 @@
 				</div>
 			</div>
 			<div class='form-group'>
+				<label class='col-sm-3 control-label'>Date of birth:</label>
+				<div class='col-sm-3'>
+					<input required type='date' value='<?php echo $resume['dateofbirth'] ?>' name='dateofbirth' id='' class='form-control masterTooltip'/>
+				</div>
+			</div>
+			<legend>Contact Details</legend>
+			<div class='form-group'>
 				<label class='col-sm-3 control-label'>Address:</label>
 				<div class='col-sm-6'>
 					<textarea required class='form-control' spellcheck='false' autocomplete='off' name='address' rows='3' placeholder=''><?php echo $resume['address'] ?></textarea>
@@ -63,12 +70,7 @@
 					<input required type='email' value='<?php echo $resume['email'] ?>' name='email' id='inputemail' class='form-control masterTooltip'/>
 				</div>
 			</div>
-			<div class='form-group'>
-				<label class='col-sm-3 control-label'>Date of birth:</label>
-				<div class='col-sm-3'>
-					<input required type='date' value='<?php echo $resume['dateofbirth'] ?>' name='dateofbirth' id='' class='form-control masterTooltip'/>
-				</div>
-			</div>
+			<legend>Educational Details</legend>
 			<div class='form-group'>
 				<label class='col-sm-3 control-label'>Faculty:</label>
 				<div class='col-sm-4'>
@@ -93,6 +95,7 @@
 					<input required type='text' value='<?php echo $resume['cgpa'] ?>' name='cgpa' id='' class='form-control masterTooltip'/>
 				</div>
 			</div>
+			<legend>Additional Details</legend>
 			<div class='form-group'>
 				<label class='col-sm-3 control-label'>Skills:</label>
 				<div class='col-sm-6'>
