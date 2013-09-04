@@ -11,7 +11,6 @@ if(!isset($modalforms))
 	$modalforms = array();
 	
 $styles[] = 'structure';
-$styles[] = 'bootstrap-theme';
 $styles[] = 'bootstrap';
 $scripts[] = 'bootstrap.min';
 $scripts[] = 'jquery-1.10.2.min';
@@ -30,69 +29,49 @@ $scripts[] = 'jquery-1.10.2.min';
 		<?php endforeach; ?>
 		<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
 		<!--<link href="//netdna.bootstrapcdn.com/bootswatch/3.0.0/amelia/bootstrap.min.css" rel="stylesheet">-->
+
 		<!--styles-->
 		<?php foreach (array_reverse($styles) as $style): ?>
 		<link rel="stylesheet" type="text/css" href="/jobmatcher/css/<?php echo $style?>.css" />
 		<?php endforeach; ?>
 <script>
 $(document).ready(function(){ 
-	$("#signin").hide();
 	$("#signinbtn").click(function(){
-	$("#signin").slideToggle();
+		$("#signinbar").toggleClass('dropdowntoggle');
+		//$("#maincontainer").toggleClass('dropdowntoggle');
+		$(this).toggleClass('active');
 	});
-});	
+});
 </script>
     </head>
     <body style=''>
-	<div class="navbar-fixed-top">
-			<div class='container'>
-				<a href="index.php" class="navbar-brand">HOME</a>
-				<a href="aboutus.php" class="navbar-brand">ABOUT US</a>
-				<a href="advanced-search.php" class="navbar-brand">JOB SEARCH</a>
-				<a href="match.php" class="navbar-brand">JOB MATCH</a></li>
-				<a href="forum.php" class="navbar-brand">JOB FORUM</a></li>
-				<a href="contactus.php" class="navbar-brand">RESOURCES</a></li>
-				<a href='register.php' class="pull-right btn btn-primary btn-xs" style='margin-top:9px; margin-left: 0.5%;'>Register</a>
-				<a class="pull-right" id='signinbtn' style='margin-top:9px'>Sign In</a>
-				<div id='jobsearch' class="pull-right">
-					<form action ='jobs.php' method = 'GET'>
-						<div class="input-group">
-							<input type="text" name='name' class="form-control" placeholder="Search jobs">
-							<span class="input-group-btn">
-								<button type="submit" class="btn btn-primary">
-									<span class="glyphicon glyphicon-search"></span>
-								</button>
-							</span>
-						</div>
-						<input type='hidden' name='search'>
-					</form>
-				</div>
+		<div class="navbar-fixed-top hidebehind" id='signinbar' style=''>
+			<div id='' class="pull-right navbar-btn" >
+				<form class="form-inline form-signin" action="loginCTRL.php" method="POST">
+					<div class="form-group">
+						<input type="text" class="form-control" id="loginusername" name='loginusername' placeholder="Username" required>
+					</div>
+					<div class="form-group">
+						<input type="password" class="form-control" id="loginpassword" name="loginpassword" placeholder="Password" required >
+					</div>
+					<button class="btn btn-primary" type="submit">Sign in</button>
+				</form>
 			</div>
-			<div id='signin'>
-				<div class='container'>
-					<form class="form-inline pull-right" role="form">
-						<div class="form-group">
-							<label class="sr-only" for="exampleInputEmail2">Username</label>
-							<input type="email" class="form-control input-sm" id="exampleInputEmail2" placeholder="Username">
-						</div>
-						<div class="form-group">
-							<label class="sr-only" for="exampleInputPassword2">Password</label>
-							<input type="password" class="form-control input-sm" id="exampleInputPassword2" placeholder="Password">
-						</div>
-					  <div class="checkbox">
-						<label>
-						  <input type="checkbox"> Remember me
-						</label>
-					  </div>
-					  <button type="submit" class="btn btn-default btn-sm">Sign in</button>
-					</form>
-				</div>
+			<div id='' class="pull-right navbar-btn">
+				<?php echo $errormsg ?>
 			</div>
 		</div>
-		<div class='container' style="padding-top:70px">	
+		<div class="navbar-fixed-top">
+			<p class="navbar-text">UMJM logo</p>
+			<a href="index.php" class="navbar-brand">HOME</a>
+			<a href="advanced-search.php" class="navbar-brand">JOB SEARCH</a>
+			<a href="forum.php" class="navbar-brand">JOB FORUM</a></li>
+			<a href="contactus.php" class="navbar-brand">RESOURCES</a></li>
+			<?php include $navbartype ?>
+		</div>
+		
+		<div class='container' style="padding-top:80px" id='maincontainer'>				
 			<aside>
-				<div id='login'><?php include $asideinclude ?></div>
-				<br>
 				<div id='quickjobsearch'>
 					<form action ='jobs.php' method = 'GET'>
 						<div class="input-group">
@@ -109,6 +88,9 @@ $(document).ready(function(){
 			</aside>
 			
 			<section id='contentsection'>
+				<section id='slidersection'>
+					<?php echo $slider ?>
+				</section> 
 				<?php echo $content ?>
 			</section>			
 			

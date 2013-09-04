@@ -1,6 +1,3 @@
-<?php include 'welcome.inc.php'; ?>
+<?php require_account_type('jobseeker');?>
 <li><a href='resume.php'>My resume</a></li>
 <li><a href='jobapplications.php'>My applications</a></li>
-<li><a href='profile.php?id=<?php echo $aid?>'>My profile</a></li>
-<li><a href='logoutCTRL.php'>Log out</a></li>
-</ul>  

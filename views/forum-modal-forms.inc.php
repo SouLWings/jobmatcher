@@ -46,16 +46,9 @@ textarea{
 		</div>
     </div>
 </div>
-<<<<<<< HEAD
-<script>
-//$("input[name='action']").val("editsection");
-</script>
-<div class="modal fade" id="editsection" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
-=======
 
 
 <div class="modal fade" id="addthread"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
->>>>>>> origin/llaw
     <div class="modal-dialog" style=''>
 		<div class="modal-content">
 			<div class="modal-body">

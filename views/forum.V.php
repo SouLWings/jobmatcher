@@ -21,10 +21,6 @@ $modalforms[] = 'forum-modal-forms';
 
 
 <a data-toggle="modal" href="#addsection" class="btn btn-primary btn-lg">New Section</a>
-<<<<<<< HEAD
-=======
-<?php include('forum-modal-forms.inc.php'); ?>
->>>>>>> origin/llaw
 
     <h1>Forum Sections</h1>
 	<?php 

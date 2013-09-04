@@ -11,7 +11,8 @@ include 'modals/msgDAO.php';
  *  	$fulltname
  *  	$lastvisitedmsg
  *  	$errormsg
- *  	$asideinclude
+ *  	$navbaruser - usertype
+ *  	$navbartype - login.php | welcome.php
  *  	$newmsgnum
  *  	$aid
  *  	$eid
@@ -48,34 +49,35 @@ if(is_logged_in())
 	$msgDAOt->disconnect();
 	
 	if($ut == 'admin')
-		$asideinclude = 'adminmenu.php';
+		$navbaruser = 'adminmenu.php';
 	else if($ut == 'employer')
 	{
-		$asideinclude = 'employermenu.php';
+		$navbaruser = 'employermenu.php';
 		$eid = $_SESSION['user']['eid'];
 		$cid = $_SESSION['user']['cid'];
 	}
 	else if($ut == 'jobseeker')
 	{
 		$jsid = $_SESSION['user']['jsid'];
-		$asideinclude = 'jobseekermenu.php';
+		$navbaruser = 'jobseekermenu.php';
 	}
+	$navbartype = 'welcome.inc.php';
 }
 else
 {
 	if(isset($_SESSION['msg']) && $_SESSION['msg'] == 'loginfailed')
 	{
-		$errormsg = '<h6 class="form-signin-heading">Invalid username or password.</h6>';
+		$errormsg = '<h6 class="form-signin-heading">Invalid username or password.</h6><script>$("#signinbar").addClass("dropdowntoggle");$("#signinbtn").toggleClass("active");</script>';
 		unset($_SESSION['msg']);
 	}
 	else if(isset($_SESSION['msg']) && $_SESSION['msg'] == 'accountpending')
 	{
-		$errormsg = '<h6 class="form-signin-heading">Account is pending for approval.</h6>';
+		$errormsg = '<h6 class="form-signin-heading">Account is pending for approval.</h6><script>$("#signinbar").addClass("dropdowntoggle");$("#signinbtn").toggleClass("active");</script>';
 		unset($_SESSION['msg']);
 	}
 	else
 		$errormsg = '';
-	$asideinclude = 'login.php';
+	$navbartype = 'login.inc.php';
 }
 
 	
