@@ -1,0 +1,121 @@
+body{
+	background:#ffffff;
+}
+
+.container > header{
+	height: 269px;
+}
+
+.container > nav{
+	width:1170px;
+	margin-bottom:15px;
+	height:40px;
+	background: -webkit-linear-gradient(rgb(80, 80, 80), rgb(40, 40, 40), rgb(0, 0, 0));
+	background: -moz-linear-gradient(rgb(80, 80, 80), rgb(40, 40, 40), rgb(0, 0, 0));
+	font-family: Tahoma; 
+	font-weight: bold;
+	font-size: 1.1em;
+	border-radius: 0 0 6px 6px;
+}
+
+.container > nav ul{
+	width:720px;
+	margin:auto;
+}
+
+.container > nav li{
+	width:120px;
+	text-align: left;
+	text-decoration:none;
+	color:#FFFFFF;
+	display: inline;
+	float: left;
+}
+
+/*to over write bootstrap 2px margin left*/
+.container > nav > ul > li + li{
+	margin-left: 0px;
+}
+
+.container > nav a{
+	display: block;
+}
+
+.container > nav ul li a{
+	text-decoration: none;
+}
+
+.container > nav ul li a:hover{
+	border-radius: 0;
+	background-color: white;
+	-webkit-box-shadow: 0 20px 20px -20px #000000 inset;
+    -moz-box-shadow: 0 20px 20px -20px #000000 inset;
+    box-shadow: 0 20px 20px -20px #000000 inset;
+}
+
+#contentsection{	
+	padding-bottom: 20px;
+	clear:left;
+	min-height: 500px;
+	margin-bottom: 10px;
+}
+
+.container > aside{
+	float:right;
+}
+
+.container > aside #login{
+	width: 280px;
+	padding: 20px;
+	background-color: #9EB8E6;
+	border-radius: 18px;
+}
+
+.container > aside #quickjobsearch{
+	height: 80px;
+	width: 250px;
+	margin: auto;
+	margin-top: 5%;
+}
+
+.container > footer{
+	height: 75px;
+	margin: auto;
+	clear: both;
+	width:100%;
+	text-align:left;
+	font-size:14px;
+	padding-top: 10px;
+	padding-bottom: 5px;
+	background: -webkit-linear-gradient(rgb(242, 242, 242), rgb(255, 255, 255), rgb(255, 255, 255));
+	background: -moz-linear-gradient(rgb(242, 242, 242), rgb(255, 255, 255), rgb(255, 255, 255));
+}
+
+.container footer a{
+	text-decoration: none;
+	color: #A3A2A2;
+}
+
+ .container footer ul{
+	list-style: none;
+	text-align: left;
+	width:802px;
+	padding:5px;
+	padding-top: 15px;
+	padding-left: 30px;
+	margin-bottom:5px;
+}
+
+.container footer ul  li{
+	float:left;
+	width: 108px;
+	text-align:left;
+	text-decoration:none;
+	font:calibri;
+	font-size: 0.8em;
+	color: #A3A2A2;
+}
+
+.container footer ul li a:hover{
+	color: black;
+}

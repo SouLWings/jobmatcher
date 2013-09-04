@@ -14,13 +14,17 @@
  *  <?php echo $ ?>
  */
 $title = 'Forum Sections';
+$modalforms[] = 'forum-modal-forms';
 ?>
 
 <?php ob_start() ?>
 
 
 <a data-toggle="modal" href="#addsection" class="btn btn-primary btn-lg">New Section</a>
+<<<<<<< HEAD
 <?php include('forum-modal-forms.inc.php'); ?>
+=======
+>>>>>>> origin/dev
 
     <h1>Forum Sections</h1>
 	<?php 

@@ -18,21 +18,24 @@ class modal{
 
 	public function get_first_row($selectquery)
 	{
-		$result = $this->con->query($selectquery);
-		$row = $result->fetch_assoc();
-		
-		$result->free();
+		$row = array();
+		if($result = $this->con->query($selectquery))
+		{
+			$row = $result->fetch_assoc();
+			$result->free();
+		}
 		return $row;
 	}
 	
 	public function get_all_rows($selectquery)
 	{
-		$result = $this->con->query($selectquery);
 		$rows = array();
-		while ($row = $result->fetch_assoc())
-			$rows[] = $row;
-		
-		$result->free();
+		if($result = $this->con->query($selectquery))
+		{
+			while ($row = $result->fetch_assoc())
+				$rows[] = $row;
+			$result->free();
+		}
 		return $rows;
 	}
 	

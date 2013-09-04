@@ -1,8 +1,8 @@
 <?php
 //includes core controller functions and variables 
-include 'controller.inc.php';
+include_once 'controller.inc.php';
 //includes the modal classes that needed to access resource
-include 'modals/modalDAO.php';
+include_once 'modals/modalDAO.php';
 
 //creating an instance of the data access object
 $modalDAO = new modalDAO();

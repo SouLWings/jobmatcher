@@ -1,0 +1,1 @@
+Matric Number:<?php echo $user['matric'] ?>

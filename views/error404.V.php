@@ -18,7 +18,7 @@
 
 <?php ob_start() ?>
 	
-    <h1>Error: 404 page not found.</h1>
+    <h1>Error: 404 <span class="glyphicon glyphicon-remove-sign"></span> Page not found.</h1>
 
     <div class="">
 		Sorry, the requested URL was not found on this server.
