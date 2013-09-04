@@ -148,8 +148,13 @@
 			</tr>
 		</thead>
 		<tbody>
+<<<<<<< HEAD
 		<?php $x=0; foreach ($jobs as $job): ?>
 			<tr class='trhover'>	
+=======
+		<?php foreach ($jobs as $job): ?>
+			<tr class='trhover' style='cursor:pointer;' <?php //echo onclick="location.href='jobs.php?id= $job['id']?>'">	
+>>>>>>> 8a73cb34b0bfef286aceb258146aecd31c57090f
 				<td><?php echo $job['date'] ?></td>
 				<td><?php echo $job['title'] ?></td>
 				<td><?php echo $job['specialization'] ?></td>
@@ -166,6 +171,7 @@
 					<input type='hidden' value='<?php echo $job['id']?>' name='jobid'/>
 				</td>
 			</tr>
+<<<<<<< HEAD
 			<?php foreach ($alljobapplicants[$x] as $jobapplicants): ?>
 			<tr class='trhide'>
 				<td></td>
@@ -173,6 +179,10 @@
 				<td colspan='4'><a href='profile.php?id=<?php echo $jobapplicants['aid'] ?>'><?php echo $jobapplicants['name'] ?></a>, <?php echo $jobapplicants['time'] ?></td>
 				<td><a href='resume.php?id=<?php echo $jobapplicants['resumeID'] ?>' class='btn btn-primary btn-xs'><span class="glyphicon glyphicon-zoom-in"></span> Resume</a></td>
 				<td></td>
+=======
+			<tr class='trhide'>
+				<td>asd</td>
+>>>>>>> 8a73cb34b0bfef286aceb258146aecd31c57090f
 			</tr>
 			<?php endforeach; ?>
 		<?php $x++; endforeach; ?>

@@ -61,6 +61,7 @@ else
 {
 	header('Location:error.php');
 }
+
 //close the connection if not using it anymore
 $userDAO->disconnect();
 

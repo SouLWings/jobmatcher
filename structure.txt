@@ -12,11 +12,13 @@ about us - about jobmatcher, why jobmatcher, how it works, about dev - HTML5 sty
 
 issue
 -----
+profile.php - company name havent show up
 jobcriteria modalform label numbering
 error.php switch case instead of if else
 
 doing
 -----
+apply for job - answering the criteria for job
 
 
 done
