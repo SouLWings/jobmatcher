@@ -14,67 +14,67 @@
  *  <?php echo $ ?>
  */
  
-$styles[] = 'slider';
+//$styles[] = 'slider';
 $styles[] = 'content';
 
 ?>
 
 
 <?php ob_start() ?>
-<section id='slidersection'>
-	<div id="slider">
-		<div id="mask">
-		<ul>
-			<li id="first" class="firstanimation">
-				<a href="#">
-					<img src="/jobmatcher/img/slider/img_1.jpg" alt="Cougar"/>
-				</a>
-				<div class="tooltiplinktext">
-					<h1>Cougar</h1>
-				</div>
-			</li>
 
-			<li id="second" class="secondanimation">
-				<a href="#">
-					<img src="/jobmatcher/img/slider/img_2.jpg" alt="Lions"/>
-				</a>
-				<div class="tooltiplinktext">
-					<h1>Lions</h1>
+	
+<div id="myCarousel" class="carousel slide">
+	<ol class="carousel-indicators">
+			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+			<li data-target="#myCarousel" data-slide-to="1"></li>
+			<li data-target="#myCarousel" data-slide-to="2"></li>
+	</ol>
+	<div class="carousel-inner">
+		<div class="item active">
+			<img src="img/header/banner.jpg" alt="First slide" >
+			<div class="container">
+				<div class="carousel-caption">
+					<h1>UM Job Portal</h1>
+					<p>The connector between the fresh gratuates and the industries</p>
+					<p><a class="btn btn-large btn-primary" href="register.php"><span class="glyphicon glyphicon-ok"></span> Sign up today</a></p>
 				</div>
-			</li>
-			
-			<li id="third" class="thirdanimation">
-				<a href="#">
-					<img src="/jobmatcher/img/slider/img_3.jpg" alt="Snowalker"/>
-				</a>
-				<div class="tooltiplinktext">
-					<h1>Snowalker</h1>
-				</div>
-			</li>
-						
-			<li id="fourth" class="fourthanimation">
-				<a href="#">
-					<img src="/jobmatcher/img/slider/img_4.jpg" alt="Howling"/>
-				</a>
-				<div class="tooltiplinktext">
-					<h1>Howling</h1>
-				</div>
-			</li>
-						
-			<li id="fifth" class="fifthanimation">
-				<a href="#">
-					<img src="/jobmatcher/img/slider/img_5.jpg" alt="Sunbathing"/>
-				</a>
-				<div class="tooltiplinktext">
-					<h1>Sunbathing</h1>
-				</div>
-			</li>
-		</ul>
+			</div>
 		</div>
-		<div class="sliderprogress"></div>
-	</div>			
-	<div style='clear:left'></div>
-</section> 
+		<div class="item">
+			<img src="img/slider/s3.jpg" alt="Second slide">
+			<div class="container">
+				<div class="carousel-caption">
+					<h1>Looking for jobs?</h1>
+					<p>View job advertisements in no time.</p>
+					<p>
+						<form action ='jobs.php' method = 'GET'>
+							<input type="text" name='name' class="form-control" placeholder="Type job name here" style='text-align:center'>
+							<br>
+							<button type='submit' class="btn btn-large btn-primary" href="#"><span class="glyphicon glyphicon-search"></span> Search job</button>
+							<input type='hidden' name='search'>
+						</form>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="item">
+		  <img src="img/slider/s4.jpg" alt="Third slide">
+			<div class="container">
+				<div class="carousel-caption">
+					<h1>Career Advice</h1>
+					<p>Check out the articles available in the portal.</p>
+					<p><a class="btn btn-large btn-primary" href="articles.php"><span class="glyphicon glyphicon-hand-right"></span> Browse Resource</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+	<a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+</div>
+<?php $slider = ob_get_clean() ?>
+
+<?php ob_start() ?>
+
 	
 <div class="browsejob">
 	<h2>Browse Job</h2>

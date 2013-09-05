@@ -19,7 +19,7 @@
 <div class="modal fade" id="modaleditprofile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style=''>
 		<div class="modal-content">
-			<form id='editjobform' action='profile.php' method='post' class='form-horizontal'>
+			<form id='editprofileform' action='profile.php' method='post' class='form-horizontal'>
 				<fieldset>
 					<div class="modal-body">
 						<legend>Edit Profile</legend>
@@ -41,11 +41,48 @@
 								<input required type='text' id='' autocomplete='off' class='form-control' placeholder='' name='email' value='<?php echo $user['email'] ?>'/>
 							</div>
 						</div>
-						<input type='hidden' value='editcompany' name='action'/>
+						<input type='hidden' value='editprofile' name='action'/>
 						<input type='hidden' value='<?php echo intval($_GET['id'])?>' name='id'/>
 					</div>
 					<div class='modal-footer'>
 						<input type='submit' class='btn btn-primary' value='Edit'/>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+    </div>
+</div>
+<div class="modal fade" id="modalchgpassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style=''>
+		<div class="modal-content">
+			<form id='editpwform' action='profile.php' method='post' class='form-horizontal'>
+				<fieldset>
+					<div class="modal-body">
+						<legend>Change Password</legend>
+						<div class='form-group'>
+							<label class='col-sm-4 control-label'>Old password:</label>
+							<div class='col-sm-7'>
+								<input required type='password' id='' autocomplete='off' class='form-control' placeholder='' name='oldpw'/>
+							</div>
+						</div>
+						<div class='form-group'>
+							<label class='col-sm-4 control-label'>New password:</label>
+							<div class='col-sm-7'>
+								<input required type='password' id='' autocomplete='off' class='form-control' placeholder='' name='newpw'/>
+							</div>
+						</div>
+						<div class='form-group'>
+							<label class='col-sm-4 control-label'>Repeat new password:</label>
+							<div class='col-sm-7'>
+								<input required type='password' id='' autocomplete='off' class='form-control' placeholder='' name='newpw2'/>
+							</div>
+						</div>
+						<input type='hidden' value='editpw' name='action'/>
+						<input type='hidden' value='<?php echo intval($_GET['id'])?>' name='id'/>
+					</div>
+					<div class='modal-footer'>
+						<input type='submit' class='btn btn-primary' value='Change'/>
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 					</div>
 				</fieldset>

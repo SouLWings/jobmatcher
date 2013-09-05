@@ -36,6 +36,7 @@ $scripts[] = 'jquery-1.10.2.min';
 		<?php endforeach; ?>
 <script>
 $(document).ready(function(){ 
+	$('.carousel').carousel()
 	$("#signinbtn").click(function(){
 		$("#signinbar").toggleClass('dropdowntoggle');
 		//$("#maincontainer").toggleClass('dropdowntoggle');
@@ -44,7 +45,8 @@ $(document).ready(function(){
 });
 </script>
     </head>
-    <body style=''>
+    <body style="margin-top:50px">
+		<!-- sign in menu bar -->
 		<div class="navbar-fixed-top hidebehind" id='signinbar' style=''>
 			<div id='' class="pull-right navbar-btn" >
 				<form class="form-inline form-signin" action="loginCTRL.php" method="POST">
@@ -61,6 +63,8 @@ $(document).ready(function(){
 				<?php echo $errormsg ?>
 			</div>
 		</div>
+		
+		<!-- top menu bar -->
 		<div class="navbar-fixed-top">
 			<p class="navbar-text">UMJM logo</p>
 			<a href="index.php" class="navbar-brand">HOME</a>
@@ -70,15 +74,16 @@ $(document).ready(function(){
 			<?php include $navbartype ?>
 		</div>
 		
-		<div class='container' style="padding-top:80px" id='maincontainer'>				
+		<div>
+			<?php echo $slider ?>
+		</div>
+		<!-- container for the main content -->
+		<div class='container' id='maincontainer'>				
 			<aside>
 
 			</aside>
 			
 			<section id='contentsection'>
-				<section id='slidersection'>
-					<?php echo $slider ?>
-				</section> 
 				<?php echo $content ?>
 			</section>			
 			
@@ -88,6 +93,9 @@ $(document).ready(function(){
 			endforeach; 
 			?>			
 		</div>
+		
+		
+		<!-- footer -->
 		<footer>
 			<div class='container'>
 				<ul>

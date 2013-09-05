@@ -3,7 +3,7 @@
 <div id='jobsearch' class="pull-right navbar-btn">
 	<form action ='jobs.php' method = 'GET' style='width:276px;'>
 		<div class="input-group">
-			<input type="text" name='name' class="form-control" placeholder="Search jobs">
+			<input type="text" name='name' class="form-control" placeholder="Job search">
 			<span class="input-group-btn">
 				<button type="submit" class="btn btn-primary">
 					<span class="glyphicon glyphicon-search"></span>

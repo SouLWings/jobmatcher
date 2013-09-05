@@ -1,3 +1,9 @@
+@font-face
+{
+	font-family: amble-bold;
+	src: url('/jobmatcher/fonts/Chunkfive.otf')
+}
+
 .browsejob{
 	font-family:Arial; 
 	padding-top: 10px; 
@@ -23,10 +29,46 @@
 #browsejobheader{
 	margin-left: 4%;
 }
+.carousel {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+.carousel-caption {
+  z-index: 10;
+}
 
-#slidersection{
-	margin-left: 8%;
-	margin-bottom: 2%;
-	margin-top: 2%;
+.carousel .item {
+  height: 450px;
+  background-color: #777;
+}
+.carousel-inner > .item > img {
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
+  opacity:0.9;
+  -webkit-filter: brightness(0.7);
+  display:block;
+  margin:auto;
+}
 
+.carousel-caption h1{
+	font-size:4em;
+	font-family:'amble-bold';
+	font-weight:bold;
+}
+
+.carousel-caption{
+	/*background:rgba(0,0,0,0.4);
+	text-shadow: 1px 0px 1px #88aaee, 0px 1px 1px #99bbff, -1px 0px 1px #88aaee, 0px -1px 1px #88aaee;*/
+	border-radius:10px;
+	color:white;
+	padding-bottom:115px;
+}
+
+.carousel-control{
+	transition:all 300ms;
+}
+
+.carousel-control:hover{
+	text-shadow: 1px 0px 10px #88aaee, 0px 1px 10px #99bbff, -1px 0px 10px #88aaee, 0px -1px 10px #88aaee;
 }

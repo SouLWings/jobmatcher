@@ -6,21 +6,46 @@ include 'modals/userDAO.php';
 
 //creating an instance of the data access object
 $userDAO = new userDAO();
-if(isset($_POST['id']) && intval($_POST['id']) > 0 && isset($_POST['lastname']) && isset($_POST['email']))
+
+//handle AJAX post request to edit profile or edit password
+if(isset($_POST['action']) && $_POST['action'] == 'editprofile')
 {
-	if(!$userDAO->update_profile(intval($_POST['id']), get_secured($_POST['firstname']), get_secured($_POST['lastname']), get_secured($_POST['email'])))
+	if(isset($_POST['id']) && intval($_POST['id']) > 0 && isset($_POST['lastname']) && isset($_POST['email']))
 	{
-		echo 'update profile failed';
-		die();
+		if(!$userDAO->update_profile(intval($_POST['id']), get_secured($_POST['firstname']), get_secured($_POST['lastname']), get_secured($_POST['email'])))
+		{
+			echo 'Failed to update account.';
+		}
+		else
+		{
+			echo 'Profile updated successfully.';
+		}
 	}
-	else
+	die();
+}
+else if(isset($_POST['action']) && $_POST['action'] == 'editpw')
+{
+	if(isset($_POST['id']) && intval($_POST['id']) > 0 && isset($_POST['oldpw']) && isset($_POST['newpw']))
 	{
-		header("Location:profile.php?id=$aid");
-		$userDAO->disconnect();
-		die();
+		if($userDAO->check_password(intval($_POST['id']), get_secured($_POST['oldpw'])))
+		{
+			if(!$userDAO->update_password(intval($_POST['id']), get_secured($_POST['newpw'])))
+			{
+				echo 'Failed to change passwod.'; 
+			}
+			else
+			{
+				echo 'Password updated successfully.'; //output msg used in profile.js to check pass/fail
+			}
+		}
+		else
+			echo 'Invalid old password.'; 
 	}
+	die();
 }
 
+
+//
 if(isset($_GET['id']) && intval($_GET['id'] > 0))
 {
 	$user = $userDAO->get_user_by_id(intval($_GET['id']));
@@ -40,6 +65,11 @@ if(isset($_GET['id']) && intval($_GET['id'] > 0))
 		{	
 			$user['usertype'] = 'Employer';
 			$user['ut'] = 'employer';
+			
+			//getting company name by id
+			$user['name'] = '';
+			if($company = $userDAO->get_company_by_id($user['company_ID']))
+				$user['name'] = $company['name'];
 		}
 		else if($user['accounttype_ID'] == 1)
 		{	
@@ -48,23 +78,22 @@ if(isset($_GET['id']) && intval($_GET['id'] > 0))
 		}
 
 		$editable = false;
-		if(intval($_GET['id']) == $_SESSION['user']['id'])
+		if(isset($_SESSION['user']['id']) && intval($_GET['id']) == $_SESSION['user']['id'])
 		{
 			$editable = true;
-			$modalforms[] = 'profile-modal-forms';
 		}
+		include 'views/profile.V.php';
 	}
 	else
-		header('Location:error.php');
+		include 'views/error404.V.php';
 }
 else
 {
-	header('Location:error.php');
+	include 'views/error404.V.php';
 }
 
 //close the connection if not using it anymore
 $userDAO->disconnect();
 
 //include a view to display declared variables
-include 'views/profile.V.php';
 ?>

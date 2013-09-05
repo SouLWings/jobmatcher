@@ -16,6 +16,12 @@ class userDAO extends modal{
 		return $this->con->query("SELECT id FROM account WHERE username = '$un'")->num_rows == 1;
 	}
 	
+	public function check_password($id, $pw)
+	{
+		$pw = md5($pw);
+		return $this->row_count("SELECT * FROM account WHERE id = $id AND password = '$pw'") > 0;
+	}
+	
 	//check whether the account details are valid
 	public function check_submitted_account($un, $pw, $pw2, $em, $fn, $ln, $ut){
 		if($pw != $pw2)
@@ -230,9 +236,9 @@ class userDAO extends modal{
 	{
 		$ut = $this->get_first_row("SELECT type FROM account a INNER JOIN accounttype at ON a.accounttype_ID = at.id WHERE a.id = $id")['type'];
 		if($ut == 'admin')
-			return $this->get_first_row("SELECT * FROM account WHERE id = $id");
+			return $this->get_first_row("SELECT a.*, max(time) as lastlogintime FROM account a INNER JOIN loginlog ll ON a.id = ll.account_ID WHERE a.id = $id");
 		else
-			return $this->get_first_row("SELECT a.onlinestatus, a.email, a.firstname, a.lastname, a.createTime, a.accounttype_ID, t.* FROM account a INNER JOIN $ut t ON t.account_ID = a.id WHERE a.id = $id");
+			return $this->get_first_row("SELECT a.onlinestatus, a.email, a.firstname, a.lastname, a.createTime, a.accounttype_ID, t.*, ll.time as lastlogintime FROM account a INNER JOIN $ut t ON t.account_ID = a.id INNER JOIN loginlog ll ON a.id = ll.account_ID WHERE a.id = $id");
 	}
 	
 
@@ -242,5 +248,11 @@ class userDAO extends modal{
 	public function update_profile($aid, $firstname, $lastname, $email)
 	{
 		return $this->con->query("UPDATE account set firstname = '$firstname', lastname = '$lastname', email = '$email' WHERE id = $aid");
+	}
+	
+	public function update_password($aid, $pw)
+	{
+		$pw = md5($pw);
+		return $this->con->query("UPDATE account set password = '$pw' WHERE id = $aid");
 	}
 }

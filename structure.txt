@@ -1,30 +1,28 @@
 to do
 -----
-resume upload
 forum
+resume upload
 profile pic
 forget password
-reset passowrd
-all form validations
 instant messaging
 about us - about jobmatcher, why jobmatcher, how it works, about dev - HTML5 style
-last sign in time - profile account info
 chg header error code > include error code 401
-chg to carousel index.php
+db account +latestonlinetime, js for everypage
+error page for DB server down
+error.php switch case instead of if else
 
 issue
 -----
-profile.php - company name havent show up
-jobcriteria modalform label numbering
-error.php switch case instead of if else
+
 
 doing
 -----
-apply for job - answering the criteria for job
+all form validations
 
 
 done
 ----
+apply for job - answering the criteria for job
 articles.php, articlesCTRL.php, articleDAO.php
 edit profile
 job application list for jobseekers

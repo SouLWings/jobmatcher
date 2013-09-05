@@ -21,9 +21,10 @@
 ?>
 
 <?php ob_start() ?>
+	<h1>Register new account</h1>
 	<form id='registerform' action='register.php' method='POST' class="form-horizontal">
 		<fieldset>
-			<legend>Register new account</legend>
+			<legend>Account infomation</legend>
 			<div class='form-group'>
 				<label class='col-sm-4 control-label' for='inputname'>Username:</label>  
 				<div class='col-sm-4'>
@@ -83,6 +84,8 @@
 						<input type='text' value='' name='position' id='inputposition' class='form-control masterTooltip'/>
 					</div>
 				</div>
+				
+				<legend>Company infomation</legend>
 				<div class='form-group'>
 					<label class='col-sm-4 control-label' >Please choose an option for your company:</label>
 					<div class='col-sm-4'>
