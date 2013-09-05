@@ -6,9 +6,8 @@ include_once 'modals/resumeDAO.php';
 
 if(is_logged_in() && $ut == 'jobseeker')
 {
-	//creating an instance of the data access object
-	$resumeDAO = new resumeDAO();
 
+	//handling the post request of create/update resume
 	if(isset($_POST['dateofbirth']) && isset($_POST['graduationdate']))
 	{
 		$fullname = get_secured($_POST['fullname']);
@@ -28,32 +27,54 @@ if(is_logged_in() && $ut == 'jobseeker')
 		$additionaldescription = mysql_real_escape_string($_POST['additionaldescription']);
 	}
 
+	//handling the resume file uploaded
+	if(isset($_FILES['uploadresume']['name']) && !empty($_FILES['uploadresume']['name']))
+	{
+		if(!move_uploaded_file($_FILES['uploadresume']['tmp_name'], "resume/".$aid.".pdf"))
+			echo 'upload failed';
+		else
+		{
+			header('Location:resume.php');
+			$resumeDAO->disconnect();
+			die();
+		}
+	}
+	//creating an instance of the data access object
+	$resumeDAO = new resumeDAO();
 
 	//output variables
 	$resume = $resumeDAO->get_resume_by_aid($aid);
 
 	if(sizeof($resume) > 0)
 	{
+		//this will update the resume and refresh the page
 		if(isset($_POST['rid']))
 		{
 			$rid = intval($_POST['rid']);
 			if($resumeDAO->update_resume($rid, $fullname, $ic, $matric, $gender, $address, $phone, $email, $dateofbirth, $faculty, $programme, $graduationdate, $cgpa, $skills, $personalities, $additionaldescription))
 			{
 				header('Location:resume.php');
+				$resumeDAO->disconnect();
 				die();
 			}
 			else
 				echo 'fail update resume';
 		}
+		//this is the page to edit the resume
 		else if(isset($_GET['edit']))
 		{
 			include 'views/resumeform.V.php';
 		}
+		//this is the page to display the resume
 		else
+		{
+			$uploadedresume = $resumeDAO->get_uploadedresume_by_aid($aid);
 			include 'views/resume.V.php';
+		}
 	}
 	else
 	{
+		//if no resume record and there is a post variables set, means creating new resume
 		if(isset($_POST['dateofbirth']) && isset($_POST['graduationdate']))
 		{
 			if($resumeDAO->new_resume($aid, $fullname, $ic, $matric, $gender, $address, $phone, $email, $dateofbirth, $faculty, $programme, $graduationdate, $cgpa, $skills, $personalities, $additionaldescription))
@@ -64,6 +85,8 @@ if(is_logged_in() && $ut == 'jobseeker')
 			else
 				echo 'fail update resume';
 		}
+		
+		//if not creating new resume, show them empty form
 		$resume['id'] = '';
 		$resume['fullname'] = '';
 		$resume['ic'] = '';
@@ -105,5 +128,4 @@ else
 {
 	header('Location:error.php?code=401');
 }
-$resumeDAO->disconnect();
 ?>

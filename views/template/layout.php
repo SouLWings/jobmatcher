@@ -80,7 +80,7 @@ $(document).ready(function(){
 		<!-- container for the main content -->
 		<div class='container' id='maincontainer'>				
 			<aside>
-
+				<?php echo $aside ?>
 			</aside>
 			
 			<section id='contentsection'>

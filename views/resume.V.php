@@ -17,6 +17,20 @@
 ?>
 
 <?php ob_start() ?>
+    <div class="panel panel-info">
+		<div class="panel-heading">
+			<h3 class="panel-title">Uploaded Resume</h3>
+		</div>
+		<div class="panel-body" style='height:85px;'>		
+			<form action = "resume.php" method = "POST" enctype = "multipart/form-data">
+				<input type = "file" name = "uploadresume" value = "Choose Resume">
+				<input type = "submit" value = "Upload">
+			</form>
+		</div>		
+    </div>
+<?php $aside = ob_get_clean() ?>
+
+<?php ob_start() ?>
 	<h1><?php echo $resume['fullname'] ?>'s resume <?php if($ut=='jobseeker')echo "<a href='resume.php?edit' class='btn btn-sm btn-primary'><span class='glyphicon glyphicon-edit'></span> Edit</a>" ?></h1>
 	
     <div class="panel panel-info">
