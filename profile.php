@@ -43,9 +43,19 @@ else if(isset($_POST['action']) && $_POST['action'] == 'editpw')
 	}
 	die();
 }
+// call from core.js to send email about forgot password
+else if(isset($_GET['action']) && $_GET['action'] == 'forgetpw')
+{
+	$em = $_GET['email'];
+	if($userDAO->send_forgetpw_email(mysql_real_escape_string($em)))
+		echo 'Please check your email for password reset';
+	else
+		echo 'Fail to reset password. Please try again next time.';
+	die();
+}
 
 
-//
+//if id parameter isset, show them the profile page of the id
 if(isset($_GET['id']) && intval($_GET['id'] > 0))
 {
 	$user = $userDAO->get_user_by_id(intval($_GET['id']));

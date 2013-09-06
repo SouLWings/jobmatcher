@@ -39,6 +39,13 @@ if(is_logged_in() && $ut == 'jobseeker')
 			die();
 		}
 	}
+	
+	//this is the page to delete the uploaded resume
+	if(isset($_GET['removeUploadedResume']) && file_exists('resume/'.$aid.'.pdf'))
+	{
+		unlink('resume/'.$aid.'.pdf');
+	}
+	
 	//creating an instance of the data access object
 	$resumeDAO = new resumeDAO();
 
@@ -68,7 +75,12 @@ if(is_logged_in() && $ut == 'jobseeker')
 		//this is the page to display the resume
 		else
 		{
-			$uploadedresume = $resumeDAO->get_uploadedresume_by_aid($aid);
+			$uploadedresume = false;
+			if(file_exists('resume/'.$aid.'.pdf'))
+				$uploadedresume = true;
+			
+			$resumeaid = $aid;
+			
 			include 'views/resume.V.php';
 		}
 	}
@@ -115,17 +127,21 @@ else if(is_logged_in() && $ut == 'employer')
 		if($resumeDAO->is_permitted($eid, intval($_GET['id'])))
 		{
 			$resume = $resumeDAO->get_resume_by_rid(intval($_GET['id']));
+			$uploadedresume = false;
+			$resumeaid = $resumeDAO->get_aid_by_rid(intval($_GET['id']));
+			if(file_exists('resume/'.$resumeaid.'.pdf'))
+				$uploadedresume = true;
 			$resumeDAO->disconnect();
 			include 'views/resume.V.php';
 		}
 		else
-			header('Location:error.php?code=401');
+			include 'views/error401.V.php';
 	}
 	else
-		header('Location:error.php?code=401');
+		include 'views/error401.V.php';
 }
 else
 {
-	header('Location:error.php?code=401');
+	include 'views/error401.V.php';
 }
 ?>

@@ -98,7 +98,6 @@ class userDAO extends modal{
 		return (mail($to,$subject,$message) == true);
 	}
 
-	
 	public function send_registration_email($email, $fn)
 	{
 		$to = $email;
@@ -106,6 +105,23 @@ class userDAO extends modal{
 		$message = "Dear $fn,\n\nThank you for signing up with UM Job Matching Portal.\nPlease wait while your account is being approved. You will receive an email notification when your account get approved.";
 		return (mail($to,$subject,$message) == true);
 	}	
+	
+	public function send_forgetpw_email($email)
+	{	
+		$row = $this->get_first_row("SELECT id, firstname, username FROM account WHERE email = '$email'");
+		if(sizeof($row) < 1)
+			die("No account associate with this email address.");
+		$fn = $row['firstname'];
+		$un = $row['username'];
+		$aid = $row['id'];
+		$to = $email;
+		$hash = md5($fn.$un);
+		if(!$this->insert_row("NULL, $aid, '$hash', NOW()",'forgetpassword'))
+			return false;
+		$subject = "Password reset - UM Job Matching Portal";
+		$message = "Dear $fn,\n\nPlease click the following link to reset your password.\nhttp://".$_SERVER['SERVER_ADDR']."/jobmatcher/forgetpassword.php?hash=$hash \nIgnore this message if you did not perform such request.\n\nRegards,\nUMJobPortal Support team";
+		return (mail($to,$subject,$message) == true);
+	}
 	
 	public function get_all_companies()
 	{

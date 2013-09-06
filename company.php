@@ -26,5 +26,5 @@ if(isset($_GET['id']) && !empty($_GET['id']))
 	include 'views/acompany.V.php';
 }
 else
-	header('Location:index.php');
+	include 'views/error404.V.php';
 ?>

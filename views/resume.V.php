@@ -6,6 +6,7 @@
  * 
  *  --  variables supplied to this page from controller --
  *  $resume - singular array of {id(resume),jboseeker_ID,fullname, ic,matric,gender,address, phone, email, dateofbirth, faculty, programme, graduationdate, cgpa, skills, personalities, additionaldescription}
+ *  $uploadedresume - true(if uploaded exist) | false
  *  
  *  --  list of tasks for this view  --
  *  
@@ -16,17 +17,27 @@
  
 ?>
 
+<!-- for sidebar -->
 <?php ob_start() ?>
     <div class="panel panel-info">
 		<div class="panel-heading">
 			<h3 class="panel-title">Uploaded Resume</h3>
 		</div>
+<?php if($uploadedresume){ ?>
+		<a href='resume/<?php echo $resumeaid?>.pdf'>View uploaded resume</a>
+<?php if($ut == 'jobseeker') {?>
+		<a href='resume.php?removeUploadedResume'>Remove uploaded resume</a>
+<?php }}else if($ut == 'jobseeker'){ ?>
+		<p> You can upload your custom resume here.
 		<div class="panel-body" style='height:85px;'>		
 			<form action = "resume.php" method = "POST" enctype = "multipart/form-data">
 				<input type = "file" name = "uploadresume" value = "Choose Resume">
-				<input type = "submit" value = "Upload">
+				<input type = "submit" value = "Upload" class='btn btn-primary'>
 			</form>
-		</div>		
+		</div>	
+<?php }else{ ?>	
+		<p>No custom resume available</p>
+<?php } ?>		
     </div>
 <?php $aside = ob_get_clean() ?>
 

@@ -2,7 +2,7 @@
 <body>
 <?php 
 
-include_once 'modals/articleDAO.php';
+echo "http://".$_SERVER['SERVER_ADDR']."/jobmatcher/forgetpassword.php?hash=asdasdasdasd";
 
 ?>
 </body>

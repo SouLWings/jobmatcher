@@ -11,6 +11,14 @@ class resumeDAO extends modal{
 	 *	begin to write functions
 	 */
 	
+	public function get_aid_by_rid($rid)
+	{
+		if($row = $this->get_first_row("SELECT a.id from account a INNER JOIN jobseeker js ON js.account_ID = a.id INNER JOIN resume r ON r.jobseeker_ID = js.id WHERE r.id = $rid"))
+			if(isset($row['id']))
+				return $row['id'];
+		
+	}
+	
 	public function get_resume_by_aid($aid)
 	{
 		return $this->get_first_row("SELECT r.* from resume r INNER JOIN jobseeker js ON js.id = r.jobseeker_ID INNER JOIN account a ON a.id = js.account_ID WHERE a.id = $aid");

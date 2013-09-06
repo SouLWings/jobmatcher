@@ -38,5 +38,5 @@ if(is_logged_in())
 	//close the connection if not using it anymore
 }
 else
-	header('Location:error.php?code=456');
+	include 'views/error401.V.php';
 ?>

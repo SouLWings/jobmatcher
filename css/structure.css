@@ -15,6 +15,13 @@ body{
 .hidebehind{
 	opacity:0;
 	transition:all 500ms;
+	height:65px;
+}
+
+.hideright{
+	opacity:0;
+	transition:all 500ms;
+	margin-right:-200px;
 }
 .dropdowntoggle{
 	margin-top:50px;
@@ -85,16 +92,17 @@ body{
 	padding: 0px 0px;
 	clear:left;
 	max-width:820px;
-	min-height: 85vh;
 }
 
 #maincontainer > aside{
 	float:right;
 	width:250px;
-	padding:20px 0px;
 }
 
-
+#maincontainer{
+	min-height: 85vh;
+	padding:20px 0px;
+}
 footer{
 	min-height: 60px;
 	margin: auto;
@@ -135,4 +143,9 @@ footer{
  footer .container ul li a:hover{
 	color: black;
 	text-decoration: none;
+}
+
+#forgetpw{
+	cursor:pointer;
+	margin-left:5px;
 }

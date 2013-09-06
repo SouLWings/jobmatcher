@@ -23,6 +23,6 @@ if(isset($_SESSION['user']) && $_SESSION['user']['usertype'] == 'admin')
 }
 else
 {
-	header('Location:error.php?code=456');
+	include 'views/error401.V.php';
 }
 ?>

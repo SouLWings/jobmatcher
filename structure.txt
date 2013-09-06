@@ -1,7 +1,6 @@
 to do
 -----
 forum
-resume upload
 profile pic
 forget password
 instant messaging
@@ -22,6 +21,7 @@ all form validations
 
 done
 ----
+resume upload
 apply for job - answering the criteria for job
 articles.php, articlesCTRL.php, articleDAO.php
 edit profile
