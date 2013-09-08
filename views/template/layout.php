@@ -57,7 +57,7 @@ $(document).ready(function(){
 	});
 	
 	$('#forgetpwform').submit(function(event) {
-		$("input[type='submit']").prop('disabled',true);
+		$("button[type='submit']").prop('disabled',true);
 		var form = $(this);
 		$.ajax({
 			type: form.attr('method'),
@@ -68,8 +68,9 @@ $(document).ready(function(){
 				alert(data);
 			}
 		}).fail(function() {
-			$("input[type='submit']").prop('disabled',false);
 			alert("Fail to connect to server");
+		}).done(function() {
+			$("button[type='submit']").prop('disabled',false);
 		});
 		event.preventDefault();
 	});

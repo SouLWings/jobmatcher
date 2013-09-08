@@ -8,7 +8,7 @@ include 'modals/msgDAO.php';
  *  	$curr_location
  *  	$referer
  *  	$firstname
- *  	$fulltname
+ *  	$lastname
  *  	$lastvisitedmsg
  *  	$errormsg
  *  	$navbaruser - usertype

@@ -19,6 +19,7 @@ $scripts[] = 'messaging';
 <?php ob_start() ?>
 	
     <h1>Chat</h1>
+	Chat history
 <div id='test'>asd</div>
 	<div style='height:400px;width:150px;float:left'>
 		<?php foreach ($msgprevlist as $msg): ?>
@@ -47,7 +48,7 @@ $scripts[] = 'messaging';
 		var timestring = time.split(/[- :]/);
 		var latesttime = new Date(timestring[0], timestring[1]-1, timestring[2], timestring[3], timestring[4], timestring[5]);
 		var own_id = <?php echo $aid ?>;
-		var own_name = '<?php echo $fullname ?>';
+		var own_name = '<?php echo $firstname.' '.$lastname ?>';
 		var contact_id = <?php echo $contact_id ?>;
 	</script>
 <?php $content = ob_get_clean() ?>

@@ -115,9 +115,10 @@ class userDAO extends modal{
 		$un = $row['username'];
 		$aid = $row['id'];
 		$to = $email;
-		$hash = md5($fn.$un);
-		if(!$this->insert_row("NULL, $aid, '$hash', NOW()",'forgetpassword'))
-			return false;
+		$hash = md5($aid.$un);
+		if(!$this->insert_row("NULL, $aid, '$hash', NOW()",'forgetpassword')){
+			die('die insert row');
+		}
 		$subject = "Password reset - UM Job Matching Portal";
 		$message = "Dear $fn,\n\nPlease click the following link to reset your password.\nhttp://".$_SERVER['SERVER_ADDR']."/jobmatcher/forgetpassword.php?hash=$hash \nIgnore this message if you did not perform such request.\n\nRegards,\nUMJobPortal Support team";
 		return (mail($to,$subject,$message) == true);
@@ -256,8 +257,6 @@ class userDAO extends modal{
 		else
 			return $this->get_first_row("SELECT a.onlinestatus, a.email, a.firstname, a.lastname, a.createTime, a.accounttype_ID, t.*, ll.time as lastlogintime FROM account a INNER JOIN $ut t ON t.account_ID = a.id INNER JOIN loginlog ll ON a.id = ll.account_ID WHERE a.id = $id");
 	}
-	
-
 	/****************************
 	  functions for modify data
 	****************************/
@@ -270,5 +269,19 @@ class userDAO extends modal{
 	{
 		$pw = md5($pw);
 		return $this->con->query("UPDATE account set password = '$pw' WHERE id = $aid");
+	}
+
+	/*******************************
+	  functions for reset password
+	*******************************/
+	public function get_account_by_hash($hash)
+	{
+		return $this->get_first_row("SELECT a.id, CONCAT_WS(' ',a.firstname, a.lastname) as name FROM account a INNER JOIN forgetpassword fp ON fp.account_ID = a.id WHERE fp.resethash = '$hash'");
+	}
+	
+	public function resetPassword($aid, $pw)
+	{
+		$pw = md5($pw);
+		return ($this->con->query("UPDATE account SET password = '$pw' WHERE id = $aid") && $this->con->query("DELETE FROM forgetpassword WHERE account_ID = $aid"));
 	}
 }
