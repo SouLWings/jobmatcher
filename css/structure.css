@@ -36,8 +36,8 @@ body{
 
 
 .navbar-fixed-top, .dropdown li a{
-	color:white;
-	background: rgba(52, 152, 219,0.90);
+	color:rgba(52, 152, 219,0.30);
+	background: rgba(52, 152, 219,0.30);
 	font-family: 'Montserrat';
 }
 

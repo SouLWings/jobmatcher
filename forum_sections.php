@@ -4,14 +4,39 @@ include 'modals/forumDAO.php';
 $user='llaw_lee';
 $uuid='20';
 $type='admin';
+
+function xecho($x)
+{
+	if(strlen($x)<=150)
+	{
+		$z=$x;
+	}
+	else
+	{
+		$z=substr($x,0,150) . '...';
+		
+	}
+	return $z;
+}
+
 if(isset($_GET['id']))
 {
 	$id=$_GET['id'];
+	echo $id;
 }
 
+			
 $f = new forumDAO();
 
-$threads = $f-> getThreads($id);
+/* $max=1;
+$page= $f-> threadPage($id,$max);
+echo $page; */
+//$count=0;
+//$threads = $f-> getThreads($id,$count);
+$count=0;
+$threads = $f-> getThreads($id,$count);
+
+
 $sectionname= $f-> sectionname($id);
 
 foreach($threads as $thread)
@@ -20,14 +45,14 @@ foreach($threads as $thread)
 	$numpost[$f1id]=$f->numPost($f1id);
 	$username[$f1id]=$f->getUsers($f1id);
 	$sectionname[$f1id]=$f->sectionname($f1id);
-	$lastposts[$f1id]= $f->lastPost($f1id);
+	$thread['content']=xecho($thread['content']);
 	
-	foreach ($lastposts[$f1id] as $last)
+	$lasts=$f->thrlastpost($f1id);
+	foreach ($lasts as $last)
 	{
-		//$uid[$f1id]=$last['uid'];
-		$time[$f1id]=$last['datetime'];
-		
-		$user[$f1id]=$f->pgetUsers($last['uid']);
+		$lastpost[$f1id] = $last['last'];
+		$lastdate["$lastpost[$f1id]"]=$f->gettime($lastpost[$f1id]);
+		$lastuser["$lastpost[$f1id]"]=$f->getuser($lastpost[$f1id]);
 	}
 	
 }

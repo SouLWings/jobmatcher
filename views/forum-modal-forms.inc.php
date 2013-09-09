@@ -15,7 +15,9 @@ textarea{
 	width:400px;
 }
 </style>
-
+<?php 
+	
+?>
 <div class="modal fade" id="addsection" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style=''>
 		<div class="modal-content">
@@ -83,13 +85,27 @@ textarea{
 </div>
 
 
-
+<!--<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="../ckeditor/ckeditor.js"></script> -->
 <div class="modal fade" id="addpost"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style=''>
 		<div class="modal-content">
 			<div class="modal-body">
 				<form id='addpostform' action='forumManager.php' method='post' class='form-horizontal'>
-					<fieldset>
+				<?php 
+					/* include_once '../ckeditor/ckeditor.php';
+					
+					$ckeditor = new CKEditor();
+					$ckeditor->basePath = '/ckeditor/';
+					$ckeditor->config['filebrowserBrowseUrl'] = '/ckfinder/ckfinder.html';
+					$ckeditor->config['filebrowserImageBrowseUrl'] = '/ckfinder/ckfinder.html?type=Images';
+					$ckeditor->config['filebrowserFlashBrowseUrl'] = '/ckfinder/ckfinder.html?type=Flash';
+					$ckeditor->config['filebrowserUploadUrl'] = '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files';
+					$ckeditor->config['filebrowserImageUploadUrl'] = '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images';
+					$ckeditor->config['filebrowserFlashUploadUrl'] = '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash';
+					$ckeditor->editor('CKEditor1'); */
+				?>
+				<fieldset>
 						<legend>Create Post</legend>
 						<div class='form-group'>
 							<label for='inputtitle' class='col-lg-2 control-label'>Topic:</label>
