@@ -18,30 +18,29 @@ $scripts[] = 'messaging';
 
 <?php ob_start() ?>
 	
-    <h1>Chat</h1>
-	Chat history
-<div id='test'>asd</div>
+	
+<div id='test'>Chat history</div>
 	<div style='height:400px;width:150px;float:left'>
 		<?php foreach ($msgprevlist as $msg): ?>
-			<li onclick="location.href='message.php?id=<?php echo $msg['id']?>'" style='background:#eeeeee;cursor:pointer; border-top:2px solid #f0f0f0; border-bottom:1px solid #e0e0e0'>
+			<li onclick="location.href='message.php?id=<?php echo $msg['sender_ID']?>'" style='background:#eeeeee;cursor:pointer; border-top:2px solid #f0f0f0; border-bottom:1px solid #e0e0e0'>
 				<div>
-					<?php echo $msg['name'] ?>
+					<?php echo $msg['sender_name'] ?>
 					<br>
-					<?php echo $msg['content'] ?>
+					<?php //echo $msg['content'] ?>
 				</div>
 			</li>
 		<?php endforeach; ?>
 	</div>
-	<div style='position:relative;margin-left:150px;width:400px;'>
+	<div style='position:relative;margin-left:150px;margin-top:-40px;width:400px;'>
 		<h2 style='border-bottom:1px solid #888888;position:relative;top:0px;left:150px;'>Conversation <?php echo ' - '.$contact_name ?></h2>
-		<div style='position:relative;bottom:0px;left:150px;' id='dialoghistory'>
+		<div style='position:relative;bottom:0px;left:150px;max-height:55vh;min-height:55vh;overflow:auto;' id='dialoghistory'>
 			<?php foreach ($msghistory as $msg): ?>
 				<br><?php echo "$msg[sender]: $msg[content]"?>
 			<?php endforeach; ?>
 		</div>
 	</div>
 	<div style='margin-left:300px;'>
-		<textarea id='inputmsg' rows=5 cols=65></textarea>
+		<textarea id='inputmsg' rows=5 cols=63></textarea>
 	</div>
 	<script>
 		var time = "<?php echo $latesttime ?>";

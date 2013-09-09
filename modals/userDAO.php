@@ -106,24 +106,6 @@ class userDAO extends modal{
 		return (mail($to,$subject,$message) == true);
 	}	
 	
-	public function send_forgetpw_email($email)
-	{	
-		$row = $this->get_first_row("SELECT id, firstname, username FROM account WHERE email = '$email'");
-		if(sizeof($row) < 1)
-			die("No account associate with this email address.");
-		$fn = $row['firstname'];
-		$un = $row['username'];
-		$aid = $row['id'];
-		$to = $email;
-		$hash = md5($aid.$un);
-		if(!$this->insert_row("NULL, $aid, '$hash', NOW()",'forgetpassword')){
-			die('die insert row');
-		}
-		$subject = "Password reset - UM Job Matching Portal";
-		$message = "Dear $fn,\n\nPlease click the following link to reset your password.\nhttp://".$_SERVER['SERVER_ADDR']."/jobmatcher/forgetpassword.php?hash=$hash \nIgnore this message if you did not perform such request.\n\nRegards,\nUMJobPortal Support team";
-		return (mail($to,$subject,$message) == true);
-	}
-	
 	public function get_all_companies()
 	{
 		return $this->get_all_rows('SELECT * FROM company');
@@ -283,5 +265,23 @@ class userDAO extends modal{
 	{
 		$pw = md5($pw);
 		return ($this->con->query("UPDATE account SET password = '$pw' WHERE id = $aid") && $this->con->query("DELETE FROM forgetpassword WHERE account_ID = $aid"));
+	}
+	
+	public function send_forgetpw_email($email)
+	{	
+		$row = $this->get_first_row("SELECT id, firstname, username FROM account WHERE email = '$email'");
+		if(sizeof($row) < 1)
+			die("No account associate with this email address.");
+		$fn = $row['firstname'];
+		$un = $row['username'];
+		$aid = $row['id'];
+		$to = $email;
+		$hash = md5($aid.$un);
+		if(!$this->insert_row("NULL, $aid, '$hash', NOW()",'forgetpassword')){
+			die('die insert row');
+		}
+		$subject = "Password reset - UM Job Matching Portal";
+		$message = "Dear $fn,\n\nPlease click the following link to reset your password.\nhttp://".$_SERVER['SERVER_ADDR']."/jobmatcher/forgetpassword.php?hash=$hash \nIgnore this message if you did not perform such request.\n\nRegards,\nUMJobPortal Support team";
+		return (mail($to,$subject,$message) == true);
 	}
 }

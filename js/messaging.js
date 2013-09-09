@@ -1,5 +1,6 @@
 $(document).ready(function(){ 
 		
+	$('#dialoghistory').scrollTop($('#dialoghistory')[0].scrollHeight);
 	$("#inputmsg").keypress(function(event){
 
 		var keycode = null;
@@ -11,23 +12,29 @@ $(document).ready(function(){
 			event.preventDefault(); 
 			var msg = $.trim($("#inputmsg").val());
 			$("#inputmsg").val("");
-			$.post("messageAJAX.php",
+			if(msg != '')
 			{
-				action:"sendmsg",
-				receiver:contact_id,
-				content:msg
-			},
-			function(data,status){
-				if(status == 'success')
+				$.post("messageAJAX.php",
 				{
-					if(data == 'success')
-						$('#dialoghistory').append("<br>"+own_name+': '+msg);
+					action:"sendmsg",
+					receiver:contact_id,
+					content:msg
+				},
+				function(data,status){
+					if(status == 'success')
+					{
+						if(data == 'success')
+						{
+							$('#dialoghistory').append("<br>"+own_name+': '+msg);
+							$('#dialoghistory').scrollTop($('#dialoghistory')[0].scrollHeight);
+						}
+						else
+							alert('failedasd');
+					}
 					else
-						alert('failedasd');
-				}
-				else
-					alert('post failed');
-			});
+						alert('post failed');
+				});
+			}
 		}
  
 	});
@@ -35,7 +42,7 @@ $(document).ready(function(){
 });
 function updatemsg(){
 	var d;
-	$('#test').text('now requesting '+time);
+	//$('#test').text('now requesting '+time);
 	$.post("messageAJAX.php",
 	{
 		action:"getnewmsg",

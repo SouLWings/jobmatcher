@@ -26,6 +26,6 @@ else if(isset($_POST['pw']) && isset($_POST['pw2']) && isset($_POST['aid']))
 		$msg = 'Fail to reset password. Please try again later;';
 	else
 		$msg = 'Password reset successfully. You can now log in with your new password.';
-	include 'forgetpassword-result.V.php';
+	include 'views/forgetpassword-result.V.php';
 }
 ?>

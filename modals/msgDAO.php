@@ -15,9 +15,9 @@ class msgDAO extends modal{
 	
 	public function get_num_new_msg($reciever_id)
 	{
-		return $this->row_count("SELECT id FROM message WHERE receiver_ID = $reciever_id GROUP BY sender_ID");
+		return $this->row_count("SELECT id FROM message WHERE receiver_ID = $reciever_id AND status = 'not seen' GROUP BY sender_ID");
 	}
-	
+	/*
 	public function get_msg_preview($receiver_id)
 	{
 		$rows = $this->get_all_rows("SELECT CONCAT_WS(' ',a.firstname,a.lastname) as lastchat, m1.content FROM message m1 INNER JOIN account a ON a.id = m1.sender_ID WHERE `time` = (SELECT MAX(`time`) FROM message m2 WHERE m2.sender_ID = m1.sender_ID) AND (m1.receiver_ID = $receiver_id) ORDER BY m1.id DESC");
@@ -32,6 +32,47 @@ class msgDAO extends modal{
 			endforeach;
 		}
 		return $rows;
+	}*/
+	
+	public function get_msg_preview($receiver_id)
+	{
+		$chatpersons = $this->get_all_rows("SELECT m1.sender_ID, m1.receiver_ID, CONCAT_WS(' ',a.firstname,a.lastname) as sender_name, CONCAT_WS(' ',a2.firstname,a2.lastname) as receiver_name FROM message m1 INNER JOIN account a2 ON a2.id = m1.receiver_ID INNER JOIN account a ON a.id = m1.sender_ID WHERE m1.receiver_ID = $receiver_id OR m1.sender_ID = $receiver_id GROUP BY m1.sender_ID, m1.receiver_ID ORDER BY m1.id DESC");
+		
+		/*foreach ($chatpersons as $c):
+			$uniqueperson = array();
+			if($c['sender_ID'] == $receiver_id)
+			{
+				$c['sender_ID'] = $c['receiver_ID'];
+				$c['sender_name'] = $c['receiver_name'];
+			}
+			if(in_array($c['sender_ID'],$uniqueperson))
+				$chatpersons = array_diff($chatpersons, $c);
+			else	
+				$uniqueperson[] = $c;
+		endforeach;	*/	
+		$uniqueperson = array();
+		for($i = 0; $i < sizeof($chatpersons); $i++)
+		{
+			if($chatpersons[$i]['sender_ID'] == $receiver_id)
+			{
+				$chatpersons[$i]['sender_ID'] = $chatpersons[$i]['receiver_ID'];
+				$chatpersons[$i]['sender_name'] = $chatpersons[$i]['receiver_name'];
+			}
+		}
+		for($i = 0; $i < sizeof($chatpersons); $i++)
+		{
+			if(in_array($chatpersons[$i]['sender_ID'],$uniqueperson))
+			{
+				unset($chatpersons[$i]);
+				$chatpersons = array_values($chatpersons);
+				$i--;
+			}
+			else	
+			{
+				$uniqueperson[] = $chatpersons[$i]['sender_ID'];
+			}
+		}
+		return $chatpersons;
 	}
 	
 	public function get_msg($contact_ID, $own_ID, $limit)

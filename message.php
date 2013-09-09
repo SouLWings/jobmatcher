@@ -17,13 +17,16 @@ if(is_logged_in())
 		}
 		else
 		{
-			$contact_id = $msgprevlist[0]['id'];
+			$contact_id = $msgprevlist[0]['sender_ID'];
 		}
 		$msghistory = $msgDAO->get_msg($contact_id,$aid,20);
 		$contact_name = $msgDAO->get_username_by_id($contact_id);
 		$latesttime = $msgDAO->get_latest_msg_time($aid);
 		$msgDAO->disconnect();
-		include 'views/message.V.php';
+		if(sizeof($msghistory) > 0)
+			include 'views/message.V.php';
+		else
+			include 'views/error404.V.php';
 	}
 	else
 	{
@@ -31,10 +34,10 @@ if(is_logged_in())
 		include 'views/nomessage.V.php';
 	}
 	
-	echo 'msg preview array<pre>';
+	/*echo 'msg preview array<pre>';
 	print_r($msgprevlist);
 	echo '</pre>';
-	echo $latesttime;
+	echo $latesttime;*/
 	//close the connection if not using it anymore
 }
 else

@@ -21,6 +21,8 @@ if($editable)
 	$modalforms[] = 'profile-modal-forms';
 	$scripts[] = 'profile';
 }
+else
+	$modalforms[] = 'message-modal-forms';
 ?>
 
 <?php ob_start() ?>
@@ -31,7 +33,7 @@ if($editable)
 		</div>
 		<div class="panel panel-info pull-left" style='height:200px;margin-left:20px; width:600px;'>
 			<div class="panel-heading">
-				<h2 class="panel-title">  <b><?php echo $user['firstname'].' '.$user['lastname'] ?></b>  <span style='color:<?php echo $onlinecolor ?>' class="glyphicon glyphicon-stop"></span></h2>
+				<h2 class="panel-title">  <b><?php echo $user['firstname'].' '.$user['lastname'] ?></b>  <span style='color:<?php echo $onlinecolor ?>' class="glyphicon glyphicon-stop"> </span><?php if(!$editable)echo ' <a data-toggle="modal" href="#modalchat" class="btn btn-primary btn-xs" id="btnchat" style="color:white"><span class="glyphicon glyphicon-comment"></span> Send message</a>'?></h2>
 			</div>
 			<div class="panel-body">
 				<span class="glyphicon glyphicon-user"></span> <?php echo $user['usertype'] ?><br>
