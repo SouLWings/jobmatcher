@@ -100,8 +100,8 @@ body{
 }
 
 #maincontainer{
-	min-height: 85vh;
-	padding:20px 0px;
+	min-height: 83vh;
+	padding:20px 0px 0px 0px;
 }
 footer{
 	min-height: 60px;

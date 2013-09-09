@@ -35,7 +35,7 @@ $scripts[] = 'messaging';
 		<h2 style='border-bottom:1px solid #888888;position:relative;top:0px;left:150px;'>Conversation <?php echo ' - '.$contact_name ?></h2>
 		<div style='position:relative;bottom:0px;left:150px;max-height:55vh;min-height:55vh;overflow:auto;' id='dialoghistory'>
 			<?php foreach ($msghistory as $msg): ?>
-				<br><?php echo "$msg[sender]: $msg[content]"?>
+				<?php echo "$msg[sender]: $msg[content]"?><br>
 			<?php endforeach; ?>
 		</div>
 	</div>

@@ -30,7 +30,7 @@ if(is_logged_in())
 		if(sizeof($msgs) > 0)
 		{
 			foreach($msgs as $msg):
-				echo "<br> $msg[sender]: $msg[content]";
+				echo "$msg[sender]: $msg[content]<br> ";
 			endforeach;
 		}
 		else
