@@ -1,5 +1,6 @@
 <html>
 <body>
+<<<<<<< HEAD
 <?php 
 $con = new mysqli("127.0.0.1", "root", "", "job_matcher");
 $result = $con->query("
@@ -38,5 +39,17 @@ else
 	echo 'false';*/
 
 ?>
+=======
+<form action='messageCTRL.php' method='post'>
+<input type='hidden' value='sendmsg' name='action'/>
+<input type='hidden' value='3' name='receiver'/>
+<input type='hidden' value='asdasdsadasdasds' name='content'/>
+<input type='submit' value='submit'/>
+</form>
+<?php 
+
+			$date = ''.getdate()['year'].'-'.getdate()['mon'].'-'.getdate()['mday'];
+			echo md5('123456');?>
+>>>>>>> origin/llaw
 </body>
 </html>

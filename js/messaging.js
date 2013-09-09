@@ -1,6 +1,9 @@
 $(document).ready(function(){ 
 		
+<<<<<<< HEAD
 	$('#dialoghistory').scrollTop($('#dialoghistory')[0].scrollHeight);
+=======
+>>>>>>> origin/llaw
 	$("#inputmsg").keypress(function(event){
 
 		var keycode = null;
@@ -12,6 +15,7 @@ $(document).ready(function(){
 			event.preventDefault(); 
 			var msg = $.trim($("#inputmsg").val());
 			$("#inputmsg").val("");
+<<<<<<< HEAD
 			if(msg != '')
 			{
 				$.post("messageAJAX.php",
@@ -35,6 +39,25 @@ $(document).ready(function(){
 						alert('post failed');
 				});
 			}
+=======
+			$.post("messageAJAX.php",
+			{
+				action:"sendmsg",
+				receiver:contact_id,
+				content:msg
+			},
+			function(data,status){
+				if(status == 'success')
+				{
+					if(data == 'success')
+						$('#dialoghistory').append("<br>"+own_name+': '+msg);
+					else
+						alert('failedasd');
+				}
+				else
+					alert('post failed');
+			});
+>>>>>>> origin/llaw
 		}
  
 	});
@@ -42,7 +65,11 @@ $(document).ready(function(){
 });
 function updatemsg(){
 	var d;
+<<<<<<< HEAD
 	//$('#test').text('now requesting '+time);
+=======
+	$('#test').text('now requesting '+time);
+>>>>>>> origin/llaw
 	$.post("messageAJAX.php",
 	{
 		action:"getnewmsg",

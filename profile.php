@@ -6,6 +6,7 @@ include 'modals/userDAO.php';
 
 //creating an instance of the data access object
 $userDAO = new userDAO();
+<<<<<<< HEAD
 
 //handle AJAX post request to edit profile or edit password
 if(isset($_POST['action']) && $_POST['action'] == 'editprofile')
@@ -56,6 +57,23 @@ else if(isset($_GET['action']) && $_GET['action'] == 'forgetpw')
 
 
 //if id parameter isset, show them the profile page of the id
+=======
+if(isset($_POST['id']) && intval($_POST['id']) > 0 && isset($_POST['lastname']) && isset($_POST['email']))
+{
+	if(!$userDAO->update_profile(intval($_POST['id']), get_secured($_POST['firstname']), get_secured($_POST['lastname']), get_secured($_POST['email'])))
+	{
+		echo 'update profile failed';
+		die();
+	}
+	else
+	{
+		header("Location:profile.php?id=$aid");
+		$userDAO->disconnect();
+		die();
+	}
+}
+
+>>>>>>> origin/llaw
 if(isset($_GET['id']) && intval($_GET['id'] > 0))
 {
 	$user = $userDAO->get_user_by_id(intval($_GET['id']));
@@ -75,11 +93,14 @@ if(isset($_GET['id']) && intval($_GET['id'] > 0))
 		{	
 			$user['usertype'] = 'Employer';
 			$user['ut'] = 'employer';
+<<<<<<< HEAD
 			
 			//getting company name by id
 			$user['name'] = '';
 			if($company = $userDAO->get_company_by_id($user['company_ID']))
 				$user['name'] = $company['name'];
+=======
+>>>>>>> origin/llaw
 		}
 		else if($user['accounttype_ID'] == 1)
 		{	
@@ -88,6 +109,7 @@ if(isset($_GET['id']) && intval($_GET['id'] > 0))
 		}
 
 		$editable = false;
+<<<<<<< HEAD
 		if(isset($_SESSION['user']['id']) && intval($_GET['id']) == $_SESSION['user']['id'])
 		{
 			$editable = true;
@@ -100,10 +122,28 @@ if(isset($_GET['id']) && intval($_GET['id'] > 0))
 else
 {
 	include 'views/error404.V.php';
+=======
+		if(intval($_GET['id']) == $_SESSION['user']['id'])
+		{
+			$editable = true;
+			$modalforms[] = 'profile-modal-forms';
+		}
+	}
+	else
+		header('Location:error.php');
+}
+else
+{
+	header('Location:error.php');
+>>>>>>> origin/llaw
 }
 
 //close the connection if not using it anymore
 $userDAO->disconnect();
 
 //include a view to display declared variables
+<<<<<<< HEAD
+=======
+include 'views/profile.V.php';
+>>>>>>> origin/llaw
 ?>

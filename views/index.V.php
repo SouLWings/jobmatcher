@@ -19,6 +19,7 @@ $styles[] = 'content';
 
 ?>
 
+<<<<<<< HEAD
 
 <?php ob_start() ?>
 
@@ -72,9 +73,64 @@ $styles[] = 'content';
 	<a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
 </div>
 <?php $slider = ob_get_clean() ?>
+=======
+>>>>>>> origin/llaw
 
 <?php ob_start() ?>
+<section id='slidersection'>
+	<div id="slider">
+		<div id="mask">
+		<ul>
+			<li id="first" class="firstanimation">
+				<a href="#">
+					<img src="/jobmatcher/img/slider/img_1.jpg" alt="Cougar"/>
+				</a>
+				<div class="tooltiplinktext">
+					<h1>Cougar</h1>
+				</div>
+			</li>
 
+			<li id="second" class="secondanimation">
+				<a href="#">
+					<img src="/jobmatcher/img/slider/img_2.jpg" alt="Lions"/>
+				</a>
+				<div class="tooltiplinktext">
+					<h1>Lions</h1>
+				</div>
+			</li>
+			
+			<li id="third" class="thirdanimation">
+				<a href="#">
+					<img src="/jobmatcher/img/slider/img_3.jpg" alt="Snowalker"/>
+				</a>
+				<div class="tooltiplinktext">
+					<h1>Snowalker</h1>
+				</div>
+			</li>
+						
+			<li id="fourth" class="fourthanimation">
+				<a href="#">
+					<img src="/jobmatcher/img/slider/img_4.jpg" alt="Howling"/>
+				</a>
+				<div class="tooltiplinktext">
+					<h1>Howling</h1>
+				</div>
+			</li>
+						
+			<li id="fifth" class="fifthanimation">
+				<a href="#">
+					<img src="/jobmatcher/img/slider/img_5.jpg" alt="Sunbathing"/>
+				</a>
+				<div class="tooltiplinktext">
+					<h1>Sunbathing</h1>
+				</div>
+			</li>
+		</ul>
+		</div>
+		<div class="sliderprogress"></div>
+	</div>			
+	<div style='clear:left'></div>
+</section> 
 	
 <div class="browsejob">
 	<h2>Browse Job</h2>

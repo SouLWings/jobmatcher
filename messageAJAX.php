@@ -4,6 +4,7 @@ include 'controller.inc.php';
 if(is_logged_in())
 {
 	$msgDAO = new msgDAO();
+<<<<<<< HEAD
 	
 	//handle new message from profile.php 'send message' function
 	if(isset($_POST['action']) && isset($_POST['id']) && isset($_POST['content']) && $_POST['action'] == 'sendnewmsg')
@@ -17,6 +18,9 @@ if(is_logged_in())
 	}
 	
 	//handle real time chatting
+=======
+	//for adding a new msg to the db
+>>>>>>> origin/llaw
 	if(isset($_POST['action']) && $_POST['action'] == 'sendmsg' && isset($_POST['receiver']) && isset($_POST['content']))
 	{
 		if($msgDAO->new_message(get_secured($_POST['content']),intval($_POST['receiver']),$aid))
@@ -30,7 +34,11 @@ if(is_logged_in())
 		if(sizeof($msgs) > 0)
 		{
 			foreach($msgs as $msg):
+<<<<<<< HEAD
 				echo "$msg[sender]: $msg[content]<br> ";
+=======
+				echo "<br> $msg[sender]: $msg[content]";
+>>>>>>> origin/llaw
 			endforeach;
 		}
 		else

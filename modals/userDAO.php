@@ -83,6 +83,21 @@ class userDAO extends modal{
 		$to = $email;
 		$subject = "Welcome to UM Job Matching Portal";
 		$message = "Dear $fn,\n\nYour account is now approved. You may log in to the portal.\n\nUsername is: $un";
+<<<<<<< HEAD
+=======
+		return (mail($to,$subject,$message) == true);
+	}
+	
+	public function send_disapproval_email($id)
+	{	
+		$row = $this->get_first_row("SELECT email, firstname, username FROM account WHERE id = $id");
+		$email = $row['email'];
+		$fn = $row['firstname'];
+		$un = $row['username'];
+		$to = $email;
+		$subject = "UM Job Matching Portal";
+		$message = "Dear $fn,\n\nSorry, Your account is not approved.\n\nRegards,\nUMJobPortal";
+>>>>>>> origin/llaw
 		return (mail($to,$subject,$message) == true);
 	}
 	
@@ -235,10 +250,19 @@ class userDAO extends modal{
 	{
 		$ut = $this->get_first_row("SELECT type FROM account a INNER JOIN accounttype at ON a.accounttype_ID = at.id WHERE a.id = $id")['type'];
 		if($ut == 'admin')
+<<<<<<< HEAD
 			return $this->get_first_row("SELECT a.*, max(time) as lastlogintime FROM account a INNER JOIN loginlog ll ON a.id = ll.account_ID WHERE a.id = $id");
 		else
 			return $this->get_first_row("SELECT a.onlinestatus, a.email, a.firstname, a.lastname, a.createTime, a.accounttype_ID, t.*, ll.time as lastlogintime FROM account a INNER JOIN $ut t ON t.account_ID = a.id INNER JOIN loginlog ll ON a.id = ll.account_ID WHERE a.id = $id");
 	}
+=======
+			return $this->get_first_row("SELECT * FROM account WHERE id = $id");
+		else
+			return $this->get_first_row("SELECT a.onlinestatus, a.email, a.firstname, a.lastname, a.createTime, a.accounttype_ID, t.* FROM account a INNER JOIN $ut t ON t.account_ID = a.id WHERE a.id = $id");
+	}
+	
+
+>>>>>>> origin/llaw
 	/****************************
 	  functions for modify data
 	****************************/
@@ -246,6 +270,7 @@ class userDAO extends modal{
 	{
 		return $this->con->query("UPDATE account set firstname = '$firstname', lastname = '$lastname', email = '$email' WHERE id = $aid");
 	}
+<<<<<<< HEAD
 	
 	public function update_password($aid, $pw)
 	{
@@ -284,4 +309,6 @@ class userDAO extends modal{
 		$message = "Dear $fn,\n\nPlease click the following link to reset your password.\nhttp://".$_SERVER['SERVER_ADDR']."/jobmatcher/forgetpassword.php?hash=$hash \nIgnore this message if you did not perform such request.\n\nRegards,\nUMJobPortal Support team";
 		return (mail($to,$subject,$message) == true);
 	}
+=======
+>>>>>>> origin/llaw
 }

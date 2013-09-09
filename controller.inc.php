@@ -8,7 +8,11 @@ include 'modals/msgDAO.php';
  *  	$curr_location
  *  	$referer
  *  	$firstname
+<<<<<<< HEAD
  *  	$lastname
+=======
+ *  	$fulltname
+>>>>>>> origin/llaw
  *  	$lastvisitedmsg
  *  	$errormsg
  *  	$navbaruser - usertype
@@ -117,7 +121,11 @@ function require_account_type($ut)
 {
 	if(strtoupper($_SESSION['user']['usertype']) != strtoupper($ut))
 	{
+<<<<<<< HEAD
 		include 'views/error401.V.php';
+=======
+		header('Location:error.php?code=401');
+>>>>>>> origin/llaw
 		die();
 	}
 }

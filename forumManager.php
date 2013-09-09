@@ -100,6 +100,21 @@ include 'modals/forumDAO.php';
 				header("refresh: 3; url=forum.php");
 			}		
 		}
+<<<<<<< HEAD
+=======
+		
+		else if($_POST['action'] == 'deletePost')
+		{
+			if(isset($_POST['f2id']) && !empty($_POST['f2id']))
+			{
+				echo $_POST['f2id'];
+				$success = $f->deletePost($_POST['f2id']);
+				echo $success;
+				header("refresh: 3; url=forum.php");
+			}
+		}
+		
+>>>>>>> origin/llaw
 		else if($_POST['action'] == 'alterType')
 		{	
 			
@@ -111,7 +126,10 @@ include 'modals/forumDAO.php';
 			}
 		}
 		
+<<<<<<< HEAD
 		
+=======
+>>>>>>> origin/llaw
 		$f->disconnect();
 	}
 	else

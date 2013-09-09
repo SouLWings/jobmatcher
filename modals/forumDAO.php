@@ -14,6 +14,7 @@ class forumDAO extends modal{
 
 	
 	
+<<<<<<< HEAD
 	function getSections($startrow)
 	{
 		$qry="SELECT * FROM f0 LIMIT $startrow,1";
@@ -24,6 +25,20 @@ class forumDAO extends modal{
 	{
 		$qry="SELECT * FROM f1 WHERE f0id='$id' ORDER BY status DESC";
 		return $this->get_all_rows($qry);
+=======
+	function getSections()
+	{
+		$qry="SELECT * FROM f0 ";
+		return $this->get_all_rows($qry);
+	} 
+
+	function getThreads($id,$count)
+	{
+		$qry="SELECT * FROM f1 WHERE f0id='$id' ORDER BY status DESC ";//LIMIT $count,1
+		//$qry="SELECT * FROM f1 WHERE f0id='$id' ORDER BY status DESC LIMIT $count,$limit";	
+		return $this->get_all_rows($qry);
+		
+>>>>>>> origin/llaw
 	}
 
 	function getPosts($f1id)
@@ -85,6 +100,16 @@ class forumDAO extends modal{
 	{
 		$qry="DELETE FROM f1  WHERE id='$id'" ;
 		$res=$this->con->query($qry);	
+<<<<<<< HEAD
+
+		if($res)
+			$msg='success';
+		else
+			$msg='failed';
+		return $msg;
+	}
+=======
+>>>>>>> origin/llaw
 
 		if($res)
 			$msg='success';
@@ -93,8 +118,17 @@ class forumDAO extends modal{
 		return $msg;
 	}
 
-	function deletePost()
-	{}
+	function deletePost($f2id)
+	{
+		$qry="DELETE FROM f2  WHERE id='$f2id'" ;
+		$res=$this->con->query($qry);	
+
+		if($res)
+			$msg='success';
+		else
+			$msg='failed';
+		return $msg;
+	}
 
 	function createSection($topic,$descr)
 	{
@@ -175,6 +209,7 @@ class forumDAO extends modal{
 		$status='';
 		
 		foreach($statuss as $sta)
+<<<<<<< HEAD
 		{
 			$status=$sta['status'];
 		}
@@ -198,6 +233,31 @@ class forumDAO extends modal{
 			else
 				{$msg='failed2';}
 		}
+=======
+		{
+			$status=$sta['status'];
+		}
+		
+		if($status=='normal')
+		{
+			$qry1="UPDATE f1 SET  status='sticky' WHERE id='$f1id'" ;
+			$res1=$this->con->query($qry1);	
+			
+			if($res1)
+				{$msg='success';}
+			else
+				{$msg='failed';}
+		}
+		else
+		{
+			$qry2="UPDATE f1 SET  status='normal' WHERE id='$f1id'" ;
+			$res2=$this->con->query($qry2);	
+			if($res2)
+				{$msg='success2';}
+			else
+				{$msg='failed2';}
+		}
+>>>>>>> origin/llaw
 		return $msg;
 	}
 	function getThread($f1id) 
@@ -258,16 +318,78 @@ class forumDAO extends modal{
 		}
 		return $msg;
 	}
+<<<<<<< HEAD
 	//SELECT * FROM Table WHERE postID = (SELECT max(postID) from Table)
+=======
+	
+>>>>>>> origin/llaw
 	function lastPost($f1id)
 	{
 		$qry="SELECT * FROM f2  WHERE id=(SELECT max(id) FROM f2 WHERE f1id='$f1id')";
 		$lasts=$this->get_all_rows($qry);
+<<<<<<< HEAD
 		
 		return $lasts;
 	}
 	
 	
 
+=======
+		return $lasts;
+	}
+
+// for forum.php
+	function seclastpost($f0id)
+	{
+		$qry="SELECT max(f2.id) AS last FROM f0 INNER JOIN f1 ON f1.f0id = f0.id INNER JOIN f2 ON f2.f1id = f1.id where f0.id = $f0id";
+		$lasts=$this->get_all_rows($qry);
+		return $lasts;
+	}
+	
+	function gettime($last)
+	{
+		$qry="SELECT * FROM f2 WHERE id=$last";
+		$dates=$this->get_all_rows($qry);
+		$date='';
+		foreach($dates as $da)
+		{
+			$date=$da['datetime'];
+		}
+		
+		return $date;
+	}
+	
+	function getuser($last)
+	{
+		$qry="SELECT * FROM account WHERE id=(SELECT uid FROM f2 WHERE id=$last)";
+		$users=$this->get_all_rows($qry);
+		$user='';
+		
+		foreach($users as $u)
+		{
+			$user=$u['username'];
+		} 
+		return $user;
+	}
+	
+	//for forum_section.php
+	function thrlastpost($f1id)
+	{
+		$qry="SELECT max(f2.id) AS last FROM  f2 INNER JOIN f1 ON f2.f1id = f1.id where f1.id = $f1id";
+		$lasts=$this->get_all_rows($qry);
+		return $lasts;
+	}
+	
+	//count max threadpage needed
+	function threadPage($id,$max)
+	{
+		$qry="SELECT COUNT(id) FROM f1 WHERE f0id=$id";
+		$total=$this->row_count($qry);
+		//$page=($total/$max);
+		//return $page;
+		return $total;
+	}
+	
+>>>>>>> origin/llaw
 }
 ?>

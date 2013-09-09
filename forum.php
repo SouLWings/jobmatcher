@@ -12,6 +12,7 @@ $uuid='20';
 $type='admin';
 
 $f = new forumDAO();
+<<<<<<< HEAD
 if(!isset($_GET['startrow']))
 {
 	$startrow=0;
@@ -22,12 +23,29 @@ else
 }
 
 $sections = $f-> getSections($startrow);
+=======
+
+
+$sections = $f-> getSections();
+>>>>>>> origin/llaw
 
 foreach($sections as $section)
 {
 	$id=$section['id'];
 	$numthread ["$id"]=$f->numThread($id);
 	$totalpost["$id"]=$f->totalPost($id);
+<<<<<<< HEAD
+=======
+	
+	$lasts = $f-> seclastpost($id);
+	foreach($lasts as $last)
+	{
+		$lastpost[$id] = $last['last'];
+		$lastdate["$lastpost[$id]"]=$f->gettime($lastpost[$id]);
+		$lastuser["$lastpost[$id]"]=$f->getuser($lastpost[$id]);
+	}
+	
+>>>>>>> origin/llaw
 }
 
 

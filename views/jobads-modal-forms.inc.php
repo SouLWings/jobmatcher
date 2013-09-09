@@ -165,7 +165,11 @@ select{
 							<label class='col-sm-7 control-label'>Min rating </label>
 						</div>
 						<div id='criterialist'>
+<<<<<<< HEAD
 							<!-- content loaded from job.AJAX.php -->
+=======
+							
+>>>>>>> origin/llaw
 						</div>
 						<div class='form-group'>
 							<button type="button" class="col-sm-offset-1 btn btn-primary btn-xs" style='margin-left:60px;' id='btnaddcriteria'>

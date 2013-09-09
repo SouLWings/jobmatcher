@@ -18,6 +18,7 @@ $scripts[] = 'messaging';
 
 <?php ob_start() ?>
 	
+<<<<<<< HEAD
 	
 <div id='test'>Chat history</div>
 	<div style='height:400px;width:150px;float:left'>
@@ -27,27 +28,54 @@ $scripts[] = 'messaging';
 					<?php echo $msg['sender_name'] ?>
 					<br>
 					<?php //echo $msg['content'] ?>
+=======
+    <h1>Chat</h1>
+<div id='test'>asd</div>
+	<div style='height:400px;width:150px;float:left'>
+		<?php foreach ($msgprevlist as $msg): ?>
+			<li onclick="location.href='message.php?id=<?php echo $msg['id']?>'" style='background:#eeeeee;cursor:pointer; border-top:2px solid #f0f0f0; border-bottom:1px solid #e0e0e0'>
+				<div>
+					<?php echo $msg['name'] ?>
+					<br>
+					<?php echo $msg['content'] ?>
+>>>>>>> origin/llaw
 				</div>
 			</li>
 		<?php endforeach; ?>
 	</div>
+<<<<<<< HEAD
 	<div style='position:relative;margin-left:150px;margin-top:-40px;width:400px;'>
 		<h2 style='border-bottom:1px solid #888888;position:relative;top:0px;left:150px;'>Conversation <?php echo ' - '.$contact_name ?></h2>
 		<div style='position:relative;bottom:0px;left:150px;max-height:55vh;min-height:55vh;overflow:auto;' id='dialoghistory'>
 			<?php foreach ($msghistory as $msg): ?>
 				<?php echo "$msg[sender]: $msg[content]"?><br>
+=======
+	<div style='position:relative;margin-left:150px;width:400px;'>
+		<h2 style='border-bottom:1px solid #888888;position:relative;top:0px;left:150px;'>Conversation <?php echo ' - '.$contact_name ?></h2>
+		<div style='position:relative;bottom:0px;left:150px;' id='dialoghistory'>
+			<?php foreach ($msghistory as $msg): ?>
+				<br><?php echo "$msg[sender]: $msg[content]"?>
+>>>>>>> origin/llaw
 			<?php endforeach; ?>
 		</div>
 	</div>
 	<div style='margin-left:300px;'>
+<<<<<<< HEAD
 		<textarea id='inputmsg' rows=5 cols=63></textarea>
+=======
+		<textarea id='inputmsg' rows=5 cols=65></textarea>
+>>>>>>> origin/llaw
 	</div>
 	<script>
 		var time = "<?php echo $latesttime ?>";
 		var timestring = time.split(/[- :]/);
 		var latesttime = new Date(timestring[0], timestring[1]-1, timestring[2], timestring[3], timestring[4], timestring[5]);
 		var own_id = <?php echo $aid ?>;
+<<<<<<< HEAD
 		var own_name = '<?php echo $firstname.' '.$lastname ?>';
+=======
+		var own_name = '<?php echo $fullname ?>';
+>>>>>>> origin/llaw
 		var contact_id = <?php echo $contact_id ?>;
 	</script>
 <?php $content = ob_get_clean() ?>

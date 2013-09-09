@@ -11,6 +11,7 @@ class resumeDAO extends modal{
 	 *	begin to write functions
 	 */
 	
+<<<<<<< HEAD
 	public function get_aid_by_rid($rid)
 	{
 		if($row = $this->get_first_row("SELECT a.id from account a INNER JOIN jobseeker js ON js.account_ID = a.id INNER JOIN resume r ON r.jobseeker_ID = js.id WHERE r.id = $rid"))
@@ -19,16 +20,21 @@ class resumeDAO extends modal{
 		
 	}
 	
+=======
+>>>>>>> origin/llaw
 	public function get_resume_by_aid($aid)
 	{
 		return $this->get_first_row("SELECT r.* from resume r INNER JOIN jobseeker js ON js.id = r.jobseeker_ID INNER JOIN account a ON a.id = js.account_ID WHERE a.id = $aid");
 	}
 	
+<<<<<<< HEAD
 	public function get_uploadedresume_by_aid($aid)
 	{
 		return $this->get_first_row("SELECT r.* from uploadresume r INNER JOIN jobseeker js ON js.id = r.jobseeker_ID INNER JOIN account a ON a.id = js.account_ID WHERE a.id = $aid");
 	}
 	
+=======
+>>>>>>> origin/llaw
 	public function get_resume_by_rid($rid)
 	{
 		return $this->get_first_row("SELECT * FROM resume WHERE id = $rid");
@@ -56,6 +62,10 @@ class resumeDAO extends modal{
 	
 	public function is_permitted($eid, $rid)
 	{
+<<<<<<< HEAD
 		return $this->con->query("SELECT j.employer_ID, r.id FROM resume r INNER JOIN jobapplication ja ON ja.jobSeeker_ID = r.jobseeker_ID INNER JOIN jobs j ON j.id = ja.jobs_ID WHERE j.employer_ID = $eid AND r.id = $rid AND ja.criteriastatus = 'pass'")->num_rows > 0;
+=======
+		return $this->con->query("SELECT j.employer_ID, r.id FROM resume r INNER JOIN jobapplication ja ON ja.jobSeeker_ID = r.jobseeker_ID INNER JOIN jobs j ON j.id = ja.jobs_ID WHERE j.employer_ID = $eid AND r.id = $rid")->num_rows > 0;
+>>>>>>> origin/llaw
 	}
 }

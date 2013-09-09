@@ -13,7 +13,10 @@ if(isset($_GET['id']) && !empty($_GET['id']))
 	//output variables
 	$company = $userDAO->get_company_by_id($id);
 	
+<<<<<<< HEAD
 	$editable = false;
+=======
+>>>>>>> origin/llaw
 	if(is_logged_in() && $_SESSION['user']['usertype'] == 'employer')
 	{
 		$modalforms[] = 'company-modal-forms';

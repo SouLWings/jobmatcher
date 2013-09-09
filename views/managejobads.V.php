@@ -48,16 +48,24 @@
 		});
 		$('#criterialist').on('click', '.btndeletecriteria', function() {
 			$(this).parent().slideUp(function(){
+<<<<<<< HEAD
 				$(this).nextAll('.criteria').each(function(index, val){
 					$(this).find('label').text((parseInt($(this).find('label').text())-1));
+=======
+				$(this).nextAll('.criteria').each(function i(){
+				
+>>>>>>> origin/llaw
 				});
 				$(this).remove();
 			});;
 			index--;
 		});
 		$(".btneditcriteria").click(function(){
+<<<<<<< HEAD
 			$("#btnaddcriteria").prop('disabled',true);
 			$("input[type='submit']").prop('disabled',true);
+=======
+>>>>>>> origin/llaw
 			var jobid = $(this).parent().find("input[name='jobid']").val();
 			$('#editcriteriaform').find("input[name='jobid']").val(jobid);
 			$.post("jobAJAX.php",
@@ -68,6 +76,7 @@
 			function(data,status){
 				if(status == 'success')
 				{
+<<<<<<< HEAD
 					/*if(data.substr(1,2) == 'i')
 						alert("Press the plus button to add new criteria.");*/
 					$('#criterialist').html(data);
@@ -77,6 +86,14 @@
 				}
 				else
 					alert('retrieve criteria failed, please reload the page');
+=======
+					//alert(data);
+					$('#criterialist').html(data);
+					index = $("#criterialist").find("input[name='totalcriteria']").val();
+				}
+				else
+					alert('retrieve criteria failed');
+>>>>>>> origin/llaw
 			});
 		});
 		$("#btnaddjob").click(function(){
@@ -153,8 +170,18 @@
 			</tr>
 		</thead>
 		<tbody>
+<<<<<<< HEAD
 		<?php $x=0; foreach ($jobs as $job): ?>
 			<tr class='trhover'>	
+=======
+<<<<<<< HEAD
+		<?php $x=0; foreach ($jobs as $job): ?>
+			<tr class='trhover'>	
+=======
+		<?php foreach ($jobs as $job): ?>
+			<tr class='trhover' style='cursor:pointer;' <?php //echo onclick="location.href='jobs.php?id= $job['id']?>'">	
+>>>>>>> 8a73cb34b0bfef286aceb258146aecd31c57090f
+>>>>>>> origin/llaw
 				<td><?php echo $job['date'] ?></td>
 				<td><?php echo $job['title'] ?></td>
 				<td><?php echo $job['specialization'] ?></td>
@@ -171,6 +198,10 @@
 					<input type='hidden' value='<?php echo $job['id']?>' name='jobid'/>
 				</td>
 			</tr>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> origin/llaw
 			<?php foreach ($alljobapplicants[$x] as $jobapplicants): ?>
 			<tr class='trhide'>
 				<td></td>
@@ -178,6 +209,13 @@
 				<td colspan='4'><a href='profile.php?id=<?php echo $jobapplicants['aid'] ?>'><?php echo $jobapplicants['name'] ?></a>, <?php echo $jobapplicants['time'] ?></td>
 				<td><a href='resume.php?id=<?php echo $jobapplicants['resumeID'] ?>' class='btn btn-primary btn-xs'><span class="glyphicon glyphicon-zoom-in"></span> Resume</a></td>
 				<td></td>
+<<<<<<< HEAD
+=======
+=======
+			<tr class='trhide'>
+				<td>asd</td>
+>>>>>>> 8a73cb34b0bfef286aceb258146aecd31c57090f
+>>>>>>> origin/llaw
 			</tr>
 			<?php endforeach; ?>
 		<?php $x++; endforeach; ?>

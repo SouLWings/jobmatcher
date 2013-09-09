@@ -4,9 +4,15 @@
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">More <b class="caret"></b></a>
         <ul class="dropdown-menu">
+<<<<<<< HEAD
 			<li><a href='message.php'>Inbox <span class="badge"><?php echo $newmsgnum ?> new</span> </a></li>
 			<?php include $navbaruser; ?>
 			<li style='border-top:1px solid #dddddd'><a href='logoutCTRL.php'>Log out</a></li>
+=======
+			<li><a href='message.php'>Inbox <span class="badge"><?php echo $newmsgnum ?></span> </a></li>
+			<?php include $navbaruser; ?>
+			<li><a href='logoutCTRL.php'>Log out</a></li>
+>>>>>>> origin/llaw
 		</ul> 
     </li>
 </ul>

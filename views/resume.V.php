@@ -6,7 +6,10 @@
  * 
  *  --  variables supplied to this page from controller --
  *  $resume - singular array of {id(resume),jboseeker_ID,fullname, ic,matric,gender,address, phone, email, dateofbirth, faculty, programme, graduationdate, cgpa, skills, personalities, additionaldescription}
+<<<<<<< HEAD
  *  $uploadedresume - true(if uploaded exist) | false
+=======
+>>>>>>> origin/llaw
  *  
  *  --  list of tasks for this view  --
  *  
@@ -17,6 +20,7 @@
  
 ?>
 
+<<<<<<< HEAD
 <!-- for sidebar -->
 <?php ob_start() ?>
     <div class="panel panel-info">
@@ -43,6 +47,10 @@
 
 <?php ob_start() ?>
 	<h1><?php echo $resume['fullname'] ?>'s resume <?php if($ut=='jobseeker')echo "<a href='resume.php?edit' class='btn btn-sm btn-primary'><span class='glyphicon glyphicon-edit'></span> Edit</a>" ?></h1>
+=======
+<?php ob_start() ?>
+	<h1>My resume <?php if($ut=='jobseeker')echo "<a href='resume.php?edit' class='btn btn-sm btn-primary'><span class='glyphicon glyphicon-edit'></span> Edit</a>" ?></h1>
+>>>>>>> origin/llaw
 	
     <div class="panel panel-info">
 		<div class="panel-heading">

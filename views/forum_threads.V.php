@@ -81,8 +81,13 @@ $title = 'Forum Posts';
 				<table class="table-striped table-bordered table-hover tablesorter">
 						<tr>
 							<td><a data-toggle="modal" href="#addpost" class="">Reply</a></td>
+<<<<<<< HEAD
 							<td><form action="forumManager.php" method="post"><?php echo"<input type='hidden' value=$f2id name='f2id'/>";?><input type="submit"  value="EditPost" name="action" /></form></td>
 							<td><form action="forumManager.php" method="post"><?php echo"<input type='hidden' value=$f2id name='f2id'/>";?><input type="submit"  value="DeletePost" name="action" /></form></td>
+=======
+							<td><form action="forumManager.php" method="post"><?php echo"<input type='hidden' value=$f2id name='f2id'/>";?><input type="submit"  value="editPost" name="action" /></form></td>
+							<td><form action="forumManager.php" method="post"><?php echo"<input type='hidden' value=$f2id name='f2id'/>";?><input type="submit"  value="deletePost" name="action" /></form></td>
+>>>>>>> origin/llaw
 							<td><form action="forumManager.php" method="post"><?php echo"<input type='hidden' value=$f2id name='f2id'/>";?><input type="submit"  value="alterType" name="action" /></form></td>
 						</tr>
 				</table>

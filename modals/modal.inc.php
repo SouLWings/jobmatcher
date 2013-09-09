@@ -5,7 +5,11 @@ class modal{
 	
 	public function __construct()
 	{
+<<<<<<< HEAD
 		$this->con = new mysqli("127.0.0.1", "root", "", "job_matcher");//("sql2.freemysqlhosting.net", "sql217015", "wY9*aE4!", "sql217015");
+=======
+		$this->con = new mysqli("localhost", "root", "", "job_matcher");//("sql2.freemysqlhosting.net", "sql217015", "wY9*aE4!", "sql217015");
+>>>>>>> origin/llaw
 		if ($this->con->connect_errno)
 			die("Unable to enstablish connection to database: " . $con->connect_error);
 	}
