@@ -1,6 +1,5 @@
 to do
 -----
-<<<<<<< HEAD
 forum
 profile pic
 forget password
@@ -18,36 +17,12 @@ issue
 doing
 -----
 all form validations
-=======
-resume upload
-forum
-
-profile pic
-forget password
-reset passowrd
-all form validations
-instant messaging
-about us - about jobmatcher, why jobmatcher, how it works, about dev - HTML5 style
-
-issue
------
-profile.php - company name havent show up
-jobcriteria modalform label numbering
-error.php switch case instead of if else
-
-doing
------
-apply for job - answering the criteria for job
->>>>>>> origin/llaw
 
 
 done
 ----
-<<<<<<< HEAD
 resume upload
 apply for job - answering the criteria for job
-=======
->>>>>>> origin/llaw
 articles.php, articlesCTRL.php, articleDAO.php
 edit profile
 job application list for jobseekers

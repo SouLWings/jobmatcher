@@ -19,11 +19,7 @@
 <div class="modal fade" id="modaleditprofile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style=''>
 		<div class="modal-content">
-<<<<<<< HEAD
 			<form id='editprofileform' action='profile.php' method='post' class='form-horizontal'>
-=======
-			<form id='editjobform' action='profile.php' method='post' class='form-horizontal'>
->>>>>>> origin/llaw
 				<fieldset>
 					<div class="modal-body">
 						<legend>Edit Profile</legend>
@@ -45,11 +41,7 @@
 								<input required type='text' id='' autocomplete='off' class='form-control' placeholder='' name='email' value='<?php echo $user['email'] ?>'/>
 							</div>
 						</div>
-<<<<<<< HEAD
 						<input type='hidden' value='editprofile' name='action'/>
-=======
-						<input type='hidden' value='editcompany' name='action'/>
->>>>>>> origin/llaw
 						<input type='hidden' value='<?php echo intval($_GET['id'])?>' name='id'/>
 					</div>
 					<div class='modal-footer'>
@@ -61,7 +53,6 @@
 		</div>
     </div>
 </div>
-<<<<<<< HEAD
 <div class="modal fade" id="modalchgpassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style=''>
 		<div class="modal-content">
@@ -99,5 +90,3 @@
 		</div>
     </div>
 </div>
-=======
->>>>>>> origin/llaw

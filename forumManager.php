@@ -100,8 +100,6 @@ include 'modals/forumDAO.php';
 				header("refresh: 3; url=forum.php");
 			}		
 		}
-<<<<<<< HEAD
-=======
 		
 		else if($_POST['action'] == 'deletePost')
 		{
@@ -114,7 +112,6 @@ include 'modals/forumDAO.php';
 			}
 		}
 		
->>>>>>> origin/llaw
 		else if($_POST['action'] == 'alterType')
 		{	
 			
@@ -126,10 +123,6 @@ include 'modals/forumDAO.php';
 			}
 		}
 		
-<<<<<<< HEAD
-		
-=======
->>>>>>> origin/llaw
 		$f->disconnect();
 	}
 	else

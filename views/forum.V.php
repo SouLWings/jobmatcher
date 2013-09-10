@@ -15,10 +15,6 @@
  */
 $title = 'Forum Sections';
 $modalforms[] = 'forum-modal-forms';
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/llaw
 ?>
 
 <?php ob_start() ?>
@@ -26,21 +22,10 @@ $modalforms[] = 'forum-modal-forms';
 
 <a data-toggle="modal" href="#addsection" class="btn btn-primary btn-lg">New Section</a>
 
-<<<<<<< HEAD
-    <h1>Forum Sections</h1>
-	<?php 
-		
-		echo '<a href="'.$_SERVER['PHP_SELF'].'?startrow='.($startrow+1).'">Next</a>';
-		$prev = $startrow - 1;
-		if ($prev >= 0)
-		echo '<a href="'.$_SERVER['PHP_SELF'].'?startrow='.$prev.'">Previous</a>';
-	?>
-=======
 <?php include('forum-modal-forms.inc.php'); ?>
 
     <h1>Forum Sections</h1>
 
->>>>>>> origin/llaw
     <table class="table-striped table-bordered table-hover tablesorter">
 		<tr>
 			<th>Section</th>
@@ -51,23 +36,10 @@ $modalforms[] = 'forum-modal-forms';
 			<th></th>
 		</tr>
 	
-<<<<<<< HEAD
-	<?php foreach ($sections as $section):  ?>
-=======
 	<?php foreach ($sections as $section): $sid=$section['id']; ?>
->>>>>>> origin/llaw
 		<tr>
 			<td><?php echo"<a href=forum_sections.php?id=$section[id]> $section[section]</a>";?><br><h6><?php $section['description'];?></h6></td>
-			
-<<<<<<< HEAD
-			<td><?php echo $numthread["$section[id]"]?></td>
-			<td><?php echo $totalpost["$section[id]"]?></td>
-			<td><?php //echo $section['lastPost']?></td>
-			<td><form action="forumManager.php" method="post"><?php echo"<input type='hidden' value=$section[id] name='id'/>";?><input type="submit"  value="editSection" name="action" /></form></td>
-			
-			<td><form action="forumManager.php" method="post"><?php echo "<input type='hidden' value=$section[id] name='id'/>"?><input type="submit"  value="deleteSection" name="action" /></form></td>
-			
-=======
+
 			<td><?php echo $numthread["$sid"]?></td>
 			<td><?php echo $totalpost["$sid"]?></td>
 			<td><?php echo $lastpost["$sid"];?></td>
@@ -80,7 +52,7 @@ $modalforms[] = 'forum-modal-forms';
 			
 			<td><form action="forumManager.php" method="post"><?php echo "<input type='hidden' value=$section[id] name='id'/>"?><input type="submit"  value="deleteSection" name="action" /></form></td>
 			
->>>>>>> origin/llaw
+
 		</tr>	
 		<script>
 			

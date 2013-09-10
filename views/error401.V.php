@@ -21,11 +21,7 @@
     <h1>Error: 401 <span class="glyphicon glyphicon-minus-sign"></span> Access denied.</h1>
 
     <div class="">
-<<<<<<< HEAD:views/error401.V.php
 		Authorization failed by filter. You are not logged in or your account doesn't seems to have the privilege to view the content of the page.
-=======
-		Authorization failed by filter. Your account doesn't seems to have the privilege to view the content of the page.
->>>>>>> origin/llaw:views/error401.V.php
 	</div>
 	
 <?php $content = ob_get_clean() ?>
