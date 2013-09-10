@@ -46,7 +46,7 @@ else
 	
     <div class="panel panel-info" style='clear:left'>
 		<div class="panel-heading">
-			<h3 class="panel-title">Personal Info <?php if($editable)echo ' <a data-toggle="modal" href="#modaleditprofile" class="btn btn-primary btn-xs" id="btneditprofile" style="color:white"><span class="glyphicon glyphicon-edit"></span> Edit Profile</a><a data-toggle="modal" href="#modalchgpassword" class="btn btn-primary btn-xs" id="btneditprofile" style="color:white"><i class="icon-lock"></i> Change password</a>'?></h3>
+			<h3 class="panel-title">Personal Info <?php if($editable)echo ' <a data-toggle="modal" href="#modaleditprofile" class="btn btn-primary btn-xs" id="btneditprofile" style="color:white"><span class="glyphicon glyphicon-edit"></span> Edit Profile</a><a data-toggle="modal" href="#modalchgpassword" class="btn btn-primary btn-xs" id="btneditprofile" style="color:white"><i class="icon-lock"></i> Change password</a><a data-toggle="modal" href="#modaluploadprofilepic" class="btn btn-primary btn-xs" id="btnprofilepic" style="color:white"><span class="glyphicon glyphicon-upload"></span> Upload profile picture</a>'?></h3>
 		</div>
 		<div class="panel-body">			
 			Email:<?php echo $user['email'] ?><br>

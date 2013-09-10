@@ -32,7 +32,7 @@
 		<p> You can upload your custom resume here.
 		<div class="panel-body" style='height:85px;'>		
 			<form action = "resume.php" method = "POST" enctype = "multipart/form-data">
-				<input type = "file" name = "uploadresume" value = "Choose Resume">
+				<input type = "file" name = "uploadresume" value = "Choose Resume" required>
 				<input type = "submit" value = "Upload" class='btn btn-primary'>
 			</form>
 		</div>	

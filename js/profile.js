@@ -45,4 +45,12 @@ $(document).ready(function(){
 		});
 		event.preventDefault();
 	});
+	
+	$('#profilepicform').submit(function(event) {
+		if(!$('#profilepicfile').val() || ){
+			alert('Chose a file!');
+			return false;
+		}
+	});
+	
 });

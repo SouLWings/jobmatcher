@@ -90,3 +90,29 @@
 		</div>
     </div>
 </div>
+
+<div class="modal fade" id="modaluploadprofilepic" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style=''>
+		<div class="modal-content">
+			<form id='profilepicform' action='profile.php' method='post' class='form-horizontal' enctype="multipart/form-data">
+				<fieldset>
+					<div class="modal-body">
+						<legend>Upload profile picture</legend>
+						<div class='form-group'>
+							<label class='col-sm-4 control-label'>Choose an image:</label>
+							<div class='col-sm-7'>
+								<input type = "file" name = "profilepic" value = "Choose Image" style='padding:6px 12px;' id='profilepicfile' required>
+							</div>
+						</div>
+						<input type='hidden' value='profilepic' name='action'/>
+						<input type='hidden' value='<?php echo intval($_GET['id'])?>' name='id'/>
+					</div>
+					<div class='modal-footer'>
+						<input type='submit' class='btn btn-primary' value='Upload'/>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+    </div>
+</div>

@@ -7,7 +7,7 @@ include 'modals/userDAO.php';
 //creating an instance of the data access object
 $userDAO = new userDAO();
 
-//handle AJAX post request to edit profile or edit password
+//handle AJAX post request from profile.php to [edit profile]
 if(isset($_POST['action']) && $_POST['action'] == 'editprofile')
 {
 	if(isset($_POST['id']) && intval($_POST['id']) > 0 && isset($_POST['lastname']) && isset($_POST['email']))
@@ -23,6 +23,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'editprofile')
 	}
 	die();
 }
+//handle AJAX request from profile.php to [edit password]
 else if(isset($_POST['action']) && $_POST['action'] == 'editpw')
 {
 	if(isset($_POST['id']) && intval($_POST['id']) > 0 && isset($_POST['oldpw']) && isset($_POST['newpw']))
@@ -43,7 +44,7 @@ else if(isset($_POST['action']) && $_POST['action'] == 'editpw')
 	}
 	die();
 }
-// call from core.js to send email about forgot password
+// AJAX call from core.js to send email about forgot password
 else if(isset($_GET['action']) && $_GET['action'] == 'forgetpw')
 {
 	$em = $_GET['email'];
@@ -52,6 +53,19 @@ else if(isset($_GET['action']) && $_GET['action'] == 'forgetpw')
 	else
 		echo 'Fail to reset password. Please try again next time.';
 	die();
+}
+
+//handling the resume file uploaded
+if(isset($_FILES['profilepic']['name']) && !empty($_FILES['profilepic']['name']))
+{
+	if(!move_uploaded_file($_FILES['profilepic']['tmp_name'], "img/profile_pic/".$aid.".pdf"))
+		echo 'upload failed';
+	else
+	{
+		header('Location:resume.php');
+		$resumeDAO->disconnect();
+		die();
+	}
 }
 
 

@@ -73,7 +73,7 @@
 				<div class='form-group'>
 					<label class='col-sm-4 control-label' for='inputmatric'>Matric number:</label>
 					<div class='col-sm-4'>
-						<input type='text' value='' name='matric' id='inputmatric' class='form-control masterTooltip'/>
+						<input type='text' value='' name='matric' id='inputmatric' class='form-control masterTooltip' pattern='[A-z]{3}[0-9]{6}'  title='eg.WET100025'/>
 					</div>
 				</div>
 			</div>
