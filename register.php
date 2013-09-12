@@ -2,12 +2,12 @@
 include 'controller.inc.php';
 include 'modals/userDAO.php';
 
-
+//if is logged in then cnt register agn
 if(is_logged_in())
 {
-	echo 'You had logged in. redirecting to homepage in 3 seconds.';
-	header("Refresh: 3;url=index.php");
+	header("Location:index.php");
 }
+//processing the submitted register data to execute the registration
 else if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST['password']) && !empty($_POST['password']) && isset($_POST['rpassword']) && !empty($_POST['rpassword']) && isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['usertype']) && !empty($_POST['usertype']) && isset($_POST['firstname']) && !empty($_POST['firstname']) && isset($_POST['lastname']) && !empty($_POST['lastname']))
 {
 	$username = get_secured($_POST['username']);
@@ -19,20 +19,29 @@ else if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST[
 	$lastname = get_secured($_POST['lastname']);
 	
 	$userDAO = new userDAO();
+	
+	//a boolean flag that will bcm false if there is any problem during the registration
 	$registrationsuccess = true;
+	
+	//check whether the account name exist
 	if(!$userDAO->check_account_exist($username))
 	{
+		//check submitted value is correct
 		if($userDAO->check_submitted_account($username, $password, $rpassword, $email, $firstname, $lastname, $usertype))
 		{
+			//if register jobseeker, matric muz be there
 			if($usertype == 'jobseeker' && isset($_POST['matric']) && !empty($_POST['matric']))
 			{
 				$matric = get_secured($_POST['matric']);
 				if($userDAO->check_submitted_jobseeker($matric))
 				{
+					//creating account
 					if($userDAO->register_account($username, $password, $email, $firstname, $lastname, 1))
 					{
+						//creating jobseeker record
 						if($userDAO->register_jobseeker($matric))
 						{
+							//set $msg to be displayed
 							$msg = 'Thank you for registering in UM Job Matching Portal. Your account is pending for approval. You will receive an email when your account is approved.';
 							if(!$userDAO->send_registration_email($email,$firstname))
 								echo 'send email failed';
@@ -104,6 +113,7 @@ else if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST[
 	}	
 	$userDAO->disconnect();
 	
+	//if somethg failed
 	if(!$registrationsuccess)
 	{
 		$msg = 'Sorry! there is a problem with your registration. Please try again later.';

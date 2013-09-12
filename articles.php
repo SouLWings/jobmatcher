@@ -7,6 +7,7 @@ include_once 'modals/articleDAO.php';
 //creating an instance of the data access object
 $articleDAO = new articleDAO();
 
+//handling post request for add/edit/delete
 if(isset($_POST['action']))
 {
 	require_account_type('admin');

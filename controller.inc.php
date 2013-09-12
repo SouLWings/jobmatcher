@@ -48,6 +48,7 @@ if(is_logged_in())
 	$newmsgnum = $msgDAOt->get_num_new_msg($aid);
 	$msgDAOt->disconnect();
 	
+	//setting $navbaruser for diff usertype
 	if($ut == 'admin')
 		$navbaruser = 'adminmenu.php';
 	else if($ut == 'employer')
@@ -61,10 +62,13 @@ if(is_logged_in())
 		$jsid = $_SESSION['user']['jsid'];
 		$navbaruser = 'jobseekermenu.php';
 	}
+	
 	$navbartype = 'welcome.inc.php';
 }
+//if not logged in
 else
 {
+	//check whether there is login failed message and display it
 	if(isset($_SESSION['msg']) && $_SESSION['msg'] == 'loginfailed')
 	{
 		$errormsg = '<h6 class="form-signin-heading">Invalid username or password.</h6><script>$("#signinbar").addClass("dropdowntoggle");$("#signinbtn").toggleClass("active");</script>';
@@ -84,11 +88,13 @@ else
 /************
   functions 
 ************/
+//get a secured version of the input
 function get_secured($input)
 {
 	return mysql_real_escape_string(stripslashes(htmlentities($input)));
 }
 
+//check whether the user is logged in
 function is_logged_in()
 {
 	if(isset($_SESSION['user']) && isset($_SESSION['user']['id']) && isset($_SESSION['user']['usertype']) && isset($_SESSION['user']['firstname']))
@@ -97,6 +103,7 @@ function is_logged_in()
 		return false;
 }
 
+//getting today, yesterday message from a given time
 function get_last_visited_msg($time)
 {
 	//date_default_timezone_set ('Asia/Singapore');
@@ -112,6 +119,7 @@ function get_last_visited_msg($time)
 	
 	return $lastvisitedmsg;
 }
+
 
 function require_account_type($ut)
 {

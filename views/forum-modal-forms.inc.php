@@ -1,23 +1,3 @@
-<style>
-.modal-content .btn + .btn {
-	margin-left:5px;
-}
-.modal-dialog{
-padding-top:10%;
-}
-.submit-group{
-	text-align:right;
-}
-fieldset input[type='text']{
-	width:400px;
-}
-textarea{
-	width:400px;
-}
-</style>
-<?php 
-	
-?>
 <div class="modal fade" id="addsection" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style=''>
 		<div class="modal-content">

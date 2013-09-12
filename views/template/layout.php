@@ -38,15 +38,11 @@ $scripts[] = 'jquery-1.10.2.min';
 		<?php endforeach; ?>
 <script>
 $(document).ready(function(){ 
+	//start the slider animation
 	$('.carousel').carousel()
-	$("#forgetpwform").hide();
-	$("#signinbtn").click(function(){
-		$("#signinbar").toggleClass('dropdowntoggle');
-		//$("#maincontainer").toggleClass('dropdowntoggle');
-		$(this).toggleClass('active');
-	});
 	
-	//
+	//hide the forgetpassword, and show on click
+	$("#forgetpwform").hide();
 	$("#forgetpw").click(function(){
 		$("#signinform").toggle(500);
 		$("#forgetpwform").toggle(500);
@@ -56,6 +52,13 @@ $(document).ready(function(){
 			$(this).text('Forget password?');
 	});
 	
+	//slide the sign in bar up n down
+	$("#signinbtn").click(function(){
+		$("#signinbar").toggleClass('dropdowntoggle');
+		$(this).toggleClass('active');
+	});
+	
+	//send a ajax request out from the forgetpassword form
 	$('#forgetpwform').submit(function(event) {
 		$("button[type='submit']").prop('disabled',true);
 		var form = $(this);

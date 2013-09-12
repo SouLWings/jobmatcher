@@ -51,6 +51,7 @@ if(isset($_POST['action']))
 		else
 			$status = 'fail';
 			
+		//adding the job application record to DB
 		if(!$jobDAO->add_job_application($jid, $jsid, $status))
 		{
 			echo 'Error when applying job';

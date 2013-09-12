@@ -29,7 +29,7 @@ else
 	
     <div>
 		<div style='width:200px;height:200px;' class='pull-left img-thumbnail'>
-			<img src="img/profile_pic/aid1.png" alt="" class="img-thumbnail" style='margin:auto;height:100%;'>
+			<img src="<?php echo $profilepicdirc ?>" alt="" class="img-thumbnail" style='margin:auto;height:100%;'>
 		</div>
 		<div class="panel panel-info pull-left" style='height:200px;margin-left:20px; width:600px;'>
 			<div class="panel-heading">

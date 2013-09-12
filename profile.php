@@ -58,12 +58,13 @@ else if(isset($_GET['action']) && $_GET['action'] == 'forgetpw')
 //handling the resume file uploaded
 if(isset($_FILES['profilepic']['name']) && !empty($_FILES['profilepic']['name']))
 {
-	if(!move_uploaded_file($_FILES['profilepic']['tmp_name'], "img/profile_pic/".$aid.".pdf"))
+	if(!move_uploaded_file($_FILES['profilepic']['tmp_name'], "img/profile_pic/".$aid.".".substr($_FILES['profilepic']['type'],6)))
 		echo 'upload failed';
 	else
 	{
-		header('Location:resume.php');
-		$resumeDAO->disconnect();
+		$userDAO->save_profile_pic_dirc("img/profile_pic/".$aid.".".substr($_FILES['profilepic']['type'],6),$aid);
+		header('Location:profile.php?id='.$aid);
+		$userDAO->disconnect();
 		die();
 	}
 }
@@ -73,13 +74,17 @@ if(isset($_FILES['profilepic']['name']) && !empty($_FILES['profilepic']['name'])
 if(isset($_GET['id']) && intval($_GET['id'] > 0))
 {
 	$user = $userDAO->get_user_by_id(intval($_GET['id']));
+	
+	//if the user with such id exist
 	if(sizeof($user) > 0)
 	{
+		//set the online color to green if online, grey otherwise
 		if($user['onlinestatus'] == 'online')
 			$onlinecolor = '#44dd44';
 		else
 			$onlinecolor = '#aaaaaa';
-			
+		
+		//setting the usertype text and personal details to be included
 		if($user['accounttype_ID'] == 3)
 		{
 			$user['usertype'] = 'Administrator';
@@ -101,13 +106,20 @@ if(isset($_GET['id']) && intval($_GET['id'] > 0))
 			$user['ut'] = 'jobseeker';
 		}
 
+		//check whether the current user and the profile page if the same person, if yes then the content is editable
 		$editable = false;
 		if(isset($_SESSION['user']['id']) && intval($_GET['id']) == $_SESSION['user']['id'])
 		{
 			$editable = true;
 		}
+		
+		//check whether the profile picture exist
+		$profilepicdirc = $userDAO->get_profile_pic_dirc($_GET['id']);
+		
+		//finally include the profile view
 		include 'views/profile.V.php';
 	}
+	//if the user not found, display no such page
 	else
 		include 'views/error404.V.php';
 }

@@ -119,18 +119,25 @@ if(is_logged_in() && $ut == 'jobseeker')
 	}
 	$resumeDAO->disconnect();
 }
+//if the user us employer
 else if(is_logged_in() && $ut == 'employer')
 {
+	//only display the page if the id is specified
 	if(isset($_GET['id']) &&  intval($_GET['id'] > 0))
 	{
 		$resumeDAO = new resumeDAO();
+		//perform checking whether the employer have the right to view the resume
 		if($resumeDAO->is_permitted($eid, intval($_GET['id'])))
 		{
+			//retrieving resume
 			$resume = $resumeDAO->get_resume_by_rid(intval($_GET['id']));
+			
+			//check is there uploaded resume
 			$uploadedresume = false;
 			$resumeaid = $resumeDAO->get_aid_by_rid(intval($_GET['id']));
 			if(file_exists('resume/'.$resumeaid.'.pdf'))
 				$uploadedresume = true;
+			
 			$resumeDAO->disconnect();
 			include 'views/resume.V.php';
 		}
@@ -140,6 +147,7 @@ else if(is_logged_in() && $ut == 'employer')
 	else
 		include 'views/error401.V.php';
 }
+//user cnt view the page if not employer or jobseeker
 else
 {
 	include 'views/error401.V.php';

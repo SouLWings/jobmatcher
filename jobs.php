@@ -3,6 +3,7 @@ include 'controller.inc.php';
 include 'modals/resumeDAO.php'; 
 include 'modals/jobDAO.php';
 
+//if a jobtype id is specified then display job of that type
 if(isset($_GET['typeid']) && !empty($_GET['typeid']))
 {
 	$jobDAO = new jobDAO();
@@ -15,13 +16,14 @@ if(isset($_GET['typeid']) && !empty($_GET['typeid']))
 
 	include 'views/jobslist.V.php';
 }
+//if search parameter is there then search
 else if(isset($_GET['search']))
 {
 	if(isset($_GET['name']))
 	{
 		$jobDAO = new jobDAO();
 		
-		//advanced search
+		//advanced search - if other parameters is there
 		if(isset($_GET['location']) && isset($_GET['company']) && isset($_GET['salarymin']) && isset($_GET['salarymax']) && isset($_GET['jobspecializationid']) && isset($_GET['experiencemin']) && isset($_GET['experiencemax']) && isset($_GET['type']))
 		{
 			//output variables
@@ -42,6 +44,7 @@ else if(isset($_GET['search']))
 		header("Location:advanced-search.php?error=1");	//havent do error telling
 	}
 }
+//if job id is there just show the job 
 else if(isset($_GET['id']) && !empty($_GET['id']))
 {
 	$jobDAO = new jobDAO();
@@ -50,7 +53,9 @@ else if(isset($_GET['id']) && !empty($_GET['id']))
 	$job = $jobDAO->get_job($_GET['id']);
 	$criterias = $jobDAO->get_criteria_form_of_job($_GET['id']);
 	$jid = $job['id'];
-	//if is logged in
+	
+	
+	//setting the message to be displayed when user clicks to apply job
 	if(is_logged_in())
 	{
 		//if the user is a jobseeker

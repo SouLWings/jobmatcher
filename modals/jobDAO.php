@@ -12,6 +12,7 @@ class jobDAO extends modal{
 		return $this->get_all_rows('SELECT * FROM jobspecialization ORDER BY specialization');
 	}
 	
+	//get all jobs - $isApproved optional parameter to specify whether to search only approved jobs
 	public function get_job($id, $isApproved = true)
 	{
 		if($isApproved)
@@ -20,16 +21,19 @@ class jobDAO extends modal{
 			return $this->get_first_row("SELECT * FROM jobs where id = $id");
 	}
 	
+	//get all jobs of the given specialization
 	public function get_all_jobs_of_type($jobspecializationid)
 	{
 		return $this->get_all_rows("SELECT j.title, c.name as company, j.location, j.type, j.salary, j.experience, j.date, j.id FROM jobs j INNER JOIN employer e ON j.employer_ID = e.id INNER JOIN company c ON e.company_ID = c.id WHERE UPPER(j.status) = 'APPROVED' AND j.jobspecialization_ID = $jobspecializationid");
 	}
 	
+	//getting the type name by specialization id
 	public function get_job_type_by_id($jobspecializationid)
 	{
 		return $this->get_first_row("SELECT specialization FROM jobspecialization WHERE id = $jobspecializationid")['specialization'];
 	}
 	
+	//search for jobs which have title or position like the keyword
 	public function search($keyword)
 	{
 		return $this->get_all_rows("SELECT j.title, c.name as company, j.location, j.salary, j.experience, j.date, j.id FROM jobs j INNER JOIN employer e ON j.employer_ID = e.id INNER JOIN company c ON e.company_ID = c.id  WHERE UPPER(j.status) = 'APPROVED' AND (j.title LIKE '%$keyword%' OR j.position LIKE '%$keyword%')");
@@ -50,6 +54,8 @@ class jobDAO extends modal{
 			$extraFilter .= ' AND j.jobSpecialization_ID = '.$jobspecializationid;
 		$extraFilter .= ' AND j.experience >= '.$expmin;
 		$extraFilter .= ' AND j.experience <= '.$expmax;
+		
+		//the select query concatenated with the conditions
 		$query = "SELECT j.title, c.name as company, j.location, j.salary, j.experience, j.date, j.id
 					FROM jobs j 
 					INNER JOIN employer e ON j.employer_ID = e.id INNER JOIN company c ON e.company_ID = c.id
@@ -64,6 +70,7 @@ class jobDAO extends modal{
 		return $this->get_all_rows("SELECT c.name, a.firstname, j.title, j.position, j.date, j.salary, j.experience, j.id FROM jobs j INNER JOIN employer e ON j.employer_ID = e.id INNER JOIN company c ON e.company_ID = c.id INNER JOIN account a ON a.id = e.account_ID WHERE UPPER(status) = 'PENDING'");
 	}
 	
+	//getting all jobs that an employer posts
 	public function get_employer_jobs($aid)
 	{
 		return $this->get_all_rows("SELECT j.id, j.date, j.title, js.specialization, j.salary, j.experience, j.status FROM jobs j INNER JOIN jobspecialization js ON js.id = j.jobSpecialization_ID INNER JOIN employer e ON e.id = j.employer_ID INNER JOIN account a ON a.id = e.account_ID WHERE a.id = $aid");
@@ -148,11 +155,14 @@ class jobDAO extends modal{
 	/********************************
 	  functions for job application
 	********************************/
+	
+	//return true if an jobseeker applied the job in the past 24hrs, false otherwise
 	public function failed_job_in24hrs($jid, $jsid)
 	{
 		return $this->con->query("SELECT * FROM jobapplication WHERE jobs_ID = $jid AND jobSeeker_ID = $jsid AND time > DATE_SUB(NOW(), INTERVAL 1 DAY) AND criteriastatus = 'fail'")->num_rows > 0;
 	}
 	
+	//return true if the jobseeker has applied and passed the job, false otherwise
 	public function passed_job($jid, $jsid)
 	{
 		return $this->con->query("SELECT * FROM jobapplication WHERE jobs_ID = $jid AND jobSeeker_ID = $jsid AND criteriastatus = 'pass'")->num_rows > 0;
@@ -162,12 +172,14 @@ class jobDAO extends modal{
 	{
 		return $this->insert_row("NULL,$jid,$jsid,CURRENT_TIMESTAMP,'$status'",'jobapplication');
 	}
-		
+	
+	//get jobseekers that applied a job
 	public function get_applicants_of_job($jid)
 	{
 		return $this->get_all_rows("SELECT CONCAT_WS(' ',a.firstname, a.lastname) as name, ja.time, r.id as resumeID, a.id as aid FROM jobapplication ja INNER JOIN jobseeker js ON ja.jobSeeker_ID = js.id INNER JOIN account a ON a.id = js.account_ID INNER JOIN resume r ON r.jobseeker_ID = js.id WHERE ja.jobs_ID = $jid AND ja.criteriastatus = 'pass'");
 	}
-		
+	
+	//get jobs tha applied by a jobseeker
 	public function get_applications_of_js($jsid)
 	{
 		return $this->get_all_rows("SELECT ja.time, j.title, j.position, c.name, j.location, j.salary FROM jobapplication ja INNER JOIN jobs j ON j.id = ja.jobs_ID INNER JOIN employer e ON e.id = j.employer_ID INNER JOIN company c ON c.id = e.company_ID WHERE ja.jobSeeker_ID = $jsid AND ja.criteriastatus = 'pass'");

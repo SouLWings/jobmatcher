@@ -7,8 +7,11 @@ include_once 'modals/jobDAO.php';
 require_account_type('employer');
 
 $jobDAO = new jobDAO();
+
+//actions for job
 if(isset($_POST['action']))
 {
+	//add job
 	if($_POST['action'] == 'addjob')
 	{
 		if(isset($_POST['jobid']) && $_POST['jobid'] == 0 && isset($_POST['title']) && isset($_POST['position']) && isset($_POST['jobspecializationid']) && isset($_POST['responsibility']) && isset($_POST['requirement']) && isset($_POST['type'])  && isset($_POST['location']) && isset($_POST['salary']) && isset($_POST['experience']))
@@ -24,6 +27,8 @@ if(isset($_POST['action']))
 			$location = get_secured($_POST['location']);
 			$salary = intval($_POST['salary']);
 			$experience = intval($_POST['experience']);
+			
+			//add the job to DB
 			if(!$jobDAO->add_job($specID, $employerId, $date, $title, $position, $responsibility, $requirement, $type, $location, $salary, $experience))
 				echo 'failed add job';
 			else
@@ -49,6 +54,8 @@ if(isset($_POST['action']))
 			$location = get_secured($_POST['location']);
 			$salary = intval($_POST['salary']);
 			$experience = intval($_POST['experience']);
+			
+			//edit the job in DB
 			if(!$jobDAO->edit_job($id, $specID, $employerId, $title, $position, $responsibility, $requirement, $type, $location, $salary, $experience))
 				echo 'failed';
 			else
@@ -88,6 +95,8 @@ if(isset($_POST['action']))
 			$phone = get_secured($_POST['phone']);
 			$fax = get_secured($_POST['fax']);
 			$overview = mysql_real_escape_string(stripslashes($_POST['overview']));
+			
+			//Edit the company
 			if(!$jobDAO->edit_company($cid, $name, $address, $website, $phone, $fax, $overview))
 				echo 'failed edit company';
 			else
@@ -104,6 +113,8 @@ if(isset($_POST['action']))
 	else if($_POST['action'] == 'updatecriteria')
 	{
 		$jid = $_POST['jobid'];
+		
+		//getting all the post values for each criteria and save into $criterialist array
 		for($i = 1; $i <= $_POST['totalcriteria']; $i++)
 		{
 			if(isset($_POST['criteriaid'.$i]) && isset($_POST['minrating'.$i]))
@@ -111,14 +122,19 @@ if(isset($_POST['action']))
 				$criterialist[] = array("criteria_ID"=>intval($_POST['criteriaid'.$i]),"minrating"=>intval($_POST['minrating'.$i]));
 			}
 		}
+		
+		//update database with the latest criteria for a particular job
 		if(!$jobDAO->update_criteria($jid, $criterialist))
 			echo 'failed update criteria';
 		else
 			header('Location:managejobads.php');
+			
 		/* foreach($_POST as $k => $v):
 			echo "$k has value $v<br>";
 		endforeach; */
 	}
 }
+else
+	header("Location:error.php");
 $jobDAO->disconnect();
 ?>

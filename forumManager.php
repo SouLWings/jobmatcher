@@ -6,7 +6,7 @@ include 'modals/forumDAO.php';
 	{
 		echo $_POST['action']."<br>";
 		
-		//echo $id;
+		
 		$f = new forumDAO();
 		
 		if($_POST['action'] == 'addSection')

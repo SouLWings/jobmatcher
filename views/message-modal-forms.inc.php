@@ -1,19 +1,3 @@
-<style>
-.submit-group{
-	text-align:right;
-}
-.modal-body{
-	background:linear-gradient(to bottom,#ddefff 0,#b4d3e7 100%);
-	border-radius: 6px 6px 0px 0px;
-}
-.modal-footer{
-	margin-top:0;
-	background:#9EB8E6;
-	border-radius:0px 0px 6px 6px;
-	border:none;
-}
-</style>
-
 <div class="modal fade" id="modalchat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style=''>
 		<div class="modal-content">

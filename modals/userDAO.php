@@ -16,6 +16,7 @@ class userDAO extends modal{
 		return $this->con->query("SELECT id FROM account WHERE username = '$un'")->num_rows == 1;
 	}
 	
+	//check whether the password matches the account id
 	public function check_password($id, $pw)
 	{
 		$pw = md5($pw);
@@ -51,6 +52,7 @@ class userDAO extends modal{
 		return true;
 	}
 	
+	//create a new account with the provided details
 	public function register_account($un, $pw, $em, $fn, $ln, $ut)
 	{
 		$pw = md5($pw);
@@ -59,21 +61,25 @@ class userDAO extends modal{
 		return $success;
 	}
 	
+	//create a new jobseeker record right after the creation of account
 	public function register_jobseeker($matric)
 	{
 		return $this->insert_row("NULL, $this->account_id, '$matric', 0", 'jobseeker');
 	}
 	
+	//create a new employer record right after the creation of account
 	public function register_employer($position, $company_ID)
 	{
 		return $this->insert_row("NULL, $this->account_id, '$position', $company_ID",'employer');
 	}
 	
+	//create a new company during registration for employer
 	public function register_company($name, $address, $website, $phone, $fax, $overview)
 	{
 		return $this->insert_row("NULL, '$name', '$address', '$website', '$phone', '$fax', '$overview'",'company');
 	}
 	
+	//function to send an email when an account is approved by the admin
 	public function send_approval_email($id)
 	{	
 		$row = $this->get_first_row("SELECT email, firstname, username FROM account WHERE id = $id");
@@ -86,6 +92,7 @@ class userDAO extends modal{
 		return (mail($to,$subject,$message) == true);
 	}
 	
+	//function to send email when an account is disapproved
 	public function send_disapproval_email($id)
 	{	
 		$row = $this->get_first_row("SELECT email, firstname, username FROM account WHERE id = $id");
@@ -98,6 +105,7 @@ class userDAO extends modal{
 		return (mail($to,$subject,$message) == true);
 	}
 
+	//send email when the account is registered in the database
 	public function send_registration_email($email, $fn)
 	{
 		$to = $email;
@@ -106,11 +114,13 @@ class userDAO extends modal{
 		return (mail($to,$subject,$message) == true);
 	}	
 	
+	//retrieve all data from companies
 	public function get_all_companies()
 	{
 		return $this->get_all_rows('SELECT * FROM company');
 	}
 	
+	//return the company ID by providing the name
 	public function get_company_id_by_name($cname)
 	{
 		return $this->get_first_row("SELECT id FROM company WHERE name = '$cname'")['id'];
@@ -119,34 +129,42 @@ class userDAO extends modal{
 	/***************************
 	  functions for log in/out
 	***************************/	
+	
+	//retrieve user details given a username and password
 	public function do_log_in($un, $pw)
 	{
 		$pw = md5($pw);
 		$query = "SELECT a.id, at.type, a.firstname, a.lastname, a.accountstatus FROM account a INNER JOIN accounttype at ON a.accounttype_ID = at.id WHERE a.username = '$un' AND a.password = '$pw'";
 		if($result = $this->con->query($query))
 		{
+			//if 0 row or more than 1 rows return, log in = fail
 			if($result->num_rows != 1)
 			{
 				echo'false';
 				return false;
 			}
+			//user autenticated, getting data for the user
 			else
 			{
+				//retrieving a row from the resultset
 				$row = $result->fetch_assoc();
+				
+				//free the resource
 				$result->free();
+				
+				//store infomation into a $user array to be returned
 				$user['id'] = $row['id'];
 				$user['usertype'] = $row['type'];
 				$user['accountstatus'] = $row['accountstatus'];
 				$user['firstname'] = $row['firstname'];
 				$user['lastname'] = $row['lastname'];
-				$id = $user['id'];
-				$table = $user['usertype'];
 				
-				$result = $this->con->query("SELECT time FROM loginlog WHERE account_ID = $id ORDER BY time DESC LIMIT 1");
+				$result = $this->con->query("SELECT time FROM loginlog WHERE account_ID = ".$user['id']." ORDER BY time DESC LIMIT 1");
 				if($result->num_rows > 0)
 					$user['time'] = $result->fetch_assoc()["time"];
 				$result->free();
 				
+				//getting extra info for employer and jobsseeker account
 				if($user['usertype'] == 'employer')
 				{
 					$result = $this->con->query("SELECT id, company_ID FROM employer WHERE account_ID = $id");
@@ -170,20 +188,24 @@ class userDAO extends modal{
 					}
 				}
 				
+				//update loginlog and printing some debugging log
 				if($this->con->query("INSERT INTO loginlog VALUES(NULL,$id,CURRENT_TIMESTAMP)"))
 					echo 'loginlog';
 				else
 					echo 'no log';
 				
+				//update the user status to online and printing some debugging log
 				if($this->con->query("UPDATE account SET onlinestatus = 'online' WHERE id = $id"))
 					echo 'online-ed';
 				else
 					echo 'online status unchanged';
+					
 				return $user;
 			}
 		}
 	}
 	
+	//chg user back to offline when log out
 	public function do_log_out($id)
 	{
 		if($this->con->query("UPDATE account SET onlinestatus = 'offline' WHERE id = $id"))
@@ -192,11 +214,13 @@ class userDAO extends modal{
 			echo 'online status unchanged';
 	}
 	
+	//check whether the a user is onlines
 	public function is_online($id)
 	{
 		return ($this->get_first_row("SELECT onlinestatus FROM account WHERE id = $id")['onlinestatus'] == 'ONLINE');
 	}
 	
+	//check total number of line user
 	public function num_current_online_user()
 	{
 		return $this->row_count("SELECT id FROM account WHERE UPPER(onlinestatus) = 'ONLINE'");
@@ -252,7 +276,6 @@ class userDAO extends modal{
 		$pw = md5($pw);
 		return $this->con->query("UPDATE account set password = '$pw' WHERE id = $aid");
 	}
-
 	/*******************************
 	  functions for reset password
 	*******************************/
@@ -283,5 +306,22 @@ class userDAO extends modal{
 		$subject = "Password reset - UM Job Matching Portal";
 		$message = "Dear $fn,\n\nPlease click the following link to reset your password.\nhttp://".$_SERVER['SERVER_ADDR']."/jobmatcher/forgetpassword.php?hash=$hash \nIgnore this message if you did not perform such request.\n\nRegards,\nUMJobPortal Support team";
 		return (mail($to,$subject,$message) == true);
+	}
+
+	/********************************
+	  functions for profile picture
+	********************************/
+	public function get_profile_pic_dirc($aid)
+	{
+		$row = $this->get_first_row("SELECT picdirc FROM account WHERE id = $aid");
+		if(sizeof($row)>0 && $row['picdirc'] != '')
+			return $row['picdirc'];
+		else 
+			return "img/profile_pic/0.png";
+	}
+	
+	public function save_profile_pic_dirc($name, $aid)
+	{echo $name;
+		return $this->con->query("UPDATE account SET picdirc = '$name' WHERE id = $aid");
 	}
 }

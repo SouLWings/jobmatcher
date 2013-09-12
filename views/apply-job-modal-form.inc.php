@@ -1,25 +1,3 @@
-<style>
-.submit-group{
-	text-align:right;
-}
-
-#modalfillincriteria .modal-dialog{
-	width:570px;
-}
-
-.modal-body{
-	background:linear-gradient(to bottom,#ddefff 0,#b4d3e7 100%);
-	border-radius: 6px 6px 0px 0px;
-}
-.modal-footer{
-	margin-top:0;
-	padding:10px 20px 10px 10px;
-	background:#A5C1f0;
-	border-radius:0px 0px 6px 6px;
-	border:none;
-}
-</style>
-
 <div class="modal fade" id="modalfillincriteria" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
 		<div class="modal-content">

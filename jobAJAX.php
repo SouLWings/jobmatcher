@@ -6,7 +6,8 @@ require_account_type("employer");
 
 $jobDAO = new jobDAO();
 $allcriterias = $jobDAO->get_all_criterias();
-//for adding a new msg to the db
+
+//responding job details request from edit job with job details
 if(isset($_POST['action']) && $_POST['action'] == 'getjobdetails' && isset($_POST['id']))
 {
 	if($job = $jobDAO->get_job($_POST['id'],false))
@@ -14,6 +15,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'getjobdetails' && isset($_POS
 	else
 		echo 'no';
 }
+//responding job criteria reqest from manage criteria with all the criteria of the specific job
 else if(isset($_POST['action']) && $_POST['action'] == 'getjobcriteria' && isset($_POST['id']))
 {
 	$jobcriterias = $jobDAO->get_criterias_of_job(intval($_POST['id']));
@@ -55,6 +57,7 @@ else if(isset($_POST['action']) && $_POST['action'] == 'getjobcriteria' && isset
 <?php	
 	}
 }
+//responding request for getting a new criteria row
 else if(isset($_POST['action']) && $_POST['action'] == 'getcriteriarow')
 {
 
