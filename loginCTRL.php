@@ -25,7 +25,6 @@ if(!isset($_SESSION['user']))
 		echo "<pre>";
 		print_r($user);
 		echo "</pre>";
-		echo $_SESSION['msg'];
 	}
 }
 $userDAO->disconnect();

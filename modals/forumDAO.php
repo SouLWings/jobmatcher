@@ -298,15 +298,12 @@ class forumDAO extends modal{
 	
 	function getuser($last)
 	{
-		$qry="SELECT * FROM account WHERE id=(SELECT uid FROM f2 WHERE id=$last)";
-		$users=$this->get_all_rows($qry);
-		$user='';
-		
-		foreach($users as $u)
-		{
-			$user=$u['username'];
-		} 
-		return $user;
+		$qry="SELECT username, id FROM account WHERE id=(SELECT uid FROM f2 WHERE id=$last)";
+		$user=$this->get_first_row($qry);
+		if(sizeof($user) > 0)
+			return $user;
+		else
+			return array("username"=>"No post yet","id"=>"");
 	}
 	
 	//for forum_section.php

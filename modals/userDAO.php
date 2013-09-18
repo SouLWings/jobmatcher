@@ -154,12 +154,13 @@ class userDAO extends modal{
 				
 				//store infomation into a $user array to be returned
 				$user['id'] = $row['id'];
+				$id = $row['id'];
 				$user['usertype'] = $row['type'];
 				$user['accountstatus'] = $row['accountstatus'];
 				$user['firstname'] = $row['firstname'];
 				$user['lastname'] = $row['lastname'];
 				
-				$result = $this->con->query("SELECT time FROM loginlog WHERE account_ID = ".$user['id']." ORDER BY time DESC LIMIT 1");
+				$result = $this->con->query("SELECT time FROM loginlog WHERE account_ID = $id ORDER BY time DESC LIMIT 1");
 				if($result->num_rows > 0)
 					$user['time'] = $result->fetch_assoc()["time"];
 				$result->free();
@@ -168,8 +169,10 @@ class userDAO extends modal{
 				if($user['usertype'] == 'employer')
 				{
 					$result = $this->con->query("SELECT id, company_ID FROM employer WHERE account_ID = $id");
+					echo 'asd';
 					if($result->num_rows > 0)
 					{	
+					echo 'asde';
 						$row = $result->fetch_assoc();
 						$user['eid'] = $row["id"];
 						$user['cid'] = $row["company_ID"];
