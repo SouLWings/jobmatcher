@@ -12,24 +12,16 @@ $uuid='20';
 $type='admin';
 
 $f = new forumDAO();
-if(!isset($_GET['startrow']))
-{
-	$startrow=0;
-}
-else
-{
-	$startrow=(int)$_GET['startrow'];
-}
 
-$sections = $f-> getSections($startrow);
+$sections = $f->getSections();
 
 foreach($sections as $section)
 {
 	$id=$section['id'];
-	$numthread ["$id"]=$f->numThread($id);
+	$numthread["$id"]=$f->numThread($id);
 	$totalpost["$id"]=$f->totalPost($id);
 	
-	$lasts = $f-> seclastpost($id);
+	$lasts = $f->seclastpost($id);
 	foreach($lasts as $last)
 	{
 		$lastpost[$id] = $last['last'];
@@ -39,6 +31,9 @@ foreach($sections as $section)
 	
 }
 
+$editable = false;
+if(isset($ut) && $ut = 'admin')
+	$editable = true;
 
 $f->disconnect();
 

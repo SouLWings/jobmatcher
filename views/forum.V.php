@@ -15,25 +15,22 @@
  */
 $title = 'Forum Sections';
 $modalforms[] = 'forum-modal-forms';
+$styles[] = 'forum';
 ?>
 
 <?php ob_start() ?>
 
 
-<a data-toggle="modal" href="#addsection" class="btn btn-primary btn-lg">New Section</a>
-
-<?php include('forum-modal-forms.inc.php'); ?>
+<a data-toggle="modal" href="#addsection" class="btn btn-primary btn-md">New Section</a>
 
     <h1>Forum Sections</h1>
 
-    <table class="table-striped table-bordered table-hover tablesorter">
+    <table class="table table-striped table-bordered table-hover tablesorter">
 		<tr>
 			<th>Section</th>
 			<th>Threads</th>
 			<th>Posts</th>
 			<th>Last Post</th>
-			<th></th>
-			<th></th>
 		</tr>
 	
 	<?php foreach ($sections as $section): $sid=$section['id']; ?>
@@ -42,9 +39,7 @@ $modalforms[] = 'forum-modal-forms';
 
 			<td><?php echo $numthread["$sid"]?></td>
 			<td><?php echo $totalpost["$sid"]?></td>
-			<td><?php echo $lastpost["$sid"];?></td>
-			<td><?php echo $lastdate["$lastpost[$sid]"];?></td>
-			<td><?php echo $lastuser["$lastpost[$sid]"]?></td>
+			<td><?php echo "<a href='profile.php?id=".$lastuser["$lastpost[$sid]"]['id']."'>".$lastuser["$lastpost[$sid]"]['username'].'</a><br>'.$lastdate["$lastpost[$sid]"];?></td>
 			
 			
 			
@@ -52,7 +47,7 @@ $modalforms[] = 'forum-modal-forms';
 			
 			<td><form action="forumManager.php" method="post"><?php echo "<input type='hidden' value=$section[id] name='id'/>"?><input type="submit"  value="deleteSection" name="action" /></form></td>
 			
-
+			<td><a data-toggle="modal" href="#editsection" class="btn btn-primary btn-md">Edit Section</a></td>
 		</tr>	
 		<script>
 			
