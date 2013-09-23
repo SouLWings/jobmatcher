@@ -14,6 +14,7 @@ if(!isset($modalforms))
 	
 $styles[] = 'structure';
 $styles[] = 'bootstrap';
+$styles[] = 'bootstrap-theme';
 $scripts[] = 'bootstrap.min';
 $scripts[] = 'jquery-1.10.2.min';
 ?>

@@ -1,52 +1,36 @@
 <?php
 include 'controller.inc.php';
 include 'modals/forumDAO.php';
-$user='llaw_lee';
-$uuid='20';
-$type='admin';
+
+//forum section must have and ID in URL
 if(isset($_GET['id']))
 {
-	$f1id=$_GET['id'];
-}
+	$tid=$_GET['id'];
 
-$f = new forumDAO();
-$thread= $f-> getThread($f1id);
-	$datetime=$thread['datetime'];
-	$numpost=$f->numPost($f1id);
-	$username=$f->getUsers($f1id);
-	$threadtopic=$thread['title'];
-	$threadcontent=$thread['content'];
-
-if ($type=='admin')
-{
-	$posts = $f-> getPosts($f1id);
-}
-else 
-{
-	$posts = $f-> getPosts2($f1id);
-}
+	$f = new forumDAO();
 	
-foreach($posts as $post)
-{	
-	$f2id=$post['id'];
-	$pdatetime[$f2id]=$post['datetime'];
-	$posttopic[$f2id]=$post['topic'];
-	$postcontent[$f2id]=$post['content'];	
-	if ($type=='admin')
-	{
-		$pstatus[$f2id]=$post['type'];
-	}
-	else
-	{
-		$pstatus[$f2id]='';
-	}
-	$puid[$f2id]=$post['uid'];
-	$uid=$puid[$f2id];
-	$pusername[$uid]=$f->pgetUsers($uid);
-	$pnumpost[$uid]=$f->pnumPosts($uid);
+	//get the name of this section
+	$section = $f-> get_section_by($tid);
+	
+	$thread = $f->get_thread_by($tid);
+
+	$posts = $f->get_all_posts($tid);
+	for($x = 0; $x < sizeof($posts); $x++)
+		$posts[$x]['posts'] = $f->num_post_by_user($posts[$x]['id']);
+	$f->disconnect();
+
+	/* testing purpose*/
+	echo '<pre>';
+	print_r($thread);
+	echo '</pre>';
+	
+	/* testing purpose*/
+	echo '<pre>';
+	print_r($posts);
+	echo '</pre>';
+	
+	//include 'views/forum_threads.V.php';
 }
-
-$f->disconnect();
-
-include 'views/forum_threads.V.php';
+else
+	header('forum.php');
 ?>

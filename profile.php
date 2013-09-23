@@ -3,9 +3,11 @@
 include 'controller.inc.php';
 //includes the modal classes that needed to access resource
 include 'modals/userDAO.php';
+include 'modals/forumDAO.php';
 
 //creating an instance of the data access object
 $userDAO = new userDAO();
+$forumDAO = new forumDAO();
 
 //handle AJAX post request from profile.php to [edit profile]
 if(isset($_POST['action']) && $_POST['action'] == 'editprofile')
@@ -78,6 +80,9 @@ if(isset($_GET['id']) && intval($_GET['id'] > 0))
 	//if the user with such id exist
 	if(sizeof($user) > 0)
 	{
+		//getting the number of posts in forum
+		$user['posts'] = $forumDAO->num_post_by_user($user['id']);
+		
 		//set the online color to green if online, grey otherwise
 		if($user['onlinestatus'] == 'online')
 			$onlinecolor = '#44dd44';

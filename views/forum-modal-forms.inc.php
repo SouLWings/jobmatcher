@@ -1,4 +1,5 @@
-<div class="modal fade" id="addsection" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- add section -->
+<div class="modal fade" id="modaladdsection" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style=''>
 		<div class="modal-content">
 			<div class="modal-body">
@@ -6,15 +7,15 @@
 					<fieldset>
 						<legend>Create Section</legend>
 						<div class='form-group'>
-							<label for='inputtitle' class='col-lg-2 control-label'>Section Title:</label>
-							<div class='col-lg-4'>
+							<label for='inputtitle' class='col-lg-4 control-label'>Section Title:</label>
+							<div class='col-lg-7'>
 								<input required type='text' id='inputName' autocomplete='off' class='form-control' placeholder='Enter New Section Title Here' name='title'/>
 							</div>
 						</div>
 						<div class='form-group'>
-							<label for='inputAddress' class='col-lg-2 control-label'>Section Description:</label>
-							<div class='col-lg-4'>
-								<textarea required class='form-control' spellcheck='false' autocomplete='off' name='description' rows='3' style='width:400px' placeholder='Enter Section Description Here'></textarea>
+							<label for='inputAddress' class='col-lg-4 control-label'>Section Description:</label>
+							<div class='col-lg-7'>
+								<textarea required class='form-control' spellcheck='false' autocomplete='off' name='description' rows='3' placeholder='Enter Section Description Here'></textarea>
 							</div>
 						</div>
 						<input type='hidden' value='addSection' name='action'/>
@@ -28,8 +29,8 @@
 		</div>
     </div>
 </div>
-
-<div class="modal fade" id="editsection" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- edit section -->
+<div class="modal fade" id="modaleditsection" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style=''>
 		<div class="modal-content">
 			<div class="modal-body">
@@ -38,17 +39,18 @@
 						<legend>Edit Section</legend>
 						<div class='form-group'>
 							<label for='inputtitle' class='col-lg-4 control-label'>Section Title:</label>
-							<div class='col-lg-4'>
+							<div class='col-lg-7'>
 								<input required type='text' id='inputName' autocomplete='off' class='form-control' placeholder='Enter New Section Title Here' name='title'/>
 							</div>
 						</div>
 						<div class='form-group'>
 							<label for='inputAddress' class='col-lg-4 control-label'>Section Description:</label>
-							<div class='col-lg-4'>
-								<textarea required class='form-control' spellcheck='false' autocomplete='off' name='description' rows='3' style='width:400px' placeholder='Enter Section Description Here'></textarea>
+							<div class='col-lg-7'>
+								<textarea required class='form-control' spellcheck='false' autocomplete='off' name='description' rows='3' placeholder='Enter Section Description Here'></textarea>
 							</div>
 						</div>
-						<input type='hidden' value='addSection' name='action'/>
+						<input type='hidden' value='editSection' name='action'/>
+						<input type='hidden' value='0' name='sectionid' id='editid'/>
 						<div class='submit-group'>
 							<input type='submit' class='btn btn-primary' value='Confirm'/>
 							<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -59,9 +61,108 @@
 		</div>
     </div>
 </div>
+<!-- delete section -->
+<div class="modal fade" id="modaldeletesection" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<form id='deletesectionform' action='forumManager.php' method='post' class='form-horizontal'>
+					<fieldset>
+						<legend>Are you sure to delete this section?</legend>
+						<input type='hidden' value='deleteSection' name='action'/>
+						<input type='hidden' value='0' name='sectionid' id='deleteid'/>
+						<div class='submit-group'>
+							<input type='submit' class='btn btn-primary btn-xs' value='Confirm'/>
+							<button type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+    </div>
+</div>
+<!-- change thread type -->
+<div class="modal fade" id="modalchgthreadtype" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<form id='chgthreadtypeform' action='forumManager.php' method='post' class='form-horizontal'>
+					<fieldset>
+						<legend>Change thread type</legend>
+						<div class='form-group'>
+							<label class='col-lg-4 control-label'>Thread type:</label>
+							<div class='col-lg-7'>
+								<select class='form-control' name='threadtype'>
+									<option value='sticky'>
+										STICKY
+									</option>
+									<option value='hot'>
+										HOT
+									</option>
+									<option value='global'>
+										GLOBAL
+									</option>
+									<option value='normal'>
+										NORMAL
+									</option>
+								</select>
+							</div>
+						</div>
+						<input type='hidden' value='chgthreadtype' name='action'/>
+						<input type='hidden' value='0' name='threadid'/>
+						<div class='submit-group'>
+							<input type='submit' class='btn btn-primary btn-xs' value='Confirm'/>
+							<button type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+    </div>
+</div>
+<!-- chg thread status -->
+<div class="modal fade" id="modalchgthreadstatus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<form id='chgthreadstatusform' action='forumManager.php' method='post' class='form-horizontal'>
+					<fieldset>
+						<legend>Are you sure to change the status of this thread?</legend>
+						<input type='hidden' value='chgthreadstatus' name='action'/>
+						<input type='hidden' value='0' name='threadid'/>
+						<div class='submit-group'>
+							<input type='submit' class='btn btn-primary btn-xs' value='Confirm'/>
+							<button type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+    </div>
+</div>
+<!-- delete thread -->
+<div class="modal fade" id="modalremovethread" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<form id='deletethreadform' action='forumManager.php' method='post' class='form-horizontal'>
+					<fieldset>
+						<legend>Are you sure to delete this thread?</legend>
+						<input type='hidden' value='deleteThread' name='action'/>
+						<input type='hidden' value='0' name='threadid'/>
+						<div class='submit-group'>
+							<input type='submit' class='btn btn-primary btn-xs' value='Confirm'/>
+							<button type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+    </div>
+</div>
 
-
-<div class="modal fade" id="addthread"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- new thread -->
+<div class="modal fade" id="modaladdthread"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style=''>
 		<div class="modal-content">
 			<div class="modal-body">
@@ -69,21 +170,21 @@
 					<fieldset>
 						<legend>Create Thread</legend>
 						<div class='form-group'>
-							<label for='inputtitle' class='col-lg-2 control-label'>Thread Title:</label>
-							<div class='col-lg-4'>
+							<label for='inputtitle' class='col-lg-4 control-label'>Thread Title:</label>
+							<div class='col-lg-7'>
 								<input required type='text' id='inputName' autocomplete='off' class='form-control' placeholder='Enter New Thread Title Here' name='title'/>
 							</div>
 						</div>
 						<div class='form-group'>
-							<label for='inputAddress' class='col-lg-2 control-label'>Thread Description:</label>
-							<div class='col-lg-4'>
-								<textarea required class='form-control' spellcheck='false' autocomplete='off' name='description' rows='3' style='width:400px' placeholder='Enter New Thread Description Here'></textarea>
+							<label for='inputAddress' class='col-lg-4 control-label'>Thread Description:</label>
+							<div class='col-lg-7'>
+								<textarea required class='form-control' spellcheck='false' autocomplete='off' name='description' rows='3' placeholder='Enter New Thread Description Here'></textarea>
 							</div>
 						</div>
 						
 						<input type='hidden' value='addThread' name='action'/>
-						<input type='hidden' value="<?php echo $id?>" name='f0id'/>
-						<input type='hidden' value="<?php echo $uuid//change to $session[user][id]?>" name='uuid'/>
+						<input type='hidden' value="<?php echo $secid?>" name='f0id'/>
+						<input type='hidden' value="<?php echo $aid?>" name='uuid'/>
 						<div class='submit-group'>
 							<input type='submit' class='btn btn-primary' value='Confirm'/>
 							<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -96,6 +197,7 @@
 </div>
 
 
+<!-- new post -->
 <div class="modal fade" id="addpost"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style=''>
 		<div class="modal-content">

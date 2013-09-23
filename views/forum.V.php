@@ -16,47 +16,72 @@
 $title = 'Forum Sections';
 $modalforms[] = 'forum-modal-forms';
 $styles[] = 'forum';
+$scripts[] = 'forum';
 ?>
 
 <?php ob_start() ?>
-
-
-<a data-toggle="modal" href="#addsection" class="btn btn-primary btn-md">New Section</a>
-
-    <h1>Forum Sections</h1>
-
-    <table class="table table-striped table-bordered table-hover tablesorter">
-		<tr>
-			<th>Section</th>
-			<th>Threads</th>
-			<th>Posts</th>
-			<th>Last Post</th>
-		</tr>
+	<h4><b><a href='forum.php'>Forum Board</a></b></h4>
+	<br>
+	<?php if($editable){?>
+	<a data-toggle="modal" href="#modaladdsection" class="btn btn-primary btn-md"><span class='glyphicon glyphicon-file'></span> New Section</a>
+	<br>
+	<br>
+	<?php } ?>
 	
+    <table class="table table-striped table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>SECTION</th>
+				<th width='82px'>THREADS</th>
+				<th width='82px'>POSTS</th>
+				<th width='180px'>LAST POST</th>
+				<?php if($editable)echo "<th width='82px'>Action</th>" ?>
+			</tr>
+		</thead><tbody>
 	<?php foreach ($sections as $section): $sid=$section['id']; ?>
-		<tr>
-			<td><?php echo"<a href=forum_sections.php?id=$section[id]> $section[section]</a>";?><br><h6><?php $section['description'];?></h6></td>
+		
+			<tr>
+				<td>
+					<img src='img/forum/sections.gif'/> 
+					<b><?php echo"<a href='forum_sections.php?id=$section[id]'>$section[section]</a>";?></b>
+					<br>
+					<h6><?php echo $section['description'];?></h6>
+				</td>
 
-			<td><?php echo $numthread["$sid"]?></td>
-			<td><?php echo $totalpost["$sid"]?></td>
-			<td><?php echo "<a href='profile.php?id=".$lastuser["$lastpost[$sid]"]['id']."'>".$lastuser["$lastpost[$sid]"]['username'].'</a><br>'.$lastdate["$lastpost[$sid]"];?></td>
-			
-			
-			
-			<td><form action="forumManager.php" method="post"><?php echo"<input type='hidden' value=$section[id] name='id'/>";?><input type="submit"  value="editSection" name="action" /></form></td>
-			
-			<td><form action="forumManager.php" method="post"><?php echo "<input type='hidden' value=$section[id] name='id'/>"?><input type="submit"  value="deleteSection" name="action" /></form></td>
-			
-			<td><a data-toggle="modal" href="#editsection" class="btn btn-primary btn-md">Edit Section</a></td>
-		</tr>	
-		<script>
-			
-		</script>
+				<td style='font-size:1.5em;width:60px;'><?php echo $numthread["$sid"]?></td>
+				<td style='font-size:1.5em;width:60px;'><?php echo $totalpost["$sid"]?></td>
+				
+				<td><?php echo "<a href='profile.php?id=".$lastuser["$lastpost[$sid]"]['id']."'>".$lastuser["$lastpost[$sid]"]['username'].'</a><br>'.$lastdate["$lastpost[$sid]"];?></td>
+				<?php if($editable){?>
+				<td>
+					<a data-toggle='modal' href='#modaleditsection' class='btn btn-primary btn-xs btneditsection'><span class='glyphicon glyphicon-edit'></span></a> 
+					<a data-toggle='modal' href='#modaldeletesection' class='btn btn-primary btn-xs btndeletesection'><span class='glyphicon glyphicon-trash'></span></a> 
+					<input type='hidden' value=<?php echo $section['id']?> name='sectionid'/>
+				</td>
+				<?php } ?>
+			</tr>	
 	<?php endforeach; ?>
-	
+	</tbody>
 	
 	</table>
 	
 <?php $content = ob_get_clean() ?>
+
+<?php ob_start() ?>
+	<div id='forumsearch'>
+		<form action ='forumManager.php' method = 'GET'>
+			<div class="input-group">
+				<input type="text" name='name' class="form-control" placeholder="Search this forum">
+				<span class="input-group-btn">
+					<button type="submit" class="btn btn-primary">
+						<span class="glyphicon glyphicon-search"></span>
+					</button>
+				</span>
+			</div>
+			<input type='hidden' name='search'>
+		</form>
+	</div>
+
+<?php $aside = ob_get_clean() ?>
 
 <?php include 'template/layout.php' ?>

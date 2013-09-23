@@ -31,14 +31,15 @@ else
 		<div style='width:200px;height:200px;' class='pull-left img-thumbnail'>
 			<img src="<?php echo $profilepicdirc ?>" alt="" class="img-thumbnail" style='margin:auto;height:100%;'>
 		</div>
-		<div class="panel panel-info pull-left" style='height:200px;margin-left:20px; width:600px;'>
+		<div class="panel panel-info pull-left" style='height:200px;margin-left:20px; width:680px;'>
 			<div class="panel-heading">
-				<h2 class="panel-title">  <b><?php echo $user['firstname'].' '.$user['lastname'] ?></b>  <span style='color:<?php echo $onlinecolor ?>' class="glyphicon glyphicon-stop"> </span><?php if(!$editable)echo ' <a data-toggle="modal" href="#modalchat" class="btn btn-primary btn-xs" id="btnchat" style="color:white"><span class="glyphicon glyphicon-comment"></span> Send message</a>'?></h2>
+				<h2 class="panel-title">  <b><?php echo $user['firstname'].' '.$user['lastname'] ?></b>  <span style='color:<?php echo $onlinecolor ?>' class="glyphicon glyphicon-stop"> </span><?php if(!$editable && is_logged_in())echo ' <a data-toggle="modal" href="#modalchat" class="btn btn-primary btn-xs" id="btnchat" style="color:white"><span class="glyphicon glyphicon-comment"></span> Send message</a>'?></h2>
 			</div>
 			<div class="panel-body">
 				<span class="glyphicon glyphicon-user"></span> <?php echo $user['usertype'] ?><br>
 				<span class="glyphicon glyphicon-time"></span> Joined on <?php echo $user['createTime'] ?><br>
 				<span class="glyphicon glyphicon-log-in"></span> Last Log in on <?php echo $user['lastlogintime'] ?><br>
+				<span class="glyphicon glyphicon-file"></span> <?php echo $user['posts'] ?> Posts in Forum<br>
 				
 			</div>		
 		</div>

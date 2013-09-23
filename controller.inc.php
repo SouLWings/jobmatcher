@@ -62,7 +62,6 @@ if(is_logged_in())
 		$jsid = $_SESSION['user']['jsid'];
 		$navbaruser = 'jobseekermenu.php';
 	}
-	
 	$navbartype = 'welcome.inc.php';
 }
 //if not logged in

@@ -1,12 +1,10 @@
 <?php
 include_once 'controller.inc.php';
 include 'modals/forumDAO.php';
-//if(true)//check for session user
+if(is_logged_in())
+{
 	if(isset($_POST['action']) && !empty($_POST['action']))
-	{
-		echo $_POST['action']."<br>";
-		
-		
+	{		
 		$f = new forumDAO();
 		
 		if($_POST['action'] == 'addSection')
@@ -15,60 +13,55 @@ include 'modals/forumDAO.php';
 			{
 				$success = $f->createSection($_POST['title'],$_POST['description']);
 				echo $success;
-				header("refresh: 3; url=forum.php");
-			}		
+				header("Location:forum.php");
+			}
 		}
 		
 		else if($_POST['action'] == 'deleteSection')
 		{
-			echo $_POST['id'];
-			if(isset($_POST['id']) && !empty($_POST['id']))
+			echo $_POST['sectionid'];
+			if(isset($_POST['sectionid']) && !empty($_POST['sectionid']))
 			{
-				$success = $f->deleteSection($_POST['id']);
+				$success = $f->deleteSection($_POST['sectionid']);
 				echo $success;
-				header("refresh: 3; url=forum.php");
+				header("Location:forum.php");
 			}
 		}
 		
 		else if($_POST['action'] == 'editSection')
 		{
 			
-			if(isset($_POST['id']) && !empty($_POST['id'])&& isset($_POST['title']) && !empty($_POST['title'])&&  isset($_POST['description']) && !empty($_POST['description']))
+			if(isset($_POST['sectionid']) && !empty($_POST['sectionid'])&& isset($_POST['title']) && !empty($_POST['title'])&&  isset($_POST['description']) && !empty($_POST['description']))
 			{
-				$success = $f->editSection($_POST['id'],$_POST['title'],$_POST['desciption']);
-				echo $success;
-				header("refresh: 3; url=forum.php");
+				$success = $f->editSection(intval($_POST['sectionid']),get_secured($_POST['title']),get_secured($_POST['description']));
+				if($success)
+					header("Location:forum.php");
+				else
+					echo "Failed to update section";
 			}
 		}
 		
 		else if($_POST['action'] == 'addThread')
 		{
-			echo $_POST['title'];
-			echo $_POST['description'];
-			echo $_POST['f0id'];
-			echo $_POST['uuid'];
 			if(isset($_POST['title']) && !empty($_POST['title']) && isset($_POST['description']) && !empty($_POST['description']) && isset($_POST['f0id']) && isset($_POST['uuid']))
 			{
 				$success = $f->createThread(get_secured($_POST['f0id']), $_POST['uuid'], $_POST['title'],$_POST['description']);
 				echo $success;
-				header("refresh: 3; url=forum.php");
+				header("Location:$referer");
 			}		
 		}
 		
 		else if($_POST['action'] == 'deleteThread')
 		{
-			if(isset($_POST['f1id']) && !empty($_POST['f1id']))
+			if(isset($_POST['threadid']) && intval($_POST['threadid']) > 0)
 			{
-				echo $_POST['f1id'];
-				$success = $f->deleteThread($_POST['f1id']);
-				echo $success;
-				header("refresh: 3; url=forum.php");
+				$success = $f->deleteThread(intval($_POST['threadid']));
+				header('Location:'.$referer);
 			}
 		}
 		
 		else if($_POST['action'] == 'editThread')
-		{	
-			
+		{
 			if(isset($_POST['id']) && !empty($_POST['id'])&& isset($_POST['title']) && !empty($_POST['title'])&&  isset($_POST['description']) && !empty($_POST['description']))
 			{
 				$success = $f->editSection($_POST['id'],$_POST['title'],$_POST['desciption']);
@@ -77,16 +70,30 @@ include 'modals/forumDAO.php';
 			}
 		}
 		
-		else if($_POST['action'] == 'alterStatus')
+		else if($_POST['action'] == 'chgthreadstatus')
 		{	
-			
-			if(isset($_POST['f1id']) && !empty($_POST['f1id']))
+			if(isset($_POST['threadid']) && intval($_POST['threadid']) > 0)
 			{
-				$success = $f->alterStatus($_POST['f1id']);
-				echo $success;
-				header("refresh: 3; url=forum.php");
+				$success = $f->alterStatus($_POST['threadid']);
+				if($success)
+					header('Location:'.$referer);
+				else
+					echo 'Update status failed';
 			}
 		}
+		
+		else if($_POST['action'] == 'chgthreadtype')
+		{	
+			if(isset($_POST['threadid']) && intval($_POST['threadid']) > 0 && isset($_POST['threadtype']))
+			{
+				$success = $f->alterType(intval($_POST['threadid']), get_secured($_POST['threadtype']));
+				if($success)
+					header('Location:'.$referer);
+				else
+					echo 'Update type failed';
+			}
+		}
+		
 		else if($_POST['action'] == 'addPost')
 		{
 			echo $_POST['title'];
@@ -127,10 +134,9 @@ include 'modals/forumDAO.php';
 	}
 	else
 	{
-		header("Location:error.php?code=X");
+		include 'views/error404.php';
 	}
-/* else
-{
-	header("Location:error.php?code=Y");
-} */
+}
+else
+	include 'views/error401.php';
 ?>

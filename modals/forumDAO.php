@@ -19,18 +19,69 @@ class forumDAO extends modal{
 		return $this->get_all_rows($qry);
 	} 
 
-	function getThreads($id,$count)
+	function get_section_name_by($secid)
 	{
-		$qry="SELECT * FROM f1 WHERE f0id='$id' ORDER BY status DESC ";//LIMIT $count,1
-		//$qry="SELECT * FROM f1 WHERE f0id='$id' ORDER BY status DESC LIMIT $count,$limit";	
-		return $this->get_all_rows($qry);
+		$qry= "SELECT section FROM f0 WHERE id=$secid";
+		$name=$this->get_first_row($qry)['section'];
+		return $name;
+	}
+	
+
+	function get_section_by($tid)
+	{
+		$qry= "SELECT s.id as id, s.section as name FROM f1 t INNER JOIN f0 s ON s.id = t.f0id WHERE id=$tid";
+		return $this->get_first_row($qry);
+	}
+	
+	function get_all_Threads($id,$type,$page=0)
+	{	
+		if($page > 0){
+			$limit = 'LIMIT '.(($page - 1) * 5).','.(($page) * 5);
+		}else{
+			$limit = '';
+		}
 		
+		if($type == 'normal')
+			$type = "t.type = 'hot' OR t.type = 'normal'";
+		else if($type == 'important')
+			$type = "t.type = 'sticky'";
+		
+		$qry="SELECT t.id, t.title, a.username, a.id as userid, t.datetime, t.type, t.status, count(p.id) as replies ,t.views FROM f1 t INNER JOIN account a on a.id = t.uid LEFT JOIN f2 p ON p.f1id = t.id WHERE t.f0id = $id AND ($type) GROUP BY t.id ORDER BY t.type,t.id DESC $limit";
+		$threads = $this->get_all_rows($qry);		
+		
+		//get global threads and merge to the threads
+		if($type == "t.type = 'sticky'")
+		{
+			$qry="SELECT t.id, t.title, a.username, a.id as userid, t.datetime, t.type, t.status, count(p.id) as replies ,t.views FROM f1 t INNER JOIN account a on a.id = t.uid LEFT JOIN f2 p ON p.f1id = t.id WHERE type = 'global' GROUP BY t.id ORDER BY t.id DESC";
+			$globalthreads = $this->get_all_rows($qry);
+			$threads = array_merge($globalthreads, $threads);
+		}
+		return $threads;
+	}
+	
+	function get_thread_by($tid)
+	{
+		$qry = "SELECT t.id, t.title, t.content, a.username, a.id as userid, at.type as usertype, t.datetime, t.status FROM f1 t INNER JOIN account a on a.id = t.uid INNER JOIN accounttype at ON at.id = a.accounttype_ID WHERE t.id = $tid";
+		$result = $this->get_first_row($qry);
+		return $result;
 	}
 
-	function getPosts($f1id)
+	function get_last_post_by($thread_ID)
 	{
-		$qry="SELECT * FROM f2 WHERE f1id='$f1id'";
+		return $this->get_first_row("SELECT a.username, a.id, MAX(p.datetime) as datetime FROM f2 p INNER JOIN account a ON a.id = p.uid WHERE p.f1id = ".$thread_ID);
+	}
+	
+	function get_all_posts($tid)
+	{
+		$qry="SELECT * FROM f2 WHERE f1id='$tid'";
 		return $this->get_all_rows($qry);
+	}
+	
+	function num_post_by_user($aid)
+	{
+		$qry1 = "SELECT t.id FROM account a INNER JOIN f1 t ON a.id = t.uid WHERE a.id = $aid";
+		$qry2 = "SELECT p.id FROM account a INNER JOIN f2 p ON a.id = p.uid WHERE a.id = $aid";
+		return ($this->con->query($qry1)->num_rows + $this->con->query($qry1)->num_rows);
 	}
 	
 	function getPosts2($f1id)
@@ -84,7 +135,7 @@ class forumDAO extends modal{
 
 	function deleteThread($id)
 	{
-		$qry="DELETE FROM f1  WHERE id='$id'" ;
+		$qry="DELETE FROM f1 WHERE id='$id'" ;
 		$res=$this->con->query($qry);	
 		if($res)
 			$msg='success';
@@ -119,7 +170,7 @@ class forumDAO extends modal{
 
 	function createThread($f0id,$uuid,$topic,$descr)
 	{
-		$qry="INSERT INTO f1 (f0id, uid, title, content) VALUES ('$f0id', '$uuid', '$topic', '$descr')" ;
+		$qry="INSERT INTO f1 (f0id, uid, title, content, type, status) VALUES ('$f0id', '$uuid', '$topic', '$descr', 'normal', 'open')" ;
 		$res=$this->con->query($qry);	
 		if($res)
 			$msg='success';
@@ -141,9 +192,14 @@ class forumDAO extends modal{
 		return $msg;
 	}
 
-	function numThread($id)
+	function numThread($secid, $all = true)
 	{
-		$qry= "SELECT * FROM f1 WHERE f0id=$id";
+		if(!$all)
+			$type = "AND (type = 'hot' OR type = 'normal')";
+		else
+			$type = '';
+			
+		$qry= "SELECT * FROM f1 WHERE f0id=$secid $type";
 		$num=$this->row_count($qry);
 		return $num;
 	}
@@ -154,7 +210,7 @@ class forumDAO extends modal{
 		$total=$this->row_count($qry);
 		
 		return $total;
-	} 
+	}
 	 
 	function numPost($f1id)
 	{
@@ -163,17 +219,11 @@ class forumDAO extends modal{
 		return $num;
 	}
 	 
-	function sectionname($id)
-	{
-		$qry= "SELECT section FROM f0 WHERE id=(SELECT f0id FROM f1 WHERE id=$id)";
-		//$qry="SELECT section FROM f0 INNER JOIN f1 ON f0.id = f1.f0id WHERE f0.id= $id";
-		$names=$this->get_all_rows($qry);
-		$sect='';
-		foreach($names as $name)
-		{
-			$sect=$name['section'];
-		}
-		return $sect;
+	function alterType($f1id, $threadtype)
+	{	
+		$qry="UPDATE f1 SET type = '$threadtype' WHERE id=$f1id";
+		$result = $this->con->query($qry);
+		return $result;
 	}
 	
 	function alterStatus($f1id)
@@ -188,9 +238,9 @@ class forumDAO extends modal{
 			$status=$sta['status'];
 		}
 		
-		if($status=='normal')
+		if($status=='open')
 		{
-			$qry1="UPDATE f1 SET  status='sticky' WHERE id='$f1id'" ;
+			$qry1="UPDATE f1 SET  status='closed' WHERE id='$f1id'" ;
 			$res1=$this->con->query($qry1);	
 			
 			if($res1)
@@ -200,7 +250,7 @@ class forumDAO extends modal{
 		}
 		else
 		{
-			$qry2="UPDATE f1 SET  status='normal' WHERE id='$f1id'" ;
+			$qry2="UPDATE f1 SET  status='open' WHERE id='$f1id'" ;
 			$res2=$this->con->query($qry2);	
 			if($res2)
 				{$msg='success2';}
@@ -235,39 +285,6 @@ class forumDAO extends modal{
 		return $username;
 	}
 	
-	function alterType($f2id)
-	{	
-		$qry="SELECT type FROM f2  WHERE id='$f2id'";
-		$types=$this->get_all_rows($qry);
-		
-		$type='';
-		
-		foreach($types as $ty)
-		{
-			$type=$ty['type'];
-		}
-		
-		if($type=='hidden')
-		{
-			$qry1="UPDATE f2 SET  type='visible' WHERE id='$f2id'" ;
-			$res1=$this->con->query($qry1);	
-			if($res1)
-				{$msg='success';}
-			else
-				{$msg='failed';}
-		}
-		else
-		{
-			$qry2="UPDATE f2 SET  type='hidden' WHERE id='$f2id'" ;
-			$res2=$this->con->query($qry2);	
-			if($res2)
-				{$msg='success2';}
-			else
-				{$msg='failed2';}
-		}
-		return $msg;
-	}
-	
 	function lastPost($f1id)
 	{
 		$qry="SELECT * FROM f2  WHERE id=(SELECT max(id) FROM f2 WHERE f1id='$f1id')";
@@ -278,8 +295,8 @@ class forumDAO extends modal{
 // for forum.php
 	function seclastpost($f0id)
 	{
-		$qry="SELECT max(f2.id) AS last FROM f0 INNER JOIN f1 ON f1.f0id = f0.id INNER JOIN f2 ON f2.f1id = f1.id where f0.id = $f0id";
-		$lasts=$this->get_all_rows($qry);
+		$qry="SELECT max(f2.id) AS post_ID FROM f0 INNER JOIN f1 ON f1.f0id = f0.id INNER JOIN f2 ON f2.f1id = f1.id where f0.id = $f0id";
+		$lasts=$this->get_first_row($qry);
 		return $lasts;
 	}
 	
@@ -303,7 +320,7 @@ class forumDAO extends modal{
 		if(sizeof($user) > 0)
 			return $user;
 		else
-			return array("username"=>"No post yet","id"=>"");
+			return array("username"=>"No post","id"=>"");
 	}
 	
 	//for forum_section.php
