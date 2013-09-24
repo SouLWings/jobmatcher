@@ -29,7 +29,7 @@ class forumDAO extends modal{
 
 	function get_section_by($tid)
 	{
-		$qry= "SELECT s.id as id, s.section as name FROM f1 t INNER JOIN f0 s ON s.id = t.f0id WHERE id=$tid";
+		$qry= "SELECT s.id as id, s.section as name FROM f1 t INNER JOIN f0 s ON s.id = t.f0id WHERE t.id=$tid";
 		return $this->get_first_row($qry);
 	}
 	
@@ -63,6 +63,7 @@ class forumDAO extends modal{
 	{
 		$qry = "SELECT t.id, t.title, t.content, a.username, a.id as userid, at.type as usertype, t.datetime, t.status FROM f1 t INNER JOIN account a on a.id = t.uid INNER JOIN accounttype at ON at.id = a.accounttype_ID WHERE t.id = $tid";
 		$result = $this->get_first_row($qry);
+		$this->con->query("UPDATE f1 SET views = (views+1) WHERE id = $tid");
 		return $result;
 	}
 
@@ -73,7 +74,7 @@ class forumDAO extends modal{
 	
 	function get_all_posts($tid)
 	{
-		$qry="SELECT * FROM f2 WHERE f1id='$tid'";
+		$qry="SELECT p.id, p.content, a.username, a.id as userid, at.type as usertype, p.datetime FROM f2 p INNER JOIN account a on a.id = p.uid INNER JOIN accounttype at ON at.id = a.accounttype_ID WHERE p.f1id = $tid ORDER BY p.datetime";
 		return $this->get_all_rows($qry);
 	}
 	
@@ -114,12 +115,15 @@ class forumDAO extends modal{
 		return $msg;
 	}
 
-	function editThread()
+	function editThread($tid, $title, $content)
 	{
+		return $this->con->query("UPDATE f1 SET title = '$title', content = '$content' WHERE id = $tid");
 	}
 
-	function editPost()
-	{}
+	function editPost($pid, $content)
+	{
+		return $this->con->query("UPDATE f2 SET content = '$content' WHERE id = $pid");
+	}
 
 	function deleteSection($id)
 	{
@@ -136,24 +140,15 @@ class forumDAO extends modal{
 	function deleteThread($id)
 	{
 		$qry="DELETE FROM f1 WHERE id='$id'" ;
-		$res=$this->con->query($qry);	
-		if($res)
-			$msg='success';
-		else
-			$msg='failed';
-		return $msg;
+		$res=$this->con->query($qry);
+		return $res;
 	}
 
 	function deletePost($f2id)
 	{
-		$qry="DELETE FROM f2  WHERE id='$f2id'" ;
-		$res=$this->con->query($qry);	
-
-		if($res)
-			$msg='success';
-		else
-			$msg='failed';
-		return $msg;
+		$qry="DELETE FROM f2 WHERE id='$f2id'" ;
+		$res=$this->con->query($qry);
+		return $res;
 	}
 
 	function createSection($topic,$descr)
@@ -180,9 +175,9 @@ class forumDAO extends modal{
 		return $msg;
 	}
 
-	function createPost($f1id,$uuid,$topic,$descr)
+	function createPost($f1id,$uuid,$descr)
 	{
-		$qry="INSERT INTO f2 (f1id, uid, topic, content) VALUES ('$f1id', '$uuid', '$topic', '$descr')" ;
+		$qry="INSERT INTO f2 (f1id, uid, content) VALUES ('$f1id', '$uuid', '$descr')" ;
 		$res=$this->con->query($qry);	
 		if($res)
 			$msg='success';

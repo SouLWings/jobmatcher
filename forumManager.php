@@ -6,7 +6,7 @@ if(is_logged_in())
 	if(isset($_POST['action']) && !empty($_POST['action']))
 	{		
 		$f = new forumDAO();
-		
+		echo  $_POST['action'] ;
 		if($_POST['action'] == 'addSection')
 		{
 			if(isset($_POST['title']) && !empty($_POST['title']) && isset($_POST['description']) && !empty($_POST['description']))
@@ -46,9 +46,11 @@ if(is_logged_in())
 			if(isset($_POST['title']) && !empty($_POST['title']) && isset($_POST['description']) && !empty($_POST['description']) && isset($_POST['f0id']) && isset($_POST['uuid']))
 			{
 				$success = $f->createThread(get_secured($_POST['f0id']), $_POST['uuid'], $_POST['title'],$_POST['description']);
-				echo $success;
-				header("Location:$referer");
-			}		
+				if($success)
+					header('Location:'.$referer);
+				else
+					echo 'Add thread failed';
+			}
 		}
 		
 		else if($_POST['action'] == 'deleteThread')
@@ -56,17 +58,22 @@ if(is_logged_in())
 			if(isset($_POST['threadid']) && intval($_POST['threadid']) > 0)
 			{
 				$success = $f->deleteThread(intval($_POST['threadid']));
-				header('Location:'.$referer);
+				if($success)
+					header('Location:'.$referer);
+				else
+					echo 'Delete thread failed';
 			}
 		}
 		
 		else if($_POST['action'] == 'editThread')
 		{
-			if(isset($_POST['id']) && !empty($_POST['id'])&& isset($_POST['title']) && !empty($_POST['title'])&&  isset($_POST['description']) && !empty($_POST['description']))
+			if(isset($_POST['f1id']) && !empty($_POST['f1id'])&& isset($_POST['title']) && !empty($_POST['title'])&&  isset($_POST['content']) && !empty($_POST['content']))
 			{
-				$success = $f->editSection($_POST['id'],$_POST['title'],$_POST['desciption']);
-				echo $success;
-				header("refresh: 3; url=forum.php");
+				$success = $f->editThread(intval($_POST['f1id']),get_secured($_POST['title']),get_secured($_POST['content']));
+				if($success)
+					header('Location:'.$referer);
+				else
+					echo 'Edit thread failed';
 			}
 		}
 		
@@ -78,7 +85,7 @@ if(is_logged_in())
 				if($success)
 					header('Location:'.$referer);
 				else
-					echo 'Update status failed';
+					echo 'Chg thread status failed';
 			}
 		}
 		
@@ -96,26 +103,37 @@ if(is_logged_in())
 		
 		else if($_POST['action'] == 'addPost')
 		{
-			echo $_POST['title'];
-			echo $_POST['description'];
-			echo $_POST['f1id'];
-			echo $_POST['uuid'];
-			if(isset($_POST['title']) && !empty($_POST['title']) && isset($_POST['description']) && !empty($_POST['description']) && isset($_POST['f1id']) && isset($_POST['uuid']))
+			if(isset($_POST['content']) && !empty($_POST['content']) && isset($_POST['f1id']) && isset($_POST['uuid']))
 			{
-				$success = $f->createPost($_POST['f1id'], $_POST['uuid'], $_POST['title'],$_POST['description']);
-				echo $success;
-				header("refresh: 3; url=forum.php");
+				$success = $f->createPost($_POST['f1id'], $_POST['uuid'], $_POST['content']);
+				if($success)
+					header('Location:'.$referer);
+				else
+					echo 'Update type failed';
 			}		
+		}
+		
+		else if($_POST['action'] == 'editPost')
+		{
+			if(isset($_POST['pid']) && !empty($_POST['pid']) && isset($_POST['content']) && !empty($_POST['content']))
+			{
+				$success = $f->editPost(intval($_POST['pid']),get_secured($_POST['content']));
+				if($success)
+					header('Location:'.$referer);
+				else
+					echo 'Edit post failed';
+			}
 		}
 		
 		else if($_POST['action'] == 'deletePost')
 		{
-			if(isset($_POST['f2id']) && !empty($_POST['f2id']))
+			if(isset($_POST['pid']) && !empty($_POST['pid']))
 			{
-				echo $_POST['f2id'];
-				$success = $f->deletePost($_POST['f2id']);
-				echo $success;
-				header("refresh: 3; url=forum.php");
+				$success = $f->deletePost($_POST['pid']);
+				if($success)
+					header('Location:'.$referer);
+				else
+					echo 'Edit post failed';
 			}
 		}
 		
@@ -128,6 +146,10 @@ if(is_logged_in())
 				echo $success;
 				header("refresh: 3; url=forum.php");
 			}
+		}
+		else
+		{
+			include 'views/error404.php';
 		}
 		
 		$f->disconnect();

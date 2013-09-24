@@ -1,0 +1,12 @@
+
+
+.postuser{
+	width: 170px;
+	padding:10px;
+}
+
+.postcontent{
+	padding:10px;
+	border-left:1px dotted #88bbff;
+	margin-left:170px;
+}

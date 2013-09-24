@@ -118,7 +118,7 @@ if(isset($_GET['id']) && intval($_GET['id'] > 0))
 			$editable = true;
 		}
 		
-		//check whether the profile picture exist
+		//retrieve the link of the profile pic
 		$profilepicdirc = $userDAO->get_profile_pic_dirc($_GET['id']);
 		
 		//finally include the profile view
