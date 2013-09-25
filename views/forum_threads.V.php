@@ -29,7 +29,7 @@ $scripts[] = 'forum_threads';
 	<h4><b><a href='forum.php'>Forum Board</a></b> <small><span class='glyphicon glyphicon-chevron-right'></span></small> <b><a href='forum_sections.php?id=<?php echo $section['id'] ?>'><?php echo $section['name'] ?></a></b> <small><span class='glyphicon glyphicon-chevron-right'></span></small> </h4> 
 	<br>
     <?php if($replyable){?>
-	<a data-toggle="modal" href="#modalreplythread" class="btn btn-primary btn-md"><span class='glyphicon glyphicon-file'></span> Reply</a>
+	<a data-toggle="modal" href="#modalreplythread" class="btn btn-primary btn-md"><span class='glyphicon glyphicon-share-alt'></span> Reply</a>
     <?php if($editable){?>
 	<a data-toggle="modal" href="#modaleditthread" class="btn btn-primary btn-md"><span class='glyphicon glyphicon-edit'></span> Edit Thread</a>
 	<?php } ?>
@@ -38,6 +38,7 @@ $scripts[] = 'forum_threads';
 	<?php } ?>
 	
 	<!-- first post -->
+	<?php if($page == 1){ ?>
 	<div class='panel panel-info'>
 		<!-- post header -->
 		<div class='panel-heading'>
@@ -67,6 +68,7 @@ $scripts[] = 'forum_threads';
 			<div style='clear:left'> </div>
 		</div>
 	</div>
+	<?php } ?>
 	
 	<?php foreach ($posts as $post):?>
 	<div class='panel panel-info'>
@@ -88,8 +90,9 @@ $scripts[] = 'forum_threads';
 			<small>Posts: <?php echo $post['userposts'] ?> </small>
 		</div>
 		<div class='postcontent'>    
-			<?php if($aid == $post['userid']){?>
+			<?php if($aid == $post['userid'] || $editable){?>
 			<a data-toggle="modal" href="#modaldeletepost" class="btndeletepost pull-right btn btn-primary btn-md"><span class='glyphicon glyphicon-trash'></span> Delete Post</a>
+			<?php } if($aid == $post['userid']){?>
 			<a data-toggle="modal" href="#modaleditpost" class="btneditpost pull-right btn btn-primary btn-md"><span class='glyphicon glyphicon-edit'></span> Edit Post</a>
 			<?php } ?>
 			<?php echo $post['content'] ?>
@@ -104,4 +107,9 @@ $scripts[] = 'forum_threads';
 	</center>
 <?php $content = ob_get_clean() ?>
 
+<?php 
+ob_start() ;
+include 'forum_aside.inc.php';
+$aside = ob_get_clean()  
+?>
 <?php include 'template/layout.php' ?>

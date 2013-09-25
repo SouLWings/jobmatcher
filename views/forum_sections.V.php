@@ -143,20 +143,9 @@ $scripts[] = 'forum_sections';
 	</center>
 <?php $content = ob_get_clean() ?>
 
-<?php ob_start() ?>
-	<div id='forumsearch'>
-		<form action ='forumManager.php' method = 'GET'>
-			<div class="input-group">
-				<input type="text" name='name' class="form-control" placeholder="Search this forum">
-				<span class="input-group-btn">
-					<button type="submit" class="btn btn-primary">
-						<span class="glyphicon glyphicon-search"></span>
-					</button>
-				</span>
-			</div>
-			<input type='hidden' name='search'>
-		</form>
-	</div>
-
-<?php $aside = ob_get_clean() ?>
+<?php 
+ob_start() ;
+include 'forum_aside.inc.php';
+$aside = ob_get_clean()  
+?>
 <?php include 'template/layout.php' ?>

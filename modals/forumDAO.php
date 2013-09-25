@@ -8,7 +8,7 @@ class forumDAO extends modal{
 	 *	get_first_row($selectquery) 	return array
 	 *	get_all_rows($selectquery)		return multidimentional array
 	 *	insert_values($values, $table)	return boolean
-	 *	
+	 *	row_count($selectquery)			return number of row
 	 *	begin to write functions
 	 */
 
@@ -63,18 +63,30 @@ class forumDAO extends modal{
 	{
 		$qry = "SELECT t.id, t.title, t.content, a.username, a.id as userid, at.type as usertype, t.datetime, t.status FROM f1 t INNER JOIN account a on a.id = t.uid INNER JOIN accounttype at ON at.id = a.accounttype_ID WHERE t.id = $tid";
 		$result = $this->get_first_row($qry);
-		$this->con->query("UPDATE f1 SET views = (views+1) WHERE id = $tid");
 		return $result;
 	}
-
+	
+	function view_increment($tid)
+	{
+		return $this->con->query("UPDATE f1 SET views = (views+1) WHERE id = $tid");
+	}
+	
 	function get_last_post_by($thread_ID)
 	{
 		return $this->get_first_row("SELECT a.username, a.id, MAX(p.datetime) as datetime FROM f2 p INNER JOIN account a ON a.id = p.uid WHERE p.f1id = ".$thread_ID);
 	}
 	
-	function get_all_posts($tid)
+	function get_all_posts($tid, $page)
 	{
-		$qry="SELECT p.id, p.content, a.username, a.id as userid, at.type as usertype, p.datetime FROM f2 p INNER JOIN account a on a.id = p.uid INNER JOIN accounttype at ON at.id = a.accounttype_ID WHERE p.f1id = $tid ORDER BY p.datetime";
+		if($page == 1){
+			$limit = 'LIMIT 0,4';
+		}else if($page > 1){
+			$limit = 'LIMIT '.(($page - 1) * 5 - 1).','.(($page) * 5 - 1);
+		}else{
+			$limit = '';
+		}
+		
+		$qry="SELECT p.id, p.content, a.username, a.id as userid, at.type as usertype, p.datetime FROM f2 p INNER JOIN account a on a.id = p.uid INNER JOIN accounttype at ON at.id = a.accounttype_ID WHERE p.f1id = $tid ORDER BY p.datetime $limit";
 		return $this->get_all_rows($qry);
 	}
 	
@@ -102,6 +114,25 @@ class forumDAO extends modal{
 		return $usernames;
 	}
 	
+	function count_all_posts()
+	{
+		return $this->row_count("SELECT id FROM f2")+$this->row_count("SELECT id FROM f1");
+	}
+	
+	function count_all_threads()
+	{
+		return $this->row_count("SELECT id FROM f1");
+	}
+	
+	function count_all_members()
+	{
+		return $this->row_count("SELECT id FROM account");
+	}
+	
+	function count_all_online()
+	{
+		return $this->row_count("SELECT id FROM account WHERE lower(onlinestatus) = 'online'");
+	}
 	
 	function editSection($id, $topic, $descr)
 	{
@@ -336,5 +367,10 @@ class forumDAO extends modal{
 		return $total;
 	}
 	
+	function search_forum($keyword)
+	{
+		$this->get_all_rows("SELECT * FROM f1 WHERE content LIKE '$keyword'")
+		$this->get_all_rows("SELECT * FROM f2 WHERE content LIKE '$keyword'")
+	}
 }
 ?>

@@ -61,7 +61,7 @@ $scripts[] = 'jquery-1.10.2.min';
 					<input type='hidden' name='action' value='forgetpw'/>
 					<button class="btn btn-primary" type="submit">Send email</button>
 				</form>
-				<p id='forgetpw'>Forget password?</p>
+				<p id='forgetpw'>Forgot password?</p>
 			</div>
 			<div id='' class="pull-right navbar-btn">
 				<?php echo $errormsg ?>

@@ -9,6 +9,12 @@ include 'modals/forumDAO.php';
 
 $f = new forumDAO();
 
+//get the statistic info for side panel
+$allpostcount = $f->count_all_posts();
+$allthreadcount = $f->count_all_threads();
+$allmembercount = $f->count_all_members();
+$allonlinecount = $f->count_all_online();
+
 $sections = $f->getSections();
 
 foreach($sections as $section)

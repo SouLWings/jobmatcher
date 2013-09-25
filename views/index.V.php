@@ -35,7 +35,7 @@ $styles[] = 'content';
 			<div class="container">
 				<div class="carousel-caption">
 					<h1>UM Job Portal</h1>
-					<p>The connector between the fresh gratuates and the industries</p>
+					<p>The connector between the fresh graduates and the industries</p>
 					<p><a class="btn btn-large btn-primary" href="register.php"><span class="glyphicon glyphicon-ok"></span> Sign up today</a></p>
 				</div>
 			</div>

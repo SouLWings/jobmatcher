@@ -147,6 +147,15 @@ if(is_logged_in())
 				header("refresh: 3; url=forum.php");
 			}
 		}
+		
+		else if($_POST['action'] == 'forumsearch')
+		{
+			if(isset($_POST['keyword']) && !empty($_POST['keyword']))
+			{
+				$result = $f->search_forum(get_secured($_POST['keyword']));
+				include 'views/forumsearch.V.php';
+			}
+		}
 		else
 		{
 			include 'views/error404.php';

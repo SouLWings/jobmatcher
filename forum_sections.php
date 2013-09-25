@@ -7,6 +7,12 @@ if(isset($_GET['id']))
 {
 	$f = new forumDAO();
 	
+	//get the statistic info for side panel
+	$allpostcount = $f->count_all_posts();
+	$allthreadcount = $f->count_all_threads();
+	$allmembercount = $f->count_all_members();
+	$allonlinecount = $f->count_all_online();
+	
 	//obtain the id from URL
 	$secid=$_GET['id'];
 	

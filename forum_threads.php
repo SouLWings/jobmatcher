@@ -31,6 +31,12 @@ if(isset($_GET['id']))
 	$f = new forumDAO();
 	$userDAO = new userDAO();
 	
+	//get the statistic info for side panel
+	$allpostcount = $f->count_all_posts();
+	$allthreadcount = $f->count_all_threads();
+	$allmembercount = $f->count_all_members();
+	$allonlinecount = $f->count_all_online();
+	
 	//get the name of this section
 	$section = $f-> get_section_by($tid);
 	
@@ -39,7 +45,7 @@ if(isset($_GET['id']))
 	$thread['userposts'] = $f->num_post_by_user($thread['userid']);
 	$thread['profilepicdirc'] = $userDAO->get_profile_pic_dirc($thread['userid']);
 	
-	$posts = $f->get_all_posts($tid);
+	$posts = $f->get_all_posts($tid, $page);
 	for($x = 0; $x < sizeof($posts); $x++){
 		$posts[$x]['userposts'] = $f->num_post_by_user($posts[$x]['userid']);
 		$posts[$x]['usertype'] = rephase_usertype($posts[$x]['usertype']);
@@ -71,6 +77,8 @@ if(isset($_GET['id']))
 	
 	
 	//retrieve the link of the profile pic
+	if($page == 1)
+		$f->view_increment($tid);
 
 	/* testing purpose
 	echo '<pre>';

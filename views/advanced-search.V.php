@@ -44,7 +44,7 @@
 				<div class='col-sm-5'>
 					<select name='type' class='form-control' id='selectjobtype'>
 						<option value='Permenant'>
-							Permenant
+							Permanent
 						</option>
 						<option value='Short term'>
 							Short term
@@ -68,14 +68,14 @@
 				</div>
 			</div>
 			<div class='form-group'>
-				<label class='col-sm-3 control-label' for='inputSalary'>Minimun Montly Salary: </label>
+				<label class='col-sm-3 control-label' for='inputSalary'>Minimun Monthly Salary: </label>
 				<div class='col-sm-2 input-group'>
 					<span class="input-group-addon">RM</span>
 					<input style='text-transform: uppercase;' type='text' autocomplete='off' value='' name='salarymin' id='inputsalarymin' class='form-control masterTooltip' pattern='[0-9]{3,7}' title='eg.2000'/>
 				</div>
 			</div>
 			<div class='form-group'>
-				<label class='col-sm-3 control-label' for='inputSalary'>Maximum Montly Salary: </label>
+				<label class='col-sm-3 control-label' for='inputSalary'>Maximum Monthly Salary: </label>
 				<div class='col-sm-2 input-group'>
 					<span class="input-group-addon">RM</span>
 					<input style='text-transform: uppercase;' type='text' autocomplete='off' value='' name='salarymax' id='inputsalarymax' class='form-control masterTooltip' pattern='[0-9]{3,7}' title='eg.5000'/>
