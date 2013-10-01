@@ -73,5 +73,23 @@ $(document).ready(function(){
 				event.preventDefault(); 
 			}   
 		}
-	});	
+	});
+	
+	$("#registerform").submit(function(){
+		if($("input[name='password']").val() != $("input[name='rpassword']").val())
+		{
+			alert('Password does not match with repeated password');
+			return false;
+		}
+		if($("input[name='password']").val().length < 6)
+		{
+			alert('Password length must be at least 6');
+			return false;
+		}
+		if($("input[name='username']").val().length < 4 || $("input[name='username']").val().length > 20)
+		{
+			alert('Username length must be between 4 and 20');
+			return false;
+		}
+	});
 });

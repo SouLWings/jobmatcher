@@ -45,7 +45,7 @@ class jobDAO extends modal{
 		if(!empty($location))
 			$extraFilter .= ' AND j.location = \''.$location.'\'';
 		if(!empty($type))
-			$extraFilter .= ' AND j.type = \''.$type.'\'';
+			$extraFilter .= ' AND lower(j.type) = lower(\''.$type.'\')';
 		if(!empty($salaryMin))
 			$extraFilter .= ' AND j.salary <= '.$salaryMin;
 		if(!empty($salaryMax))

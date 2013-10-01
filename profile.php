@@ -21,6 +21,8 @@ if(isset($_POST['action']) && $_POST['action'] == 'editprofile')
 		else
 		{
 			echo 'Profile updated successfully.';
+			$_SESSION['user']['firstname'] = get_secured($_POST['firstname']);
+			$_SESSION['user']['lastname'] = get_secured($_POST['lastname']);
 		}
 	}
 	die();
@@ -76,12 +78,11 @@ if(isset($_FILES['profilepic']['name']) && !empty($_FILES['profilepic']['name'])
 if(isset($_GET['id']) && intval($_GET['id'] > 0))
 {
 	$user = $userDAO->get_user_by_id(intval($_GET['id']));
-	
 	//if the user with such id exist
 	if(sizeof($user) > 0)
 	{
 		//getting the number of posts in forum
-		$user['posts'] = $forumDAO->num_post_by_user($user['id']);
+		$user['posts'] = $forumDAO->num_post_by_user($user['account_ID']);
 		
 		//set the online color to green if online, grey otherwise
 		if($user['onlinestatus'] == 'online')

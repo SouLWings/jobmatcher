@@ -13,7 +13,7 @@
  *  --  printing a variable  --
  *  <?php echo $ ?>
  */
- 
+
 ?>
 
 <?php ob_start() ?>
@@ -43,7 +43,7 @@
 				<label class='col-sm-3 control-label' for='inputlocation'>Job Type:</label>
 				<div class='col-sm-5'>
 					<select name='type' class='form-control' id='selectjobtype'>
-						<option value='Permenant'>
+						<option value='Permanent'>
 							Permanent
 						</option>
 						<option value='Short term'>

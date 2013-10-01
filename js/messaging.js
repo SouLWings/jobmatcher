@@ -35,7 +35,7 @@ $(document).ready(function(){
 						//if the data is saved to database successfully, add the msg to the msghistory
 						if(data == 'success')
 						{
-							$('#dialoghistory').append("<br>"+own_name+': '+msg);
+							$('#dialoghistory').append(own_name+': '+msg+"<br>");
 							$('#dialoghistory').scrollTop($('#dialoghistory')[0].scrollHeight);
 						}
 						else

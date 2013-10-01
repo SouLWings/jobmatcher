@@ -90,6 +90,10 @@ if(isset($_GET['id']))
 	print_r($posts);
 	echo '</pre>';*/
 	
+	//setting $aid when user is not logged in for later checking post ownership
+	if(!isset($aid))
+		$aid = 0;
+	
 	$userDAO->disconnect();
 	$f->disconnect();
 	include 'views/forum_threads.V.php';

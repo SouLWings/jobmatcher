@@ -1,5 +1,5 @@
 <div id='forumsearch'>
-	<form action ='forumManager.php' method = 'POST'>
+	<form action ='forum_search.php' method = 'POST'>
 		<div class="input-group">
 			<input type="text" name='keyword' class="form-control" placeholder="Search this forum" required>
 			<span class="input-group-btn">
@@ -7,9 +7,8 @@
 					<span class="glyphicon glyphicon-search"></span>
 				</button>
 			</span>
-			<input type='hiden' name='action' value='forumsearch'/>
 		</div>
-		<input type='hidden' name='search'>
+		<input type='hidden' name='action' value='forumsearch'/>
 	</form>
 </div>
 <br>

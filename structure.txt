@@ -1,3 +1,16 @@
+forget password.php
+username -> your name
+
+jobcriteria save rating 
+display rating at managejobs.php
+
+loading whn sending forget password email
+
+find out how to make email works
+
+register - checking for matric (required property)
+
+
 to do
 -----
 forum

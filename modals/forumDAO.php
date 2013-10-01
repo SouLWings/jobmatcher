@@ -73,7 +73,7 @@ class forumDAO extends modal{
 	
 	function get_last_post_by($thread_ID)
 	{
-		return $this->get_first_row("SELECT a.username, a.id, MAX(p.datetime) as datetime FROM f2 p INNER JOIN account a ON a.id = p.uid WHERE p.f1id = ".$thread_ID);
+		return $this->get_first_row("SELECT a.username, a.id, p.datetime as datetime FROM f2 p INNER JOIN account a ON a.id = p.uid WHERE p.f1id = $thread_ID ORDER BY datetime DESC LIMIT 1");
 	}
 	
 	function get_all_posts($tid, $page)
@@ -90,11 +90,18 @@ class forumDAO extends modal{
 		return $this->get_all_rows($qry);
 	}
 	
-	function num_post_by_user($aid)
-	{
-		$qry1 = "SELECT t.id FROM account a INNER JOIN f1 t ON a.id = t.uid WHERE a.id = $aid";
-		$qry2 = "SELECT p.id FROM account a INNER JOIN f2 p ON a.id = p.uid WHERE a.id = $aid";
-		return ($this->con->query($qry1)->num_rows + $this->con->query($qry1)->num_rows);
+	function num_post_by_user($uid)
+	{	
+		$qry1 = "SELECT t.id FROM account a INNER JOIN f1 t ON a.id = t.uid WHERE a.id = $uid";
+		$qry2 = "SELECT p.id FROM account a INNER JOIN f2 p ON a.id = p.uid WHERE a.id = $uid";
+		$total = 0;
+		
+		if($result1 = $this->con->query($qry1))
+			$total += $result1->num_rows;
+		if($result2 = $this->con->query($qry2))
+			$total += $result2->num_rows;
+			
+		return ($total);
 	}
 	
 	function getPosts2($f1id)
@@ -367,10 +374,16 @@ class forumDAO extends modal{
 		return $total;
 	}
 	
-	function search_forum($keyword)
+	function search_threads($keyword)
+	{		
+		$qry="SELECT t.id, t.title, t.content, a.username, a.id as userid, t.datetime, t.type, t.status, count(p.id) as replies ,t.views FROM f1 t INNER JOIN account a on a.id = t.uid LEFT JOIN f2 p ON p.f1id = t.id WHERE t.content LIKE '%$keyword%' OR t.title LIKE '%$keyword%' GROUP BY t.id ORDER BY t.datetime DESC";
+		$threads = $this->get_all_rows($qry);
+		return $threads;
+	}
+	function search_posts($keyword)
 	{
-		$this->get_all_rows("SELECT * FROM f1 WHERE content LIKE '$keyword'")
-		$this->get_all_rows("SELECT * FROM f2 WHERE content LIKE '$keyword'")
+		$qry="SELECT p.id as pid, p.content, a.username, a.id as userid, p.datetime, t.title, t.id as tid FROM f2 p INNER JOIN account a on a.id = p.uid INNER JOIN f1 t ON t.id = p.f1id WHERE p.content LIKE '%$keyword%' ORDER BY p.datetime DESC";
+		return $this->get_all_rows($qry);
 	}
 }
 ?>

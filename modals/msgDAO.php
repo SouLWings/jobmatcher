@@ -15,13 +15,13 @@ class msgDAO extends modal{
 	//get the number of new inbox message that the user havent seen
 	public function get_num_new_msg($reciever_id)
 	{
-		return $this->row_count("SELECT id FROM message WHERE receiver_ID = $reciever_id GROUP BY sender_ID");
+		return $this->row_count("SELECT id FROM message WHERE receiver_ID = $reciever_id AND status = 'not seen' GROUP BY sender_ID");
 	}
 	
 	//get the left side bar de contact list
 	public function get_msg_preview($receiver_id)
 	{
-		$chatpersons = $this->get_all_rows("SELECT m1.sender_ID, m1.receiver_ID, CONCAT_WS(' ',a.firstname,a.lastname) as sender_name, CONCAT_WS(' ',a2.firstname,a2.lastname) as receiver_name FROM message m1 INNER JOIN account a2 ON a2.id = m1.receiver_ID INNER JOIN account a ON a.id = m1.sender_ID WHERE m1.receiver_ID = $receiver_id OR m1.sender_ID = $receiver_id GROUP BY m1.sender_ID, m1.receiver_ID ORDER BY m1.id DESC");
+		$chatpersons = $this->get_all_rows("SELECT m1.sender_ID, m1.receiver_ID, CONCAT_WS(' ',a.firstname,a.lastname) as sender_name, CONCAT_WS(' ',a2.firstname,a2.lastname) as receiver_name FROM message m1 INNER JOIN account a2 ON a2.id = m1.receiver_ID INNER JOIN account a ON a.id = m1.sender_ID WHERE m1.receiver_ID = $receiver_id OR m1.sender_ID = $receiver_id ORDER BY m1.id DESC");
 		
 		$uniqueperson = array();
 		for($i = 0; $i < sizeof($chatpersons); $i++)

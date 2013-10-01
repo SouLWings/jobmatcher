@@ -101,7 +101,13 @@ $scripts[] = 'forum_threads';
 		</div>
 	</div>
 	<?php endforeach; ?>
-	
+    <?php if($replyable){?>
+	<a data-toggle="modal" href="#modalreplythread" class="btn btn-primary btn-md pull-right"><span class='glyphicon glyphicon-share-alt'></span> Reply</a>
+    <?php if($editable){?>
+	<a data-toggle="modal" href="#modaleditthread" class="btn btn-primary btn-md pull-right"><span class='glyphicon glyphicon-edit'></span> Edit Thread</a>
+	<?php } ?>
+	<br>
+	<?php } ?>
 	<center>
 		<?php echo $pagination ?>
 	</center>

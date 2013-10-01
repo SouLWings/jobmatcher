@@ -20,7 +20,7 @@ $scripts[] = 'messaging';
 	
 	
 <div id='test'>Chat history</div>
-	<div style='height:400px;width:150px;float:left'>
+	<div style='width:150px;float:left'>
 		<?php foreach ($msgprevlist as $msg): ?>
 			<li onclick="location.href='message.php?id=<?php echo $msg['sender_ID']?>'" style='background:#eeeeee;cursor:pointer; border-top:2px solid #f0f0f0; border-bottom:1px solid #e0e0e0'>
 				<div>
@@ -30,6 +30,7 @@ $scripts[] = 'messaging';
 				</div>
 			</li>
 		<?php endforeach; ?>
+		<h6><span class="label label-default">TIPS:</span> Visit other member's profile page to start new conversation with them.</h6>
 	</div>
 	<div style='position:relative;margin-left:150px;margin-top:-40px;width:400px;'>
 		<h2 style='border-bottom:1px solid #888888;position:relative;top:0px;left:150px;'>Conversation <?php echo ' - '.$contact_name ?></h2>

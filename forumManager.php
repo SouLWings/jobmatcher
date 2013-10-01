@@ -3,9 +3,9 @@ include_once 'controller.inc.php';
 include 'modals/forumDAO.php';
 if(is_logged_in())
 {
+	$f = new forumDAO();
 	if(isset($_POST['action']) && !empty($_POST['action']))
 	{		
-		$f = new forumDAO();
 		echo  $_POST['action'] ;
 		if($_POST['action'] == 'addSection')
 		{
@@ -148,26 +148,18 @@ if(is_logged_in())
 			}
 		}
 		
-		else if($_POST['action'] == 'forumsearch')
-		{
-			if(isset($_POST['keyword']) && !empty($_POST['keyword']))
-			{
-				$result = $f->search_forum(get_secured($_POST['keyword']));
-				include 'views/forumsearch.V.php';
-			}
-		}
 		else
 		{
-			include 'views/error404.php';
+			include 'views/error404.V.php';
 		}
 		
 		$f->disconnect();
 	}
 	else
 	{
-		include 'views/error404.php';
+		include 'views/error404.V.php';
 	}
 }
 else
-	include 'views/error401.php';
+	include 'views/error401.V.php';
 ?>

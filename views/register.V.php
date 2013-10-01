@@ -21,6 +21,7 @@
 ?>
 
 <?php ob_start() ?>
+	<?php if(isset($errorcontent))echo '<div class="alert alert-danger">'.$errorcontent.'</div>' ?>
 	<h1>Register new account</h1>
 	<form id='registerform' action='register.php' method='POST' class="form-horizontal">
 		<fieldset>

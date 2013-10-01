@@ -149,6 +149,10 @@ footer{
 #forgetpw{
 	cursor:pointer;
 	margin-left:5px;
+	transition:color 300ms;
+}
+#forgetpw:hover{
+	color:#77ff77;
 }
 
 .modal-body{

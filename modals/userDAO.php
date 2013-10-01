@@ -56,8 +56,9 @@ class userDAO extends modal{
 	public function register_account($un, $pw, $em, $fn, $ln, $ut)
 	{
 		$pw = md5($pw);
-		$success = $this->insert_row("NULL, '$un', '$pw', '$em', '$fn', '$ln', $ut, CURRENT_TIMESTAMP, 'PENDING','OFFLINE'", 'account');
+		$success = $this->insert_row("NULL, '$un', '$pw', '$em', '$fn', '$ln', $ut, CURRENT_TIMESTAMP, 'PENDING','OFFLINE',''", 'account');
 		$this->account_id = $this->con->insert_id;
+		echo $success;
 		return $success;
 	}
 	
@@ -262,9 +263,9 @@ class userDAO extends modal{
 	{
 		$ut = $this->get_first_row("SELECT type FROM account a INNER JOIN accounttype at ON a.accounttype_ID = at.id WHERE a.id = $id")['type'];
 		if($ut == 'admin')
-			return $this->get_first_row("SELECT a.*, max(time) as lastlogintime FROM account a INNER JOIN loginlog ll ON a.id = ll.account_ID WHERE a.id = $id");
+			return $this->get_first_row("SELECT a.*,a.id as account_ID, max(time) as lastlogintime FROM account a INNER JOIN loginlog ll ON a.id = ll.account_ID WHERE a.id = $id");
 		else
-			return $this->get_first_row("SELECT a.onlinestatus, a.email, a.firstname, a.lastname, a.createTime, a.accounttype_ID, t.*, ll.time as lastlogintime FROM account a INNER JOIN $ut t ON t.account_ID = a.id INNER JOIN loginlog ll ON a.id = ll.account_ID WHERE a.id = $id");
+			return $this->get_first_row("SELECT a.onlinestatus, a.email, a.firstname, a.lastname, a.createTime, a.accounttype_ID, t.*, MAX(ll.time) as lastlogintime FROM account a INNER JOIN $ut t ON t.account_ID = a.id INNER JOIN loginlog ll ON a.id = ll.account_ID WHERE a.id = $id");
 	}
 	/****************************
 	  functions for modify data
@@ -284,7 +285,7 @@ class userDAO extends modal{
 	*******************************/
 	public function get_account_by_hash($hash)
 	{
-		return $this->get_first_row("SELECT a.id, CONCAT_WS(' ',a.firstname, a.lastname) as name FROM account a INNER JOIN forgetpassword fp ON fp.account_ID = a.id WHERE fp.resethash = '$hash'");
+		return $this->get_first_row("SELECT a.id, a.username, CONCAT_WS(' ',a.firstname, a.lastname) as name FROM account a INNER JOIN forgetpassword fp ON fp.account_ID = a.id WHERE fp.resethash = '$hash'");
 	}
 	
 	public function resetPassword($aid, $pw)

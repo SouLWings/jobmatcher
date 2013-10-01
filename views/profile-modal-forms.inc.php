@@ -45,7 +45,7 @@
 						<input type='hidden' value='<?php echo intval($_GET['id'])?>' name='id'/>
 					</div>
 					<div class='modal-footer'>
-						<input type='submit' class='btn btn-primary' value='Edit'/>
+						<input type='submit' class='btn btn-primary' value='Save'/>
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 					</div>
 				</fieldset>

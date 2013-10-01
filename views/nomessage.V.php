@@ -19,7 +19,7 @@
 <?php ob_start() ?>
 	
     <h1>Chat</h1>
-
+	<h6><span class="label label-default">TIPS:</span> Visit other member's profile page to start new conversation with them.</h6>
 	<table id="jobslist" class="table-striped table-bordered table-hover tablesorter">
 		<thead>
 			<tr>

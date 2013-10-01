@@ -88,7 +88,7 @@ else if(isset($_GET['id']) && !empty($_GET['id']))
 			$errMsg = 'Access denied. Only jobseeker accounts can apply for jobs.';
 	}
 	else
-		$errMsg = 'Please log in first.';	
+		$errMsg = 'Please sign in first.';	
 	
 	$jobDAO->disconnect();
 	include 'views/aJob.V.php';

@@ -7,10 +7,10 @@ $(document).ready(function(){
 	$("#forgetpw").click(function(){
 		$("#signinform").toggle(500);
 		$("#forgetpwform").toggle(500);
-		if($(this).text() == 'Forget password?')
+		if($(this).text() == 'Forgot password?')
 			$(this).text('Sign in');
 		else
-			$(this).text('Forget password?');
+			$(this).text('Forgot password?');
 	});
 	
 	//slide the sign in bar up n down
