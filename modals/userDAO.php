@@ -16,6 +16,11 @@ class userDAO extends modal{
 		return $this->con->query("SELECT id FROM account WHERE username = '$un'")->num_rows == 1;
 	}
 	
+	//check whether a company exist, return true if exist
+	public function check_company_exist($cn){
+		return $this->con->query("SELECT id FROM company WHERE name = '$cn'")->num_rows == 1;
+	}
+	
 	//check whether the password matches the account id
 	public function check_password($id, $pw)
 	{

@@ -68,12 +68,18 @@ else if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST[
 					$cphone = get_secured($_POST['cphone']);
 					$cfax = get_secured($_POST['cfax']);
 					$coverview = get_secured($_POST['coverview']);
-					if($userDAO->register_company($cname, $caddress, $cwebsite, $cphone, $cfax, $coverview))
-					{
-						$companyid = $userDAO->get_company_id_by_name($cname);
+					
+					//check whether the company exist
+					if($userDAO->check_company_exist($cname)){
+						if($userDAO->register_company($cname, $caddress, $cwebsite, $cphone, $cfax, $coverview))
+						{
+							$companyid = $userDAO->get_company_id_by_name($cname);
+						}
+						else
+							$registrationsuccess = 'register company failed';
 					}
 					else
-						$registrationsuccess = 'register company failed';
+						$registrationsuccess = 'company already existed';
 				}
 				
 				if(isset($companyid))
@@ -97,7 +103,7 @@ else if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST[
 						$registrationsuccess = 'invalid submitted employer details';
 				}
 				else
-					$registrationsuccess = 'companyid not set';
+					$registrationsuccess = 'company is not inserted into database';
 			}else
 				$registrationsuccess = 'employer or student details not set';
 		}else
@@ -113,8 +119,8 @@ else if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST[
 	//if somethg failed
 	if(isset($registrationsuccess))
 	{
-		echo 'Sorry! there is a problem with your registration. Please try again later.<br>'.$registrationsuccess;
-		include 'views/register-result.V.php';		
+		$msg = 'Sorry! there is a problem with your registration. Please try again later.<br>'.$registrationsuccess;
+		include 'views/register-result.V.php';	
 	}	
 }
 else

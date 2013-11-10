@@ -35,8 +35,8 @@
 		<?php foreach ($pendingjobs as $job): ?>
 			<tr>	
 				<td><?php echo $job['date'] ?></td>
-				<td><a href='company.php?id='><?php echo $job['name'] ?></a></td>
-				<td><a href='profile.php?id='><?php echo $job['firstname'] ?></a></td>
+				<td><a href='company.php?id=<?php echo $job['cid'] ?>'><?php echo $job['name'] ?></a></td>
+				<td><a href='profile.php?id=<?php echo $job['aid'] ?>'><?php echo $job['firstname'] ?></a></td>
 				<td><?php echo $job['title'] ?></td>
 				<td><?php echo $job['position'] ?></td>
 				<td><?php echo $job['salary'] ?></td>

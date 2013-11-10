@@ -67,7 +67,7 @@ class jobDAO extends modal{
 	
 	public function get_all_pending_jobs()
 	{
-		return $this->get_all_rows("SELECT c.name, a.firstname, j.title, j.position, j.date, j.salary, j.experience, j.id FROM jobs j INNER JOIN employer e ON j.employer_ID = e.id INNER JOIN company c ON e.company_ID = c.id INNER JOIN account a ON a.id = e.account_ID WHERE UPPER(status) = 'PENDING'");
+		return $this->get_all_rows("SELECT e.account_ID as aid, c.id as cid, c.name, a.firstname, j.title, j.position, j.date, j.salary, j.experience, j.id FROM jobs j INNER JOIN employer e ON j.employer_ID = e.id INNER JOIN company c ON e.company_ID = c.id INNER JOIN account a ON a.id = e.account_ID WHERE UPPER(status) = 'PENDING'");
 	}
 	
 	//getting all jobs that an employer posts

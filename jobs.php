@@ -62,12 +62,12 @@ else if(isset($_GET['id']) && !empty($_GET['id']))
 		if($ut == 'jobseeker')
 		{
 			//if the user applied more thn 5 times
-			$applicants = get_applicants_of_job($jid);
+			$applicants = $jobDAO->get_applicants_of_job($jid);
 			foreach ($applicants as $applicant):
 				if($applicant['aid'] == $jsid && $applicant['application_count'] > 5)
 					$morethan5 = true;
 			endforeach;
-			if(isset($morethan5))
+			if(!isset($morethan5))
 			{
 				//if the user not failed this job within 24hours
 				if(!$jobDAO->failed_job_in24hrs($jid, $jsid))

@@ -10,7 +10,6 @@ if(isset($_SESSION['user']) && $_SESSION['user']['usertype'] == 'admin')
 	//creating an instance of the data access object
 	$jobDAO = new jobDAO();
 
-
 	//output variables
 	$pendingjobs = $jobDAO->get_all_pending_jobs();
 
