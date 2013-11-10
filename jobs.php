@@ -61,28 +61,39 @@ else if(isset($_GET['id']) && !empty($_GET['id']))
 		//if the user is a jobseeker
 		if($ut == 'jobseeker')
 		{
-			//if the user not failed this job within 24hours
-			if(!$jobDAO->failed_job_in24hrs($jid, $jsid))
+			//if the user applied more thn 5 times
+			$applicants = get_applicants_of_job($jid);
+			foreach ($applicants as $applicant):
+				if($applicant['aid'] == $jsid && $applicant['application_count'] > 5)
+					$morethan5 = true;
+			endforeach;
+			if(isset($morethan5))
 			{
-				//if the user not passed the job
-				if(!$jobDAO->passed_job($jid, $jsid))
+				//if the user not failed this job within 24hours
+				if(!$jobDAO->failed_job_in24hrs($jid, $jsid))
 				{
-					$resumeDAO = new resumeDAO();
-					
-					//if the resume exist
-					if(sizeof($resumeDAO->get_resume_by_aid($aid)) > 0)
+					//if the user not passed the job
+					if(!$jobDAO->passed_job($jid, $jsid))
 					{
-						$modalforms[] = 'apply-job-modal-form';
+						$resumeDAO = new resumeDAO();
+						
+						//if the resume exist
+						if(sizeof($resumeDAO->get_resume_by_aid($aid)) > 0)
+						{
+							$modalforms[] = 'apply-job-modal-form';
+						}
+						else
+							$errMsg = 'Please create or upload your resume first.';
+						$resumeDAO->disconnect();
 					}
 					else
-						$errMsg = 'Please create or upload your resume first.';
-					$resumeDAO->disconnect();
+						$errMsg = 'Your resume already sent for review. Please wait for futher info.';
 				}
 				else
-					$errMsg = 'Your resume already sent for review. Please wait for futher info.';
+					$errMsg = 'Your are not qualified for this job. Please try again another day.';
 			}
 			else
-				$errMsg = 'Your are not qualified for this job. Please try again another day.';
+				$errMsg = 'You are not qualified for this job anymore';
 		}
 		else
 			$errMsg = 'Access denied. Only jobseeker accounts can apply for jobs.';

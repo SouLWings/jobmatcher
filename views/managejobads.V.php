@@ -179,6 +179,11 @@
 				<td><a href='resume.php?id=<?php echo $jobapplicants['resumeID'] ?>' class='btn btn-primary btn-xs'><span class="glyphicon glyphicon-zoom-in"></span> Resume</a></td>
 				<td></td>
 			</tr>
+			<tr>
+				<td colspan='2'></td>
+				<td>Application count: <?php echo $jobapplicants['application_count']?><br>Score:<?php echo $jobapplicants['criteriascore']?></td>
+				<td colspan='4'></td>
+			</tr>
 			<?php endforeach; ?>
 		<?php $x++; endforeach; ?>
 		</tbody>

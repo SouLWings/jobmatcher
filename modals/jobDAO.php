@@ -168,15 +168,15 @@ class jobDAO extends modal{
 		return $this->con->query("SELECT * FROM jobapplication WHERE jobs_ID = $jid AND jobSeeker_ID = $jsid AND criteriastatus = 'pass'")->num_rows > 0;
 	}
 	
-	public function add_job_application($jid, $jsid, $status)
+	public function add_job_application($jid, $jsid, $status, $criteriascore)
 	{
-		return $this->insert_row("NULL,$jid,$jsid,CURRENT_TIMESTAMP,'$status'",'jobapplication');
+		return $this->insert_row("NULL,$jid,$jsid,CURRENT_TIMESTAMP,'$status','$criteriascore'",'jobapplication');
 	}
 	
 	//get jobseekers that applied a job
 	public function get_applicants_of_job($jid)
 	{
-		return $this->get_all_rows("SELECT CONCAT_WS(' ',a.firstname, a.lastname) as name, ja.time, r.id as resumeID, a.id as aid FROM jobapplication ja INNER JOIN jobseeker js ON ja.jobSeeker_ID = js.id INNER JOIN account a ON a.id = js.account_ID INNER JOIN resume r ON r.jobseeker_ID = js.id WHERE ja.jobs_ID = $jid AND ja.criteriastatus = 'pass'");
+		return $this->get_all_rows("SELECT CONCAT_WS(' ',a.firstname, a.lastname) as name, ja.time, r.id as resumeID, a.id as aid, ja.criteriascore, count(ja2.id) as application_count FROM jobapplication ja INNER JOIN jobseeker js ON ja.jobSeeker_ID = js.id INNER JOIN account a ON a.id = js.account_ID INNER JOIN resume r ON r.jobseeker_ID = js.id INNER JOIN jobapplication ja2 ON ja.jobseeker_ID = ja2.jobseeker_ID WHERE ja.jobs_ID = $jid AND ja.criteriastatus = 'pass'");
 	}
 	
 	//get jobs tha applied by a jobseeker
