@@ -61,9 +61,8 @@ class userDAO extends modal{
 	public function register_account($un, $pw, $em, $fn, $ln, $ut)
 	{
 		$pw = md5($pw);
-		$success = $this->insert_row("NULL, '$un', '$pw', '$em', '$fn', '$ln', $ut, CURRENT_TIMESTAMP, 'PENDING','OFFLINE',''", 'account');
+		$success = $this->insert_row("NULL, '$un', '$pw', '$em', '$fn', '$ln', $ut, CURRENT_TIMESTAMP, 'PENDING','OFFLINE'", 'account');
 		$this->account_id = $this->con->insert_id;
-		echo $success;
 		return $success;
 	}
 	
@@ -253,7 +252,6 @@ class userDAO extends modal{
 	public function disapprove_user($id)
 	{
 		$ut = $this->get_first_row("SELECT at.type FROM account a INNER JOIN accounttype at ON  at.id = a.accounttype_ID WHERE a.id = $id")['type'];
-		echo "deleting from table: $ut";
 		return($this->con->query("DELETE FROM $ut WHERE account_ID = $id") && ($this->con->query("DELETE FROM account WHERE id = $id")));
 	}
 
@@ -330,7 +328,7 @@ class userDAO extends modal{
 	}
 	
 	public function save_profile_pic_dirc($name, $aid)
-	{echo $name;
+	{
 		return $this->con->query("UPDATE account SET picdirc = '$name' WHERE id = $aid");
 	}
 }

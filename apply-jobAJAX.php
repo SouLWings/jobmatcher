@@ -25,6 +25,12 @@ if(isset($_POST['action']))
 		//a boolean flag to check whether the criteria meets the requirement
 		$jobmatcherflag = true;
 		
+		$criteriascore = '';
+		foreach ($jscriteria as $jsc):
+		{
+			$criteriascore .= '<br>'.$jsc['criteria'].': '.$jsc['jsrating'];
+		}
+		endforeach;
 		//loop through each criteria in employer-defined-criterias
 		foreach ($mincriteria as $mc):
 		{
@@ -52,7 +58,7 @@ if(isset($_POST['action']))
 			$status = 'fail';
 			
 		//adding the job application record to DB
-		if(!$jobDAO->add_job_application($jid, $jsid, $status))
+		if(!$jobDAO->add_job_application($jid, $jsid, $status, $criteriascore))
 		{
 			echo 'Error when applying job';
 		}

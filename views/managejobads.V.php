@@ -171,26 +171,27 @@
 					<input type='hidden' value='<?php echo $job['id']?>' name='jobid'/>
 				</td>
 			</tr>
-			<?php foreach ($alljobapplicants[$x] as $jobapplicants): ?>
+			<?php foreach ($alljobapplicants[$x] as $jobapplicants): if(!empty($jobapplicants['aid'])){?>
 			<tr class='trhide'>
 				<td></td>
 				<td>Applicant: </td>
-				<td colspan='4'><a href='profile.php?id=<?php echo $jobapplicants['aid'] ?>'><?php echo $jobapplicants['name'] ?></a>, <?php echo $jobapplicants['time'] ?></td>
+				<td colspan='4'><a href='profile.php?id=<?php echo $jobapplicants['aid'] ?>'><?php echo $jobapplicants['name'] ?></a>, <?php echo $jobapplicants['time'] ?><br>Application count: <?php echo $jobapplicants['application_count']?><br>Score:<?php echo $jobapplicants['criteriascore']?></td>
 				<td><a href='resume.php?id=<?php echo $jobapplicants['resumeID'] ?>' class='btn btn-primary btn-xs'><span class="glyphicon glyphicon-zoom-in"></span> Resume</a></td>
 				<td></td>
 			</tr>
 			<tr>
 				<td colspan='2'></td>
-				<td>Application count: <?php echo $jobapplicants['application_count']?><br>Score:<?php echo $jobapplicants['criteriascore']?></td>
+				<td></td>
 				<td colspan='4'></td>
 			</tr>
-			<?php endforeach; ?>
+			<?php }endforeach; ?>
 		<?php $x++; endforeach; ?>
 		</tbody>
 	</table>
 	<?php }else{ ?>
 	<h3>No posted job record.</h3>
 	<?php }?>
+	
 	
 <?php $content = ob_get_clean() ?>
 

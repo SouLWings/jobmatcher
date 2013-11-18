@@ -6,7 +6,11 @@ require_account_type("employer");
 
 $jobDAO = new jobDAO();
 $allcriterias = $jobDAO->get_all_criterias();
-
+$criteriacatagory = array();
+foreach ($allcriterias as $criteria):
+	if(!in_array($criteria['catagory'], $criteriacatagory))
+		$criteriacatagory[] = $criteria['catagory'];
+endforeach;
 //responding job details request from edit job with job details
 if(isset($_POST['action']) && $_POST['action'] == 'getjobdetails' && isset($_POST['id']))
 {
@@ -19,6 +23,8 @@ if(isset($_POST['action']) && $_POST['action'] == 'getjobdetails' && isset($_POS
 else if(isset($_POST['action']) && $_POST['action'] == 'getjobcriteria' && isset($_POST['id']))
 {
 	$jobcriterias = $jobDAO->get_criterias_of_job(intval($_POST['id']));
+	
+
 	if(sizeof($jobcriterias) > 0)
 	{
 		$x = 0;
@@ -29,10 +35,14 @@ else if(isset($_POST['action']) && $_POST['action'] == 'getjobcriteria' && isset
 								<label class='col-sm-1 control-label'><?php echo $x ?></label>
 								<div class='col-sm-7'>
 									<select name='criteriaid<?php echo $x ?>' class='form-control'>
-										<?php foreach ($allcriterias as $criteria): ?>
+										<?php foreach ($criteriacatagory as $cc): ?>
+										<optgroup label="<?php echo $cc?>">
+											<?php foreach ($allcriterias as $criteria): if($cc == $criteria['catagory']){?>
 											<option value='<?php echo $criteria['id']?>' <?php if($criteria['id'] == $jobcriteria['criteria_ID'])echo "selected";?>>
 												<?php echo $criteria['name'] ?>
 											</option>
+											<?php }endforeach; ?>	
+										</optgroup>
 										<?php endforeach; ?>					
 									</select>
 								</div>
@@ -66,10 +76,14 @@ else if(isset($_POST['action']) && $_POST['action'] == 'getcriteriarow')
 								<label class='col-sm-1 control-label'></label>
 								<div class='col-sm-7'>
 									<select name='criteriaid' class='form-control'>
-										<?php foreach ($allcriterias as $criteria): ?>
-											<option value='<?php echo $criteria['id'] ?>'>
+										<?php foreach ($criteriacatagory as $cc): ?>
+										<optgroup label="<?php echo $cc?>">
+											<?php foreach ($allcriterias as $criteria): if($cc == $criteria['catagory']){?>
+											<option value='<?php echo $criteria['id']?>'>
 												<?php echo $criteria['name'] ?>
 											</option>
+											<?php }endforeach; ?>	
+										</optgroup>
 										<?php endforeach; ?>					
 									</select>
 								</div>

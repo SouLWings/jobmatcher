@@ -24,7 +24,7 @@
 			<div class='form-group'>
 				<label class='col-sm-3 control-label' for='inputname'>Job name:</label>  
 				<div class='col-sm-5'>
-					<input autofocus type='text' id='inputname' class='form-control' value='' name='name'/>
+					<input autofocus required type='text' id='inputname' class='form-control' value='' name='name'/>
 				</div>
 			</div>
 			<div class='form-group'>
@@ -43,6 +43,9 @@
 				<label class='col-sm-3 control-label' for='inputlocation'>Job Type:</label>
 				<div class='col-sm-5'>
 					<select name='type' class='form-control' id='selectjobtype'>
+						<option value=''>
+							Choose a job type
+						</option>
 						<option value='Permanent'>
 							Permanent
 						</option>
@@ -56,9 +59,12 @@
 				</div>
 			</div>
 			<div class='form-group'>
-				<label class='col-sm-3 control-label' for='inputlocation'>Job Specialization:</label>
+				<label class='col-sm-3 control-label'>Job Specialization:</label>
 				<div class='col-sm-5'>
 					<select name='jobspecializationid' class='form-control'>
+						<option value=''>
+							Choose a job specialization
+						</option>
 						<?php foreach ($jobspecializations as $jobspecialization): ?>
 							<option value='<?php echo $jobspecialization['id'] ?>'>
 								<?php echo $jobspecialization['specialization'] ?>
@@ -68,29 +74,21 @@
 				</div>
 			</div>
 			<div class='form-group'>
-				<label class='col-sm-3 control-label' for='inputSalary'>Minimun Monthly Salary: </label>
-				<div class='col-sm-2 input-group'>
-					<span class="input-group-addon">RM</span>
-					<input style='text-transform: uppercase;' type='text' autocomplete='off' value='' name='salarymin' id='inputsalarymin' class='form-control masterTooltip' pattern='[0-9]{3,7}' title='eg.2000'/>
-				</div>
-			</div>
-			<div class='form-group'>
-				<label class='col-sm-3 control-label' for='inputSalary'>Maximum Monthly Salary: </label>
-				<div class='col-sm-2 input-group'>
-					<span class="input-group-addon">RM</span>
-					<input style='text-transform: uppercase;' type='text' autocomplete='off' value='' name='salarymax' id='inputsalarymax' class='form-control masterTooltip' pattern='[0-9]{3,7}' title='eg.5000'/>
-				</div>
-			</div>
-			<div class='form-group'>
-				<label class='col-sm-3 control-label' for='inputRoom'>Minimum Experience:</label>
-				<div class='col-sm-2 input-group'>
-					<select name='experiencemin' class='form-control'><option>0</option> <option>1</option> <option>2</option> <option>3</option> <option>4</option> <option>5</option> </select>
+				<label class='col-sm-3 control-label'>Minimum Experience:</label>
+				<div class='col-sm-3'>
+					<select name='experiencemin' class='form-control'>
+						<option value=''>
+							Choose one
+						</option><option>0</option> <option>1</option> <option>2</option> <option>3</option> <option>4</option> <option>5</option> </select>
 				</div>
 			</div>
 			<div class='form-group'>
 				<label class='col-sm-3 control-label' for='inputRoom'>Maximum Experience:</label>
-				<div class='col-sm-2 input-group'>
-					<select name='experiencemax' class='form-control'><option>0</option> <option>1</option> <option>2</option> <option>3</option> <option>4</option> <option>5</option> <option>6</option> <option>7</option> <option>8</option> <option>9</option> <option>10</option> </select>
+				<div class='col-sm-3'>
+					<select name='experiencemax' class='form-control'>
+						<option value=''>
+							Choose one
+						</option><option>0</option> <option>1</option> <option>2</option> <option>3</option> <option>4</option> <option>5</option> <option>6</option> <option>7</option> <option>8</option> <option>9</option> <option>10</option> </select>
 				</div>
 			</div>
 			<div class='form-group'>

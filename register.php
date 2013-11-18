@@ -40,8 +40,7 @@ else if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST[
 						{
 							//set $msg to be displayed
 							$msg = 'Thank you for registering in UM Job Matching Portal. Your account is pending for approval. You will receive an email when your account is approved.';
-							if(!$userDAO->send_registration_email($email,$firstname))
-								echo 'send email failed';
+							$userDAO->send_registration_email($email,$firstname);
 							include 'views/register-result.V.php';
 						}else
 							$registrationsuccess = 'register jobseeker failed';
@@ -70,7 +69,7 @@ else if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST[
 					$coverview = get_secured($_POST['coverview']);
 					
 					//check whether the company exist
-					if($userDAO->check_company_exist($cname)){
+					if(!$userDAO->check_company_exist($cname)){
 						if($userDAO->register_company($cname, $caddress, $cwebsite, $cphone, $cfax, $coverview))
 						{
 							$companyid = $userDAO->get_company_id_by_name($cname);
@@ -78,8 +77,10 @@ else if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST[
 						else
 							$registrationsuccess = 'register company failed';
 					}
-					else
-						$registrationsuccess = 'company already existed';
+					else{
+						$errorcontent = 'Company already exist, please choose the company from the list.';
+						include 'views/register.V.php';
+					}
 				}
 				
 				if(isset($companyid))
@@ -92,8 +93,7 @@ else if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST[
 							if($userDAO->register_employer($position, $companyid))
 							{
 								$msg = 'Thank you for registering in UM Job Matching Portal. Your account is pending for approval. You will receive an email when your account is approved.';
-								if(!$userDAO->send_registration_email($email,$firstname))
-									echo 'send email failed';
+								$userDAO->send_registration_email($email,$firstname);
 								include 'views/register-result.V.php';
 							}else
 								$registrationsuccess = 'register employer failed';
@@ -102,8 +102,6 @@ else if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST[
 					}else
 						$registrationsuccess = 'invalid submitted employer details';
 				}
-				else
-					$registrationsuccess = 'company is not inserted into database';
 			}else
 				$registrationsuccess = 'employer or student details not set';
 		}else
@@ -119,9 +117,9 @@ else if(isset($_POST['username']) && !empty($_POST['username']) && isset($_POST[
 	//if somethg failed
 	if(isset($registrationsuccess))
 	{
-		$msg = 'Sorry! there is a problem with your registration. Please try again later.<br>'.$registrationsuccess;
+		$msg = 'Sorry! There is a problem with your registration. Please try again later.<br>'.$registrationsuccess;
 		include 'views/register-result.V.php';	
-	}	
+	}
 }
 else
 {

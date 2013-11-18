@@ -63,7 +63,7 @@ $scripts[] = 'forum_threads';
 		<div class='postcontent'>
 			<h3><b><?php echo $thread['title'] ?></b></h3>
 			<hr/>
-			<?php echo $thread['content'] ?>
+			<?php echo nl2br($thread['content']) ?>
 			<input type='hidden' value='<?php echo $thread['id'] ?>' name='threadid'/>
 			<div style='clear:left'> </div>
 		</div>
@@ -95,7 +95,7 @@ $scripts[] = 'forum_threads';
 			<?php } if($aid == $post['userid']){?>
 			<a data-toggle="modal" href="#modaleditpost" class="btneditpost pull-right btn btn-primary btn-md"><span class='glyphicon glyphicon-edit'></span> Edit Post</a>
 			<?php } ?>
-			<?php echo $post['content'] ?>
+			<?php echo nl2br($post['content']) ?>
 			<input type='hidden' value='<?php echo $post['id'] ?>' name='postid'/>
 			<div style='clear:left'> </div>
 		</div>

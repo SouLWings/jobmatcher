@@ -13,17 +13,17 @@
  *  --  printing a variable  --
  *  <?php echo $ ?>
  */
- header("Refresh:100; url=index.php")
+header("Refresh:10; url=index.php")
 ?>
 
 <?php ob_start() ?>
 	
     <h2><?php echo $msg ?></h2>
-	<p>Redirecting to main page in <b><span id='countdown'>100</span></b></p>
+	<p>Redirecting to main page in <b><span id='countdown'>10</span></b></p>
 	<script>
-	var x = 100;
+	var countdownint = 10;
 	function countdown(){
-		document.getElementById('countdown').innerHTML = --x;
+		document.getElementById('countdown').innerHTML = --countdownint;
 	}
 	setInterval("countdown()", 1030)
 	</script>

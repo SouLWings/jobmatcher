@@ -52,17 +52,17 @@
 		});
 	</script>
 
-    <h1><?php echo $job['title'] ?></h1>
+    <h2><?php echo $job['title'] ?></h2>
 
-    <div class="">
-		date: <?php echo $job['date'] ?><br>
-        responsibility: <?php echo $job['responsibility'] ?><br>
-        requirement: <?php echo $job['requirement'] ?><br>
-        location: <?php echo $job['location'] ?><br>
-        salary: <?php echo $job['salary'] ?><br>
-        experience: <?php echo $job['experience'] ?><br>
-    </div>
-	
+	<table id="jobslist" class="table-striped table-bordered table-hover tablesorter">
+		<tr><td><b>Date </b></td><td><?php echo nl2br($job['date']) ?></td></tr>
+        <tr><td><b>Responsibility </b></td><td><?php echo nl2br($job['responsibility']) ?></td></tr>
+        <tr><td><b>Requirement </b></td><td><?php echo nl2br($job['requirement']) ?></td></tr>
+        <tr><td><b>Location </b></td><td><?php echo nl2br($job['location']) ?></td></tr>
+        <tr><td><b>Salary </b></td><td><?php echo nl2br($job['salary']) ?></td></tr>
+        <tr><td><b>Experience </b></td><td><?php echo nl2br($job['experience']) ?> year(s)</td></tr>
+    </table>
+	<br/>
 	<?php if(isset($errMsg)){?>
 	<a data-toggle="modal" href="#" class="btn btn-primary btn-lg" id='btncntapplyjob'><span class="glyphicon glyphicon-hand-right"></span> Apply job</a>
 	<?php }else{?>

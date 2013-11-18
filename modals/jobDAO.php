@@ -39,9 +39,11 @@ class jobDAO extends modal{
 		return $this->get_all_rows("SELECT j.title, c.name as company, j.location, j.salary, j.experience, j.date, j.id FROM jobs j INNER JOIN employer e ON j.employer_ID = e.id INNER JOIN company c ON e.company_ID = c.id  WHERE UPPER(j.status) = 'APPROVED' AND (j.title LIKE '%$keyword%' OR j.position LIKE '%$keyword%')");
 	}
 	
-	public function advanced_Search($name, $company, $location, $type, $salaryMin, $salaryMax, $jobspecializationid, $expmin, $expmax)
+	public function advanced_Search($name, $company, $location, $type, $jobspecializationid, $expmin, $expmax)
 	{
 		$extraFilter = '';
+		if(!empty($company))
+			$extraFilter .= ' AND lower(c.name) LIKE lower(\'%$company%\')' ;
 		if(!empty($location))
 			$extraFilter .= ' AND j.location = \''.$location.'\'';
 		if(!empty($type))
@@ -52,16 +54,16 @@ class jobDAO extends modal{
 			$extraFilter .= ' AND j.salary >= '.$salaryMax;
 		if(!empty($jobspecializationid))
 			$extraFilter .= ' AND j.jobSpecialization_ID = '.$jobspecializationid;
-		$extraFilter .= ' AND j.experience >= '.$expmin;
-		$extraFilter .= ' AND j.experience <= '.$expmax;
+		if(!empty($expmin))
+			$extraFilter .= ' AND j.experience >= '.$expmin;
+		if(!empty($expmax))
+			$extraFilter .= ' AND j.experience <= '.$expmax;
 		
 		//the select query concatenated with the conditions
 		$query = "SELECT j.title, c.name as company, j.location, j.salary, j.experience, j.date, j.id
 					FROM jobs j 
 					INNER JOIN employer e ON j.employer_ID = e.id INNER JOIN company c ON e.company_ID = c.id
-					WHERE UPPER(j.status) = 'APPROVED' AND (lower(j.title) LIKE lower('%$name%') 
-						AND lower(c.name) LIKE lower('%$company%') 
-						$extraFilter)";
+					WHERE UPPER(j.status) = 'APPROVED' AND (lower(j.title) LIKE lower('%$name%') $extraFilter)";
 		return $this->get_all_rows($query);
 	}
 	
@@ -121,7 +123,7 @@ class jobDAO extends modal{
 	*****************************/
 	public function get_all_criterias()
 	{
-		return $this->get_all_rows('SELECT * FROM criteriatype');
+		return $this->get_all_rows('SELECT * FROM criteriatype ORDER BY catagory');
 	}
 	
 	public function get_criterias_of_job($jid)

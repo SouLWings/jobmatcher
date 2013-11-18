@@ -24,10 +24,10 @@ else if(isset($_GET['search']))
 		$jobDAO = new jobDAO();
 		
 		//advanced search - if other parameters is there
-		if(isset($_GET['location']) && isset($_GET['company']) && isset($_GET['salarymin']) && isset($_GET['salarymax']) && isset($_GET['jobspecializationid']) && isset($_GET['experiencemin']) && isset($_GET['experiencemax']) && isset($_GET['type']))
+		if(isset($_GET['location']) && isset($_GET['company']) && isset($_GET['jobspecializationid']) && isset($_GET['experiencemin']) && isset($_GET['experiencemax']) && isset($_GET['type']))
 		{
 			//output variables
-			$jobs = $jobDAO->advanced_Search(get_secured($_GET['name']),get_secured($_GET['company']),get_secured($_GET['location']),get_secured($_GET['type']),get_secured($_GET['salarymin']),get_secured($_GET['salarymax']),get_secured($_GET['jobspecializationid']),get_secured($_GET['experiencemin']),get_secured($_GET['experiencemax']));
+			$jobs = $jobDAO->advanced_Search(get_secured($_GET['name']),get_secured($_GET['company']),get_secured($_GET['location']),get_secured($_GET['type']),get_secured($_GET['jobspecializationid']),get_secured($_GET['experiencemin']),get_secured($_GET['experiencemax']));
 			$containertitle = "Showing ".sizeof($jobs)." matched job(s)";
 		}
 		else //keyword search
